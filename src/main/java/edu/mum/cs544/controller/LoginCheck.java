@@ -12,6 +12,7 @@ import javax.enterprise.context.Dependent;
  *
  * @author FWorku
  */
+
 @Named(value = "loginCheck")
 @Dependent
 public class LoginCheck {
