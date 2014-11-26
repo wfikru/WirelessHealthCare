@@ -59,8 +59,32 @@ public class Patient implements Serializable {
     @ManyToMany(mappedBy = "patients",fetch=FetchType.LAZY)
     private List<MedicalHistory> history;
 
+    public Symptom getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(Symptom symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public List<MedicalHistory> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<MedicalHistory> history) {
+        this.history = history;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     @ManyToOne(fetch=FetchType.LAZY)
-    @joinColumn(name = "doc_fk")
+    @JoinColumn(name = "doc_fk")
     private Doctor doctor;
     
     public Long getId() {
@@ -86,14 +110,6 @@ public class Patient implements Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
-    }
-
-    public MedicalHistory getHistory() {
-        return history;
-    }
-
-    public void setHistory(MedicalHistory history) {
-        this.history = history;
     }
 
     public List<Symptom> getSymptoms() {

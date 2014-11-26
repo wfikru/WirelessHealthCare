@@ -36,6 +36,7 @@ public class Prescription implements Serializable {
     @JoinTable(name = "presc_med",
     joinColumns= @JoinColumn(name = "presc_fk"),
     inverseJoinColumns= @JoinColumn(name = "med_fk") )
+    
     private List<Medicine> medicines;
     
     private String prescDescription;    
