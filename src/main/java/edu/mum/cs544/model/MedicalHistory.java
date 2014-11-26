@@ -24,7 +24,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class MedicalHistory implements Serializable {
     
-    private String  PatientId;
+    private Patient  PatientId;
     private String DiagnosticResult;
     private Date date;
 
