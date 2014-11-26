@@ -38,6 +38,14 @@ public class Prescription implements Serializable {
     inverseJoinColumns= @JoinColumn(name = "med_fk") )
     
     private List<Medicine> medicines;
+
+    public List<Medicine> getMedicines() {
+        return medicines;
+    }
+
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines = medicines;
+    }
     
     private String prescDescription;    
 
@@ -65,13 +73,7 @@ public class Prescription implements Serializable {
         this.patient = patient;
     }
 
-    public <any> getMedicines() {
-        return medicines;
-    }
 
-    public void setMedicines(<any> medicines) {
-        this.medicines = medicines;
-    }
 
     public String getPrescDescription() {
         return prescDescription;

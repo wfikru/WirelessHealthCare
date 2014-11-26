@@ -112,13 +112,6 @@ public class Patient implements Serializable {
         this.dob = dob;
     }
 
-    public List<Symptom> getSymptoms() {
-        return symptoms;
-    }
-
-    public void setSymptoms(List<Symptom> symptoms) {
-        this.symptoms = symptoms;
-    }
 
     @Override
     public int hashCode() {
