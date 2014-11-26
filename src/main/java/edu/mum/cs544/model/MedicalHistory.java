@@ -7,6 +7,7 @@ package edu.mum.cs544.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,13 @@ public class MedicalHistory implements Serializable {
     private String DiagnosticResult;
     private Date date;
 
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name = "hist_pat",
+    joinColumns = @JoinColumn(name = "history_fk"),
+    inverseJoinColumns = @JoinColumn(name = "patient_fk"))
+    
+    private List<Patient> patients;
+    
     public MedicalHistory(String PatientId, Long id) {
         this.PatientId = PatientId;
         this.id = id;

@@ -25,7 +25,14 @@ public class Prescription implements Serializable {
     private Doctor doctor;
     private Date date;
     private Patient patient;
+    
+    //one to many unidirectional
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinTable(name = "presc_med",
+    joinColumns= @JoinColumn(name = "presc_fk"),
+    inverseJoinColumns= @JoinColumn(name = "med_fk") )
     private List<Medicine> medicines;
+    
     private String prescDescription;    
 
     public Doctor getDoctor() {

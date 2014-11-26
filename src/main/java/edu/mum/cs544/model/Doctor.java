@@ -6,6 +6,7 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,8 @@ public class Doctor implements Serializable {
     private int age;
     private String position;
     
+    @OneToMany(mappedBy = 'doctor')
+    private List<Patient> patient;
     
     public Long getId() {
         return id;

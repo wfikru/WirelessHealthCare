@@ -29,18 +29,40 @@ public class Patient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String firstName;
+
+    private String lastName;
     private String sex;
     private Date dob;
     
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "symptom_fk")
-    private List<Symptom> symptoms = new ArrayList<Symptom>();
-    
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="history_fk")
-    private MedicalHistory history;
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "symptom_fk")
+    private Symptom symptoms;// = new ArrayList<Symptom>();
+    
+    @ManyToMany(mappedBy = "patients",fetch=FetchType.LAZY)
+    private List<MedicalHistory> history;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @joinColumn(name = "doc_fk")
+    private Doctor doctor;
+    
     public Long getId() {
         return id;
     }
@@ -49,13 +71,6 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getSex() {
         return sex;
