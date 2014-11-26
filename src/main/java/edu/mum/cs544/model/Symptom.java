@@ -6,6 +6,7 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Symptom implements Serializable {
     private Long id;
     
     private Patient patient;
-
+    private Date date;
     private int temprature;
     private boolean dizziness;
     private boolean nausea;
@@ -41,6 +42,14 @@ public class Symptom implements Serializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getTemprature() {
