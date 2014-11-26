@@ -8,6 +8,7 @@ package edu.mum.cs544.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,10 +29,17 @@ public class Patient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
+    private String sex;
+    private Date dob;
     
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "symptom_fk")
     private List<Symptom> symptoms = new ArrayList<Symptom>();
+    
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="history_fk")
+    private MedicalHistory history;
 
     public Long getId() {
         return id;
@@ -38,6 +47,38 @@ public class Patient implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public MedicalHistory getHistory() {
+        return history;
+    }
+
+    public void setHistory(MedicalHistory history) {
+        this.history = history;
     }
 
     public List<Symptom> getSymptoms() {
