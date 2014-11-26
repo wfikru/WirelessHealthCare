@@ -7,7 +7,6 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -16,7 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -29,18 +29,64 @@ public class Patient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String firstName;
+
+    private String lastName;
     private String sex;
     private Date dob;
     
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "symptom_fk")
-    private List<Symptom> symptoms = new ArrayList<Symptom>();
-    
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="history_fk")
-    private MedicalHistory history;
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "symptom_fk")
+    private Symptom symptoms;// = new ArrayList<Symptom>();
+    
+    @ManyToMany(mappedBy = "patients",fetch=FetchType.LAZY)
+    private List<MedicalHistory> history;
+
+    public Symptom getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(Symptom symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public List<MedicalHistory> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<MedicalHistory> history) {
+        this.history = history;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "doc_fk")
+    private Doctor doctor;
+    
     public Long getId() {
         return id;
     }
@@ -49,13 +95,6 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getSex() {
         return sex;
@@ -71,14 +110,6 @@ public class Patient implements Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
-    }
-
-    public MedicalHistory getHistory() {
-        return history;
-    }
-
-    public void setHistory(MedicalHistory history) {
-        this.history = history;
     }
 
     public List<Symptom> getSymptoms() {

@@ -7,10 +7,15 @@ package edu.mum.cs544.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,7 +30,15 @@ public class Prescription implements Serializable {
     private Doctor doctor;
     private Date date;
     private Patient patient;
+    
+    //one to many unidirectional
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinTable(name = "presc_med",
+    joinColumns= @JoinColumn(name = "presc_fk"),
+    inverseJoinColumns= @JoinColumn(name = "med_fk") )
+    
     private List<Medicine> medicines;
+    
     private String prescDescription;    
 
     public Doctor getDoctor() {
