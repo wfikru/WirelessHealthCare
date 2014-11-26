@@ -6,6 +6,9 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,22 +16,22 @@ import javax.persistence.Id;
 
 /**
  *
- * @author FWorku
+ * @author hiwot
  */
 @Entity
 public class Doctor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String empID;
     private String firstName;
     private String lastName;
-    private int age;
-    private String position;
-    
-    
+    private Date dob;
+    private Address address;
+    private String speciality;
+    private List<Assignment> assignments=new ArrayList<Assignment>();
+
     public Long getId() {
         return id;
     }
@@ -36,6 +39,55 @@ public class Doctor implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -61,5 +113,5 @@ public class Doctor implements Serializable {
     public String toString() {
         return "edu.mum.cs544.model.Doctor[ id=" + id + " ]";
     }
-    
+
 }
