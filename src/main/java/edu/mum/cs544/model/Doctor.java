@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Doctor implements Serializable {
     private int age;
     private String position;
     
-    @OneToMany(mappedBy = 'doctor')
+    @OneToMany(mappedBy = "doctor")
     private List<Patient> patient;
     
     public Long getId() {
