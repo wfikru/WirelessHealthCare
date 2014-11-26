@@ -25,8 +25,6 @@ public class Symptom implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    private Patient patient;
     private Date date;
     private int temprature;
     private boolean dizziness;
@@ -35,14 +33,6 @@ public class Symptom implements Serializable {
     private int systolic;
     private int diastolic;
     private String description;
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
 
     public Date getDate() {
         return date;
