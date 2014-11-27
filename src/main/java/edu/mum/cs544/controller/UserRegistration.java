@@ -43,6 +43,6 @@ public class UserRegistration implements Serializable {
     
     public void registerUser()
     {
-        this.patientFacade.create(patient);        
+        this.patientFacade.create(patient);
     }
 }

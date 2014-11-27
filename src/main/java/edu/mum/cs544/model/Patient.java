@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -33,6 +35,7 @@ public class Patient implements Serializable {
 
     private String lastName;
     private String gender;
+    @Temporal(TemporalType.DATE)
     private Date dob;
     private String street;
     private String state;

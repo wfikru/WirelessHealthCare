@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,6 +30,7 @@ public class Doctor implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+    @Temporal(TemporalType.DATE)
     private Date dob;
     private Address address;
     private String speciality;

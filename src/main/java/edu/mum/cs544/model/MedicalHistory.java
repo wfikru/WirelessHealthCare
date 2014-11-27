@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -26,14 +27,17 @@ public class MedicalHistory implements Serializable {
     
     private String  PatientId;
     private String DiagnosticResult;
-    private Date date;
-
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date CheckUpDate;
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name = "hist_pat",
     joinColumns = @JoinColumn(name = "history_fk"),
     inverseJoinColumns = @JoinColumn(name = "patient_fk"))
     
     private List<Patient> patients;
+
+    public MedicalHistory() {
+    }
     
     public MedicalHistory(String PatientId, Long id) {
         this.PatientId = PatientId;
@@ -48,13 +52,15 @@ public class MedicalHistory implements Serializable {
         this.DiagnosticResult = DiagnosticResult;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCheckUpDate() {
+        return CheckUpDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCheckUpDate(Date CheckUpDate) {
+        this.CheckUpDate = CheckUpDate;
     }
+
+
 
     public String getCondition() {
         return Condition;

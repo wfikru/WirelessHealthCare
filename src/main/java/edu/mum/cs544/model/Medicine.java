@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -33,7 +34,9 @@ public class Medicine implements Serializable {
 
     private String nameOfMedicine;
     private String unitsPerday;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
     private Patient patient;
     private Prescription prescription;

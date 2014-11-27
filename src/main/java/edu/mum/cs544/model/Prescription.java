@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,6 +30,7 @@ public class Prescription implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Doctor doctor;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private Patient patient;
     
