@@ -32,8 +32,20 @@ public class Patient implements Serializable {
     private String firstName;
 
     private String lastName;
-    private String sex;
+    private String gender;
     private Date dob;
+    private String street;
+    private String state;
+    private int zip;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
     public String getFirstName() {
         return firstName;
@@ -47,6 +59,34 @@ public class Patient implements Serializable {
         return lastName;
     }
 
+    
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getZip() {
+        return zip;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+    
+            
+    
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -95,13 +135,12 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Date getDob() {

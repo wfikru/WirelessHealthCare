@@ -12,14 +12,14 @@ import javax.enterprise.context.Dependent;
  *
  * @author FWorku
  */
-@Named(value = "getTreatment")
+@Named(value = "virtualDoctor")
 @Dependent
-public class GetTreatment {
+public class VirtualDoctor {
 
     /**
-     * Creates a new instance of GetTreatment
+     * Creates a new instance of VirtualDoctor
      */
-    public GetTreatment() {
+    public VirtualDoctor() {
     }
     
 }
