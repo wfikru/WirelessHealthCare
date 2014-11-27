@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
@@ -25,68 +24,21 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Patient implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
-
     private String lastName;
     private String sex;
     private Date dob;
-    
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    
-    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "symptom_fk")
-    private Symptom symptoms;// = new ArrayList<Symptom>();
-    
-    @ManyToMany(mappedBy = "patients",fetch=FetchType.LAZY)
+    private Symptom symptom;
+    @ManyToMany(mappedBy = "patients", fetch = FetchType.LAZY)
     private List<MedicalHistory> history;
 
-    public Symptom getSymptoms() {
-        return symptoms;
-    }
-
-    public void setSymptoms(Symptom symptoms) {
-        this.symptoms = symptoms;
-    }
-
-    public List<MedicalHistory> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<MedicalHistory> history) {
-        this.history = history;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "doc_fk")
-    private Doctor doctor;
-    
     public Long getId() {
         return id;
     }
@@ -94,7 +46,6 @@ public class Patient implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getSex() {
         return sex;
@@ -112,14 +63,37 @@ public class Patient implements Serializable {
         this.dob = dob;
     }
 
-    public List<Symptom> getSymptoms() {
-        return symptoms;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setSymptoms(List<Symptom> symptoms) {
-        this.symptoms = symptoms;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public Symptom getSymptom() {
+        return symptom;
+    }
+
+    public void setSymptom(Symptom symptom) {
+        this.symptom = symptom;
+    }
+
+    public List<MedicalHistory> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<MedicalHistory> history) {
+        this.history = history;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -144,5 +118,5 @@ public class Patient implements Serializable {
     public String toString() {
         return "edu.mum.cs544.model.Patient[ id=" + id + " ]";
     }
-    
+
 }
