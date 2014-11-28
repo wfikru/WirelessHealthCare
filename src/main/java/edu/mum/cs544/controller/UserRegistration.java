@@ -5,6 +5,7 @@
  */
 package edu.mum.cs544.controller;
 
+import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import javax.enterprise.context.SessionScoped;
 @Named
 @SessionScoped
 public class UserRegistration implements Serializable {
+   
 
     /**
      * Creates a new instance of UserRegistration
@@ -41,8 +43,10 @@ public class UserRegistration implements Serializable {
     
     
     
-    public void registerUser()
+    public String registerUser()
     {
         this.patientFacade.create(patient);
+        return "testPage";
+        
     }
 }
