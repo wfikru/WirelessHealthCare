@@ -29,31 +29,28 @@ public class UserRegistration implements Serializable {
      */
     @EJB
     private PatientFacade patientFacade;
-    
+
     @EJB
     private AddressFacade addressFacade;
-    
+
     public UserRegistration() {
     }
-    
+
     private Patient patient = new Patient();
     private Address address = new Address();
 
     public Address getAddress() {
         return address;
     }
-    
-    
+
     public Patient getPatient() {
         return patient;
     }
 
-    
-    
-    public String registerUser()
-    {
-        this.patientFacade.create(patient);
+    public String registerUser() {
+        patient.setAddress(address);
         this.addressFacade.create(address);
+        this.patientFacade.create(patient);
         return "index";
     }
 }
