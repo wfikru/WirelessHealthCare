@@ -5,7 +5,7 @@
  */
 package edu.mum.cs544.boundary;
 
-import edu.mum.cs544.model.Symptom;
+import edu.mum.cs544.model.Assignment;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author FWorku
  */
 @Stateless
-public class SymptomFacade extends AbstractFacade<Symptom> {
+public class AssignmentFacade extends AbstractFacade<Assignment> {
     @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class SymptomFacade extends AbstractFacade<Symptom> {
         return em;
     }
 
-    public SymptomFacade() {
-        super(Symptom.class);
+    public AssignmentFacade() {
+        super(Assignment.class);
     }
     
 }
