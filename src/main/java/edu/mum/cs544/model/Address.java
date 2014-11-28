@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
@@ -18,6 +17,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Address implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +26,6 @@ public class Address implements Serializable {
     private String street;
     private String zip;
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -59,9 +57,6 @@ public class Address implements Serializable {
     public void setZip(String zip) {
         this.zip = zip;
     }
-    
-   
-    
 
     @Override
     public int hashCode() {
@@ -87,5 +82,5 @@ public class Address implements Serializable {
     public String toString() {
         return "edu.mum.cs544.model.Address[ id=" + id + " ]";
     }
-    
+
 }

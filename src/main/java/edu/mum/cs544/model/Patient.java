@@ -40,9 +40,9 @@ public class Patient implements Serializable {
     private Date dob;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_fk")//, nullable = false)
+    @JoinColumn(name = "address_fk", nullable = false)
     private Address address;
-    
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "symptom_fk")
     private Symptom symptoms;// = new ArrayList<Symptom>();
