@@ -41,8 +41,9 @@ public class UserRegistration implements Serializable {
     
     
     
-    public void registerUser()
+    public String registerUser()
     {
         this.patientFacade.create(patient);
+        return "index";
     }
 }
