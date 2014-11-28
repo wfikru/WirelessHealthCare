@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,9 +50,30 @@ public class Patient implements Serializable {
 
     @ManyToMany(mappedBy = "patients", fetch = FetchType.LAZY)
     private List<MedicalHistory> history;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doc_fk")
-    private Doctor doctor;
+
+    @ManyToMany(mappedBy = "patients")
+    private List<Doctor> doctors;
+
+    //also have a different implementation
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prescription_fk")
+    private List<Prescription> prescriptions;
+
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -83,14 +105,6 @@ public class Patient implements Serializable {
 
     public void setHistory(List<MedicalHistory> history) {
         this.history = history;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
     }
 
     public String getEmail() {

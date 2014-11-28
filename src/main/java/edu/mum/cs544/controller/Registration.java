@@ -22,7 +22,7 @@ import javax.enterprise.context.SessionScoped;
  */
 @Named
 @SessionScoped
-public class UserRegistration implements Serializable {
+public class Registration implements Serializable {
 
     /**
      * Creates a new instance of UserRegistration
@@ -33,7 +33,7 @@ public class UserRegistration implements Serializable {
     @EJB
     private AddressFacade addressFacade;
     
-    public UserRegistration() {
+    public Registration() {
     }
     
     private Patient patient = new Patient();
@@ -46,15 +46,18 @@ public class UserRegistration implements Serializable {
     
     public Patient getPatient() {
         return patient;
-    }
-
-    
+    }    
     
     public String registerUser()
     {
         this.patient.setAddress(address);
-        this.patientFacade.create(patient);
         this.addressFacade.create(address);
+        this.patientFacade.create(patient);
+        
         return "index";
     }
+    
+//    public String registerDoctor()
+//    {
+//    }
 }
