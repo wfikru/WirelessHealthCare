@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.mum.cs544.boundary;
 
 import edu.mum.cs544.model.Address;
@@ -13,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author zeriet
+ * @author FWorku
  */
 @Stateless
 public class AddressFacade extends AbstractFacade<Address> {

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Patient implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,21 +36,26 @@ public class Patient implements Serializable {
 
     private String lastName;
     private String gender;
+    private String email;
     @Temporal(TemporalType.DATE)
     private Date dob;
-    private String street;
-    private String state;
-    private int zip;
-    private String email;
+    private String userName;
+    private String password; //later password can be sent through email
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_fk", nullable = false)
+    private Address address;
     
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "symptom_fk")
+    private Symptom symptoms;// = new ArrayList<Symptom>();
+
+    @ManyToMany(mappedBy = "patients", fetch = FetchType.LAZY)
+    private List<MedicalHistory> history;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doc_fk")
+    private Doctor doctor;
+
     public String getFirstName() {
         return firstName;
     }
@@ -62,45 +68,9 @@ public class Patient implements Serializable {
         return lastName;
     }
 
-    
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public int getZip() {
-        return zip;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-    
-            
-    
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "symptom_fk")
-    private Symptom symptoms;// = new ArrayList<Symptom>();
-    
-    @ManyToMany(mappedBy = "patients",fetch=FetchType.LAZY)
-    private List<MedicalHistory> history;
 
     public Symptom getSymptoms() {
         return symptoms;
@@ -126,10 +96,14 @@ public class Patient implements Serializable {
         this.doctor = doctor;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "doc_fk")
-    private Doctor doctor;
-    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
@@ -154,12 +128,36 @@ public class Patient implements Serializable {
         this.dob = dob;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -179,5 +177,5 @@ public class Patient implements Serializable {
     public String toString() {
         return "edu.mum.cs544.model.Patient[ id=" + id + " ]";
     }
-    
+
 }

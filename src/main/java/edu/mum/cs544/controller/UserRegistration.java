@@ -5,10 +5,12 @@
  */
 package edu.mum.cs544.controller;
 
-import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.boundary.AddressFacade;
 import edu.mum.cs544.boundary.PatientFacade;
+import edu.mum.cs544.model.Address;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -21,32 +23,35 @@ import javax.enterprise.context.SessionScoped;
 @Named
 @SessionScoped
 public class UserRegistration implements Serializable {
-   
 
     /**
      * Creates a new instance of UserRegistration
      */
     @EJB
     private PatientFacade patientFacade;
+
+    @EJB
+    private AddressFacade addressFacade;
+
     public UserRegistration() {
     }
-    
+
     private Patient patient = new Patient();
+    private Address address = new Address();
+
+    public Address getAddress() {
+        return address;
+    }
 
     public Patient getPatient() {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-    
-    
-    
-    public String registerUser()
-    {
+    public String registerUser() {
+        this.patient.setAddress(address);
+        this.addressFacade.create(address);
         this.patientFacade.create(patient);
-        return "testPage";
-        
+
+        return "index";
     }
 }
