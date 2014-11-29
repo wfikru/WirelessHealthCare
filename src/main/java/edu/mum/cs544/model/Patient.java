@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -37,8 +38,13 @@ public class Patient implements Serializable {
     private String lastName;
     private String gender;
     private String email;
+
     @Temporal(TemporalType.DATE)
     private Date dob;
+
+    private String username;
+
+    private String Password;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_fk", nullable = false)
@@ -48,16 +54,43 @@ public class Patient implements Serializable {
     @JoinColumn(name = "symptom_fk")
     private Symptom symptoms;// = new ArrayList<Symptom>();
 
-    @ManyToMany(mappedBy = "patients", fetch = FetchType.LAZY)
-    private List<MedicalHistory> history;
+    @OneToMany
+    @JoinTable(name = "patient_history",
+            joinColumns = @JoinColumn(name = "patient_fk"),
+            inverseJoinColumns = @JoinColumn(name = "history_fk"))
+    private MedicalHistory history;
 
     @ManyToMany(mappedBy = "patients")
     private List<Doctor> doctors;
 
-    //also have a different implementation
+    //also have a different  as history
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "prescription_fk")
     private List<Prescription> prescriptions;
+
+    public MedicalHistory getHistory() {
+        return history;
+    }
+
+    public void setHistory(MedicalHistory history) {
+        this.history = history;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
 
     public List<Prescription> getPrescriptions() {
         return prescriptions;
@@ -97,14 +130,6 @@ public class Patient implements Serializable {
 
     public void setSymptoms(Symptom symptoms) {
         this.symptoms = symptoms;
-    }
-
-    public List<MedicalHistory> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<MedicalHistory> history) {
-        this.history = history;
     }
 
     public String getEmail() {

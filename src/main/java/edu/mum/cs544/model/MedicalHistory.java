@@ -25,23 +25,17 @@ import javax.persistence.Temporal;
 @Entity
 public class MedicalHistory implements Serializable {
     
-    private String  PatientId;
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String DiagnosticResult;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.DATE)    
     private Date CheckUpDate;
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name = "hist_pat",
-    joinColumns = @JoinColumn(name = "history_fk"),
-    inverseJoinColumns = @JoinColumn(name = "patient_fk"))
+    private String  Condition;
     
-    private List<Patient> patients;
-
     public MedicalHistory() {
-    }
-    
-    public MedicalHistory(String PatientId, Long id) {
-        this.PatientId = PatientId;
-        this.id = id;
     }
 
     public String getDiagnosticResult() {
@@ -60,8 +54,6 @@ public class MedicalHistory implements Serializable {
         this.CheckUpDate = CheckUpDate;
     }
 
-
-
     public String getCondition() {
         return Condition;
     }
@@ -69,12 +61,6 @@ public class MedicalHistory implements Serializable {
     public void setCondition(String Condition) {
         this.Condition = Condition;
     }
-    private String  Condition;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-  
 
     public Long getId() {
         return id;
