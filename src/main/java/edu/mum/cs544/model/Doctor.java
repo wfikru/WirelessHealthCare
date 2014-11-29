@@ -13,9 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,20 +34,7 @@ public class Doctor implements Serializable {
     private Date dob;
     private Address address;
     private String speciality;
-    
-    @ManyToMany
-    @JoinTable(name = "doc_pat",
-    joinColumns = @JoinColumn(name = "doctor_fk"),
-    inverseJoinColumns = @JoinColumn(name = "patient_fk"))
-    private List<Patient> patients;
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
+    private List<Assignment> assignments=new ArrayList<Assignment>();
 
     public Long getId() {
         return id;
@@ -99,6 +83,15 @@ public class Doctor implements Serializable {
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
     }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+    
 
     @Override
     public int hashCode() {

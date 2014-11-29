@@ -48,9 +48,10 @@ public class UserRegistration implements Serializable {
     }
 
     public String registerUser() {
-        patient.setAddress(address);
+        this.patient.setAddress(address);
         this.addressFacade.create(address);
         this.patientFacade.create(patient);
+
         return "index";
     }
 }
