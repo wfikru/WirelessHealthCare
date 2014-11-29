@@ -118,7 +118,6 @@ public class Patient implements Serializable {
         this.email = email;
     }
 
-
     public Long getId() {
         return id;
     }
