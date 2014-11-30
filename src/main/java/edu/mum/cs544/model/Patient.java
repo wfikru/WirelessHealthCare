@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -44,7 +43,7 @@ public class Patient implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date dob;
-    
+  
     @Column(unique = true)
     private String username;
 

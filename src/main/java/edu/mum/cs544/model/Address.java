@@ -26,6 +26,8 @@ public class Address implements Serializable {
     private String street;
     private String zip;
 
+    
+    
     public Long getId() {
         return id;
     }
