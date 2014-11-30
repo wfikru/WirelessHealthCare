@@ -42,11 +42,11 @@ public class Doctor implements Serializable {
     private Date dob;
     private String specialization;
     
-    @Column(unique = true)
+//    @Column(unique = true)
     private String email;
     private int workExp;
 
-    @Column(unique = true)
+//    @Column(unique = true)
     private String username;
     private String Password;
 

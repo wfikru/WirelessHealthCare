@@ -38,13 +38,13 @@ public class Patient implements Serializable {
     private String lastName;
     private String gender;
 
-    @Column(unique = true)
+//    @Column(unique = true) do it later
     private String email;
 
     @Temporal(TemporalType.DATE)
     private Date dob;
   
-    @Column(unique = true)
+//    @Column(unique = true) do it later
     private String username;
 
     private String Password;
@@ -167,23 +167,6 @@ public class Patient implements Serializable {
     public void setDob(Date dob) {
         this.dob = dob;
     }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
 
     @Override
     public int hashCode() {
