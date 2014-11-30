@@ -9,7 +9,7 @@
     <h:body>
         <h:form>
 
-            <h:dataTable value="#{administrator.doc}" var="dr">
+            <h:dataTable value="#{administrator.doc}" var="dr" border="1">
 
                 <h:column>
                     
@@ -32,8 +32,13 @@
                     <f:facet name="header">Specialization</f:facet>
                         #{dr.specialization}
                 </h:column>
-
+                
+                <h:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <h:commandButton value="Edit" />
+                </h:column>
             </h:dataTable>
+            <h:commandButton value="Save changes" />
         </h:form>
     </h:body>
 </html>
