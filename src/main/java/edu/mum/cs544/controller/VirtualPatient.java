@@ -59,5 +59,4 @@ public class VirtualPatient implements Serializable {
         return "symptomSubmitSuccess";
 
     }
-
 }

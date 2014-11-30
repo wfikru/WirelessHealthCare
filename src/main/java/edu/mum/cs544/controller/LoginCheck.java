@@ -54,8 +54,15 @@ public class LoginCheck implements Serializable{
         this.password = password;
     }
 
+//    public String checkLogin()
+//    {
+//        Patient p = this.patientFacade.find("102");
+//        this.patientFacade.remove(p);
+//        return "LoginFailure";
+//    }
     public String checkLogin() {
 
+        
         if ("admin".equals(this.username) && "admin".equals(this.password)) {
             return "AdminPortal";
         } else {
@@ -65,7 +72,7 @@ public class LoginCheck implements Serializable{
                     return "DoctorPortal";
                 }
             }
-            //System.out.println(getUsername());
+            
             List<Patient> patList = this.patientFacade.findAll();
             for (Patient pat : patList) {
                 if (this.username.equals(pat.getUsername()) && this.password.equals(pat.getPassword())) {

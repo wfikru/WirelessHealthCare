@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,10 +41,12 @@ public class Doctor implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dob;
     private String specialization;
-
+    
+    @Column(unique = true)
     private String email;
     private int workExp;
 
+    @Column(unique = true)
     private String username;
     private String Password;
 

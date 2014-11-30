@@ -8,6 +8,7 @@ package edu.mum.cs544.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class VHCRecord implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinTable(name = "record_history",
             joinColumns = @JoinColumn(name = "record_fk"),
             inverseJoinColumns = @JoinColumn(name = "history_fk"))

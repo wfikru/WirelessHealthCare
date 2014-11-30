@@ -8,6 +8,7 @@ package edu.mum.cs544.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,24 +38,27 @@ public class Patient implements Serializable {
 
     private String lastName;
     private String gender;
+
+    @Column(unique = true)
     private String email;
 
     @Temporal(TemporalType.DATE)
     private Date dob;
-
+    
+    @Column(unique = true)
     private String username;
 
     private String Password;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "address_fk", nullable = false)
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "symptom_fk")
     private Symptom symptoms;// = new ArrayList<Symptom>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinTable(name = "patient_history",
             joinColumns = @JoinColumn(name = "patient_fk"),
             inverseJoinColumns = @JoinColumn(name = "history_fk"))
@@ -65,7 +69,7 @@ public class Patient implements Serializable {
     private List<Doctor> doctors;
 
     //also have a different  as history
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "prescription_fk")
     private List<Prescription> prescriptions;
 
@@ -76,7 +80,6 @@ public class Patient implements Serializable {
     public void setHistory(MedicalHistory history) {
         this.history.add(history);
     }
-
 
     public String getUsername() {
         return username;
