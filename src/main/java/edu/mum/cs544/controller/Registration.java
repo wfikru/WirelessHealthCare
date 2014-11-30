@@ -38,8 +38,7 @@ public class Registration implements Serializable {
     }
 
 //    public String generateID()
-//    {
-//        
+//    {        
 //    }
     private Patient patient = new Patient();
     private Address address = new Address();

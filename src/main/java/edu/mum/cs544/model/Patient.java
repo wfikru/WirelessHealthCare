@@ -58,7 +58,8 @@ public class Patient implements Serializable {
     @JoinTable(name = "patient_history",
             joinColumns = @JoinColumn(name = "patient_fk"),
             inverseJoinColumns = @JoinColumn(name = "history_fk"))
-    private MedicalHistory history;
+//    @OneToMany(fetch = FetchType.LAZY)
+    private List<MedicalHistory> history;
 
     @ManyToMany(mappedBy = "patients")
     private List<Doctor> doctors;
@@ -68,13 +69,14 @@ public class Patient implements Serializable {
     @JoinColumn(name = "prescription_fk")
     private List<Prescription> prescriptions;
 
-    public MedicalHistory getHistory() {
+    public List<MedicalHistory> getHistory() {
         return history;
     }
 
     public void setHistory(MedicalHistory history) {
-        this.history = history;
+        this.history.add(history);
     }
+
 
     public String getUsername() {
         return username;

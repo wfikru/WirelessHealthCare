@@ -6,7 +6,12 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form>
+        
+         <h:commandLink value="register Doctor" action="DoctorRegistration"/>
+        <br/>
+        <h:commandLink value="Edit Doctor List" action="#{administrator.editDoctorList()}"/>
+        </h:form>
     </h:body>
 </html>
 

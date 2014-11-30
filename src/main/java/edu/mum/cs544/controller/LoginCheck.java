@@ -9,18 +9,20 @@ import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author FWorku
  */
 @Named(value = "loginCheck")
-@Dependent
-public class LoginCheck {
+@SessionScoped
+public class LoginCheck implements Serializable{
 
     /**
      * Creates a new instance of LoginCheck
@@ -28,16 +30,13 @@ public class LoginCheck {
     public LoginCheck() {
     }
 
-    private String username;
-    private String password;
-
     @EJB
     private DoctorFacade doctorFacade;
     @EJB
     private PatientFacade patientFacade;
 
-    private Doctor doctor;
-    private Patient patient;
+    private String username;
+    private String password;
 
     public String getUsername() {
         return username;
@@ -55,33 +54,25 @@ public class LoginCheck {
         this.password = password;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
     public String checkLogin() {
 
-        if (getUsername() == "" && getPassword() == "") {
+        if ("admin".equals(this.username) && "admin".equals(this.password)) {
             return "AdminPortal";
         } else {
             List<Doctor> docList = this.doctorFacade.findAll();
             for (Doctor doc : docList) {
-                if (getUsername() == doc.getUsername() && getPassword() == doc.getPassword()) {
+                if (this.username.equals( doc.getUsername()) && this.password.equals(doc.getPassword())) {
                     return "DoctorPortal";
                 }
             }
+            //System.out.println(getUsername());
             List<Patient> patList = this.patientFacade.findAll();
             for (Patient pat : patList) {
-                if (getUsername() == pat.getUsername() && getPassword() == pat.getPassword()) {
+                if (this.username.equals(pat.getUsername()) && this.password.equals(pat.getPassword())) {
                     return "PatientPortal";
                 }
             }
         }
-
         return "LoginFailure";
     }
 }

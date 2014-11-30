@@ -1,19 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>   
+    <h:body>
+
         <h:form>
             <h:outputLabel value="First Name" />
 
-            <p:inputText value="#{registration.patient.firstName}"
+            <p:inputText value="#{registration.doctor.firstName}"
                          id="firstName"
                          required="true" 
                          requiredMessage="FirstName is required"
@@ -24,13 +23,13 @@
             <p:message for="firstName" />
 
             <h:outputLabel value="Last Name" />
-            <p:inputText value="#{registration.patient.lastName}"
+            <p:inputText value="#{registration.doctor.lastName}"
                          id="lastName"></p:inputText>
             <p:message for="lastName" />
 
 
             <p:outputLabel for="birthdate" value="Date of Birth" />
-            <p:calendar id="birthdate" value="#{registration.patient.dob}"
+            <p:calendar id="birthdate" value="#{registration.doctor.dob}"
                         locale="de" 
                         navigator="true" 
                         yearRange="c-100:c-16"
@@ -41,17 +40,34 @@
             </p:calendar> 
             <p:message for="birthdate" />
 
+            <h:outputLabel value="Specialization" />
+            <p:inputText value="#{registration.doctor.specialization}"
+                         id="specialization"></p:inputText>
+            <p:message for="specialization" />
 
+            <h:outputLabel value="Work Experience" />
+            <p:inputText value="#{registration.doctor.workExp}"
+                         id="workExp"></p:inputText>
+            <p:message for="workExp" />
 
             <h:outputLabel value="Gender" />
             <h:selectOneRadio id="gender" 
-                              value="#{registration.patient.gender}" >
+                              value="#{registration.doctor.gender}" >
                 <f:selectItem itemValue="M" itemLabel="M" />
                 <f:selectItem itemValue="F" itemLabel="F" />
             </h:selectOneRadio>
             <p:message for="gender" />
 
+            <h:outputLabel value="User Name" />
+            <p:inputText value="#{registration.doctor.username}"
+                         id="username"></p:inputText>
+            <p:message for="username" />
 
+            <h:outputLabel value="Password" />
+            <p:inputText value="#{registration.doctor.password}"
+                         id="password"></p:inputText>
+            <p:message for="password" />
+            
             <h:outputLabel value="Street" />
             <p:inputText value="#{registration.address.street}"
                          id="street"
@@ -85,17 +101,15 @@
             </p:inputText>
             <p:message for="state" />
 
-
             <h:outputLabel value="Email" />
-            <p:inputText value="#{registration.patient.email}"
+            <p:inputText value="#{registration.doctor.email}"
                          id="email"
                          validatorMessage="Invalid Email">
                 <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
             </p:inputText>
             <p:message for="email" />
-            <h:commandButton value="Register" action="#{registration.registerUser()}"/>
+            <h:commandButton value="Register" action="#{registration.registerDoctor()}"/>
         </h:form>       
-
 
     </h:body>
 </html>
