@@ -25,21 +25,20 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Prescription implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Doctor doctor;
     @Temporal(TemporalType.DATE)
     private Date date;
-    private Patient patient;
-    
+
     //one to many unidirectional
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "presc_med",
-    joinColumns= @JoinColumn(name = "presc_fk"),
-    inverseJoinColumns= @JoinColumn(name = "med_fk") )
-    
+            joinColumns = @JoinColumn(name = "presc_fk"),
+            inverseJoinColumns = @JoinColumn(name = "med_fk"))
+
     private List<Medicine> medicines;
 
     public List<Medicine> getMedicines() {
@@ -49,17 +48,10 @@ public class Prescription implements Serializable {
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
+
+    private String prescDescription;
+
     
-    private String prescDescription;    
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -67,16 +59,6 @@ public class Prescription implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-
 
     public String getPrescDescription() {
         return prescDescription;
@@ -118,5 +100,5 @@ public class Prescription implements Serializable {
     public String toString() {
         return "edu.mum.cs544.model.Prescription[ id=" + id + " ]";
     }
-    
+
 }

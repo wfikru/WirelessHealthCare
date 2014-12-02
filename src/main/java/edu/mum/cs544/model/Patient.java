@@ -15,8 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -36,30 +36,64 @@ public class Patient implements Serializable {
     private String firstName;
     private String lastName;
     private String gender;
+
+//    @Column(unique = true) do it later
     private String email;
+
     @Temporal(TemporalType.DATE)
     private Date dob;
-    private String userName;
-    private String password; //later password can be sent through email
+  
+//    @Column(unique = true) do it later
+    private String username;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    private String Password;
+
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "address_fk", nullable = false)
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "symptom_fk")
     private Symptom symptoms;// = new ArrayList<Symptom>();
 
-    @ManyToMany(mappedBy = "patients", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinTable(name = "patient_history",
+            joinColumns = @JoinColumn(name = "patient_fk"),
+            inverseJoinColumns = @JoinColumn(name = "history_fk"))
+//    @OneToMany(fetch = FetchType.LAZY)
     private List<MedicalHistory> history;
 
     @ManyToMany(mappedBy = "patients")
     private List<Doctor> doctors;
 
-    //also have a different implementation
-    @OneToMany(fetch = FetchType.LAZY)
+    //also have a different  as history
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "prescription_fk")
     private List<Prescription> prescriptions;
+
+    public List<MedicalHistory> getHistory() {
+        return history;
+    }
+
+    public void setHistory(MedicalHistory history) {
+        this.history.add(history);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
 
     public List<Prescription> getPrescriptions() {
         return prescriptions;
@@ -101,14 +135,6 @@ public class Patient implements Serializable {
         this.symptoms = symptoms;
     }
 
-    public List<MedicalHistory> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<MedicalHistory> history) {
-        this.history = history;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -140,23 +166,6 @@ public class Patient implements Serializable {
     public void setDob(Date dob) {
         this.dob = dob;
     }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
 
     @Override
     public int hashCode() {

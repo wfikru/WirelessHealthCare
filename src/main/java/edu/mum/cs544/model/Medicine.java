@@ -19,10 +19,18 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Medicine implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String nameOfMedicine;
+    private String unitsPerday;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date startDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date endDate;
 
     public Long getId() {
         return id;
@@ -32,16 +40,6 @@ public class Medicine implements Serializable {
         this.id = id;
     }
 
-    private String nameOfMedicine;
-    private String unitsPerday;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date startDate;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date endDate;
-    private Patient patient;
-    private Prescription prescription;
-    
-    
     public String getNameOfMedicine() {
         return nameOfMedicine;
     }
@@ -73,8 +71,7 @@ public class Medicine implements Serializable {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-        
-                        
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -99,5 +96,5 @@ public class Medicine implements Serializable {
     public String toString() {
         return "edu.mum.cs544.model.Medicine[ id=" + id + " ]";
     }
-    
+
 }

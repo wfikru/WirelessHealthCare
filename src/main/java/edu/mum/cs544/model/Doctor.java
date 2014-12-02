@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -33,16 +36,77 @@ public class Doctor implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+    private String gender;
+
     @Temporal(TemporalType.DATE)
     private Date dob;
-    private Address address;
-    private String speciality;
+    private String specialization;
     
+//    @Column(unique = true)
+    private String email;
+    private int workExp;
+
+//    @Column(unique = true)
+    private String username;
+    private String Password;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_fk", nullable = false)
+    private Address address;
+
     @ManyToMany
-    @JoinTable(name = "doc_pat",
-    joinColumns = @JoinColumn(name = "doctor_fk"),
-    inverseJoinColumns = @JoinColumn(name = "patient_fk"))
+    @JoinTable(name = "doctor_patient",
+            joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getWorkExp() {
+        return workExp;
+    }
+
+    public void setWorkExp(int workExp) {
+        this.workExp = workExp;
+    }
 
     public List<Patient> getPatients() {
         return patients;
@@ -90,14 +154,6 @@ public class Doctor implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public String getSpeciality() {
-        return speciality;
-    }
-
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
     }
 
     @Override

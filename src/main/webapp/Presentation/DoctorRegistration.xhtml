@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <h:outputLabel value="First Name" />
+
+            <p:inputText value="#{registration.doctor.firstName}"
+                         id="firstName"
+                         required="true" 
+                         requiredMessage="FirstName is required"
+                         validatorMessage="FirstName should be of length from 5 to 15 chars"
+                         >
+                <f:validateLength minimum="2" maximum="25" for="firstName"></f:validateLength>
+            </p:inputText>
+            <p:message for="firstName" />
+
+            <h:outputLabel value="Last Name" />
+            <p:inputText value="#{registration.doctor.lastName}"
+                         id="lastName"></p:inputText>
+            <p:message for="lastName" />
+
+
+            <p:outputLabel for="birthdate" value="Date of Birth" />
+            <p:calendar id="birthdate" value="#{registration.doctor.dob}"
+                        locale="de" 
+                        navigator="true" 
+                        yearRange="c-100:c-16"
+                        validatorMessage="Year shpule be in MM/dd/yyyy format"
+                        pattern="MM/dd/yyyy"  >
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+
+            </p:calendar> 
+            <p:message for="birthdate" />
+
+            <h:outputLabel value="Specialization" />
+            <p:inputText value="#{registration.doctor.specialization}"
+                         id="specialization"></p:inputText>
+            <p:message for="specialization" />
+
+            <h:outputLabel value="Work Experience" />
+            <p:inputText value="#{registration.doctor.workExp}"
+                         id="workExp"></p:inputText>
+            <p:message for="workExp" />
+
+            <h:outputLabel value="Gender" />
+            <h:selectOneRadio id="gender" 
+                              value="#{registration.doctor.gender}" >
+                <f:selectItem itemValue="M" itemLabel="M" />
+                <f:selectItem itemValue="F" itemLabel="F" />
+            </h:selectOneRadio>
+            <p:message for="gender" />
+
+            <h:outputLabel value="User Name" />
+            <p:inputText value="#{registration.doctor.username}"
+                         id="username"></p:inputText>
+            <p:message for="username" />
+
+            <h:outputLabel value="Password" />
+            <p:inputText value="#{registration.doctor.password}"
+                         id="password"></p:inputText>
+            <p:message for="password" />
+            
+            <h:outputLabel value="Street" />
+            <p:inputText value="#{registration.address.street}"
+                         id="street"
+                         required="true" 
+                         requiredMessage="Street is required"
+                         >
+            </p:inputText>
+            <p:message for="street" />
+
+            <h:outputLabel value="Zip Code" />
+            <p:inputText value="#{registration.address.zip}"
+                         id="zipCode"
+                         required="true" 
+                         requiredMessage="Zip code is required"
+                         validatorMessage="Zip code should be of length from _ to _ chars"
+                         >
+                <f:validateLength minimum="2" maximum="15" for="zipCode"></f:validateLength>
+            </p:inputText>
+            <p:message for="zipCode" />
+
+
+
+            <h:outputLabel value="State" />
+            <p:inputText value="#{registration.address.state}"
+                         id="state"
+                         required="true" 
+                         requiredMessage="state is required"
+                         validatorMessage="State should be of length 2 letters "
+                         >
+                <f:validateLength minimum="2" maximum="2" for="state"></f:validateLength>
+            </p:inputText>
+            <p:message for="state" />
+
+            <h:outputLabel value="Email" />
+            <p:inputText value="#{registration.doctor.email}"
+                         id="email"
+                         validatorMessage="Invalid Email">
+                <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
+            </p:inputText>
+            <p:message for="email" />
+            <h:commandButton value="Register" action="#{registration.registerDoctor()}"/>
+        </h:form>       
+
+    </h:body>
+</html>
+
