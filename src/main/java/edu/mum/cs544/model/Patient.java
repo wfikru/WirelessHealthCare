@@ -34,7 +34,6 @@ public class Patient implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
-
     private String lastName;
     private String gender;
     private String email;
@@ -47,7 +46,7 @@ public class Patient implements Serializable {
     @JoinColumn(name = "address_fk", nullable = false)
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "symptom_fk")
     private Symptom symptoms;// = new ArrayList<Symptom>();
 
