@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -70,6 +71,7 @@ public class Patient implements Serializable {
     //also have a different  as history
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "prescription_fk")
+    
     private List<Prescription> prescriptions;
 
     public List<MedicalHistory> getHistory() {
