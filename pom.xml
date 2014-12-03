@@ -36,10 +36,10 @@
         
         <!--primefaces-->
         <dependency>
-	<groupId>org.primefaces</groupId>
-	<artifactId>primefaces</artifactId>
-	<version>4.0</version>
-</dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>4.0</version>
+        </dependency>
 
     </dependencies>
 

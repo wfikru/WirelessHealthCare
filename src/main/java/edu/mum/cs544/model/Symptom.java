@@ -11,8 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,17 +27,41 @@ public class Symptom implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Temporal(TemporalType.DATE)
     private Date date;
-    private int temprature;
+    private double temperature;
     private boolean dizziness;
     private boolean nausea;
     private boolean fatigue;
-    private int systolic;
-    private int diastolic;
+    private double systolic;
+    private double diastolic;
     private String description;
+    @ManyToOne()
+    @JoinColumn(name="patient_fk")    
+    private Patient patient;
+    
+    @OneToOne
+    @JoinColumn(name="category_fk")
+    private Category category;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+    
 
     public Date getDate() {
         return date;
@@ -45,12 +71,12 @@ public class Symptom implements Serializable {
         this.date = date;
     }
 
-    public int getTemprature() {
-        return temprature;
+    public double getTemperature() {
+        return temperature;
     }
 
-    public void setTemprature(int temprature) {
-        this.temprature = temprature;
+    public void setTemperature(double temprature) {
+        this.temperature = temprature;
     }
 
     public boolean isDizziness() {
@@ -77,19 +103,19 @@ public class Symptom implements Serializable {
         this.fatigue = fatigue;
     }
 
-    public int getSystolic() {
+    public double getSystolic() {
         return systolic;
     }
 
-    public void setSystolic(int systolic) {
+    public void setSystolic(double systolic) {
         this.systolic = systolic;
     }
 
-    public int getDiastolic() {
+    public double getDiastolic() {
         return diastolic;
     }
 
-    public void setDiastolic(int diastolic) {
+    public void setDiastolic(double diastolic) {
         this.diastolic = diastolic;
     }
 

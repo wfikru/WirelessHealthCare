@@ -6,12 +6,15 @@
 package edu.mum.cs544.controller;
 
 import edu.mum.cs544.boundary.AddressFacade;
+import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.model.Address;
+import edu.mum.cs544.model.Category;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -33,6 +36,8 @@ public class Registration implements Serializable {
     private AddressFacade addressFacade;
     @EJB
     private DoctorFacade doctorFacade;
+    @EJB
+    private CategoryFacade categoryFacade;
 
     public Registration() {
     }
@@ -43,6 +48,7 @@ public class Registration implements Serializable {
     private Patient patient = new Patient();
     private Address address = new Address();
     private Doctor doctor = new Doctor();
+    private Category category = new Category();
 
     public Address getAddress() {
         return address;
@@ -56,6 +62,14 @@ public class Registration implements Serializable {
         return doctor;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public String registerUser() {
         this.patient.setAddress(address);
         this.addressFacade.create(address);
@@ -65,8 +79,20 @@ public class Registration implements Serializable {
 
     public String registerDoctor() {
         this.doctor.setAddress(address);
+        this.doctor.setCategory(category);
+
         this.addressFacade.create(address);
         this.doctorFacade.create(doctor);
         return "home";
+    }
+
+    public String addCatagories() {
+        this.categoryFacade.create(category);
+        return "AdminPortal";
+    }
+
+    public List<Category> loadCatagories() {
+        List<Category> category = this.categoryFacade.findAll();
+        return category;
     }
 }

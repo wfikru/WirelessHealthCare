@@ -7,6 +7,7 @@ package edu.mum.cs544.boundary;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -32,6 +33,12 @@ public abstract class AbstractFacade<T> {
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
+    
+    public T findSingleByQuery(T entity, String yourQuery, String bindParam,String bindValue){
+        Query query =  getEntityManager().createQuery(yourQuery);
+        query.setParameter(bindParam, bindValue);
+        return (T) query.getSingleResult();    
+        }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);

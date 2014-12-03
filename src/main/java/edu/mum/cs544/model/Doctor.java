@@ -6,10 +6,7 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,37 +15,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author hiwot
  */
 @Entity
-public class Doctor implements Serializable {
+public class Doctor extends Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String gender;
 
-    @Temporal(TemporalType.DATE)
-    private Date dob;
     private String specialization;
-    
-//    @Column(unique = true)
-    private String email;
-    private int workExp;
 
-//    @Column(unique = true)
-    private String username;
-    private String Password;
+    private int workExp;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_fk", nullable = false)
@@ -59,30 +43,10 @@ public class Doctor implements Serializable {
             joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String Password) {
-        this.Password = Password;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    
+    @ManyToOne
+    @JoinColumn(name="category_fk")//, nullable = false)
+    private Category category;
 
     public String getSpecialization() {
         return specialization;
@@ -90,14 +54,6 @@ public class Doctor implements Serializable {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getWorkExp() {
@@ -116,36 +72,20 @@ public class Doctor implements Serializable {
         this.patients = patients;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     public Address getAddress() {

@@ -6,7 +6,6 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,43 +19,25 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author hiwot
  */
 @Entity
-public class Patient implements Serializable {
+public class Patient extends Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
 
-    private String lastName;
-    private String gender;
-
-//    @Column(unique = true) do it later
-    private String email;
-
-    @Temporal(TemporalType.DATE)
-    private Date dob;
-  
-//    @Column(unique = true) do it later
-    private String username;
-
-    private String Password;
-
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "address_fk", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "address_fk")
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "symptom_fk")
-    private Symptom symptoms;// = new ArrayList<Symptom>();
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Symptom> symptoms;// = new ArrayList<Symptom>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinTable(name = "patient_history",
@@ -74,28 +55,15 @@ public class Patient implements Serializable {
     
     private List<Prescription> prescriptions;
 
+    @ManyToMany(mappedBy = "patients")
+    private List<Category> categories;
+    
     public List<MedicalHistory> getHistory() {
         return history;
     }
 
     public void setHistory(MedicalHistory history) {
         this.history.add(history);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String Password) {
-        this.Password = Password;
     }
 
     public List<Prescription> getPrescriptions() {
@@ -106,6 +74,14 @@ public class Patient implements Serializable {
         this.prescriptions = prescriptions;
     }
 
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
     public List<Doctor> getDoctors() {
         return doctors;
     }
@@ -114,60 +90,12 @@ public class Patient implements Serializable {
         this.doctors = doctors;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Symptom getSymptoms() {
+    public List<Symptom> getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(Symptom symptoms) {
+    public void setSymptoms(List<Symptom> symptoms) {
         this.symptoms = symptoms;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     @Override
