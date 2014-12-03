@@ -58,7 +58,7 @@ public class Registration implements Serializable {
 
     public String registerUser() {
         this.patient.setAddress(address);
-        this.addressFacade.create(address);
+        this.addressFacade.create(address);        
         this.patientFacade.create(patient);
         return "home";
     }

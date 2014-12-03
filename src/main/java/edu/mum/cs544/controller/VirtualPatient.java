@@ -36,31 +36,38 @@ public class VirtualPatient implements Serializable {
     public VirtualPatient() {
     }
     private Symptom symptom = new Symptom();
-    private Patient patient;  // get the registered patient object
+    Patient patient= new Patient();
+      // get the registered patient object
     private String userName = "zeriet"; // this value should be retrieved when the patient is loggedin 
 
-    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
+//    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
+//    private EntityManager em;
     public Symptom getSymptom() {
         return symptom;
     }
+    
 
     public void setSymptom(Symptom symptom) {
         this.symptom = symptom;
     }
 
-
     public String submitSysmptom() {
+
+        String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
+        String bindParam = "userName";        
+        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);
+        System.out.println("===================================="+patient.getLastName());
+
+             
+//        Query query = em.createQuery(stmQuery);// change firstName to username later
+//        query.setParameter(bindParam, userName);//
+//        Patient patient = (Patient) query.getSingleResult();
         
-        Query query = em.createQuery("SELECT p FROM Patient p WHERE p.firstName = :userName");// change firstName to username later
-        query.setParameter("userName", userName);
-        Patient patient = (Patient) query.getSingleResult(); 
-        symptom.setDate(new Date());       
-        patient.setSymptoms(symptom);  //symptoms should be changed to symptom
-        this.patientFacade.edit(patient);
+        symptom.setDate(new Date());
+        symptom.setPatient(patient);        
+        this.symptomFacade.create(symptom);
         return "symptomSubmitSuccess";
 
     }
-    
+
 }

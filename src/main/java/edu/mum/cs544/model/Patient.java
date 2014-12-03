@@ -31,7 +31,7 @@ public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
@@ -45,16 +45,14 @@ public class Patient implements Serializable {
   
 //    @Column(unique = true) do it later
     private String username;
-
     private String Password;
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "address_fk", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "address_fk")
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "symptom_fk")
-    private Symptom symptoms;// = new ArrayList<Symptom>();
+    @OneToMany(mappedBy="patient",fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+    private List<Symptom> symptoms;// = new ArrayList<Symptom>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinTable(name = "patient_history",
@@ -127,13 +125,15 @@ public class Patient implements Serializable {
         this.lastName = lastName;
     }
 
-    public Symptom getSymptoms() {
+    public List<Symptom> getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(Symptom symptoms) {
+    public void setSymptoms(List<Symptom> symptoms) {
         this.symptoms = symptoms;
     }
+
+
 
     public String getEmail() {
         return email;
