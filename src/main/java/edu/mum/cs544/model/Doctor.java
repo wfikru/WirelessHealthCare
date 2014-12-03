@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -59,6 +60,10 @@ public class Doctor implements Serializable {
             joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
+    
+    @ManyToOne
+    @JoinColumn(name="category_fk", nullable = false)
+    private Category category;
 
     public String getUsername() {
         return username;
@@ -114,6 +119,14 @@ public class Doctor implements Serializable {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
