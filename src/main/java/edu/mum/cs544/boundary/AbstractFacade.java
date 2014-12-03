@@ -34,11 +34,11 @@ public abstract class AbstractFacade<T> {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
     
-//    public T findSingleByQuery(T entity, String yourQuery){
-//        Query query =  getEntityManager().createQuery(yourQuery);
-//        query.setParameter("userName", userName);
-//        return (T) query.getSingleResult();    
-//        }
+    public T findSingleByQuery(T entity, String yourQuery, String bindParam,String bindValue){
+        Query query =  getEntityManager().createQuery(yourQuery);
+        query.setParameter(bindParam, bindValue);
+        return (T) query.getSingleResult();    
+        }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);

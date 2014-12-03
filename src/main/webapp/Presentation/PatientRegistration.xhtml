@@ -15,7 +15,7 @@
                 <h:panelGrid  columns="3" width="600" border="0">
                     <h:outputLabel value="First Name" />
 
-                    <p:inputText value="#{userRegistration.patient.firstName}"
+                    <p:inputText value="#{registration.patient.firsttName}"
                                  id="firstName"
                                  required="true" 
                                  requiredMessage="FirstName is required"
@@ -26,13 +26,13 @@
                     <p:message for="firstName" />
 
                     <h:outputLabel value="Last Name" />
-                    <p:inputText value="#{userRegistration.patient.lastName}"
+                    <p:inputText value="#{registration.patient.lastName}"
                                  id="lastName"></p:inputText>
                     <p:message for="lastName" />
 
 
                     <p:outputLabel for="birthdate" value="Date of Birth" />
-                    <p:calendar id="birthdate" value="#{userRegistration.patient.dob}"
+                    <p:calendar id="birthdate" value="#{registration.patient.dob}"
                                 locale="de" 
                                 navigator="true" 
                                 yearRange="c-100:c-16"
@@ -47,7 +47,7 @@
 
                     <h:outputLabel value="Gender" />
                     <h:selectOneRadio id="gender" 
-                                      value="#{userRegistration.patient.gender}" >
+                                      value="#{registration.patient.gender}" >
                         <f:selectItem itemValue="M" itemLabel="M" />
                         <f:selectItem itemValue="F" itemLabel="F" />
                     </h:selectOneRadio>
@@ -55,7 +55,7 @@
 
 
                     <h:outputLabel value="Street" />
-                    <p:inputText value="#{userRegistration.address.street}"
+                    <p:inputText value="#{registration.address.street}"
                                  id="street"
                                  required="true" 
                                  requiredMessage="Street is required"
@@ -64,7 +64,7 @@
                     <p:message for="street" />
 
                     <h:outputLabel value="Zip Code" />
-                    <p:inputText value="#{userRegistration.address.zip}"
+                    <p:inputText value="#{registration.address.zip}"
                                  id="zipCode"
                                  required="true" 
                                  requiredMessage="Zip code is required"
@@ -77,7 +77,7 @@
 
 
                     <h:outputLabel value="State" />
-                    <p:inputText value="#{userRegistration.address.state}"
+                    <p:inputText value="#{registration.address.state}"
                                  id="state"
                                  required="true" 
                                  requiredMessage="state is required"
@@ -89,18 +89,16 @@
 
 
                     <h:outputLabel value="Email" />
-                    <p:inputText value="#{userRegistration.patient.email}"
+                    <p:inputText value="#{registration.patient.email}"
                                  id="email"
                                  validatorMessage="Invalid Email">
                         <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
                     </p:inputText>
                     <p:message for="email" />
-                    <h:commandButton value="Register" action="#{userRegistration.registerUser}"/>
+                    <h:commandButton value="Register" action="#{registration.registerUser()}"/>
                 </h:panelGrid>
             </p:fieldset>
-        </h:form>       
-
-
+        </h:form>   
     </h:body>    
     
 </html>
