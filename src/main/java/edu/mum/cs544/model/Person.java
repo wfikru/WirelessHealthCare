@@ -6,7 +6,11 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import static java.util.Calendar.DAY_OF_YEAR;
+import static java.util.Calendar.YEAR;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +19,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
  * @author zeriet
  */
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
 public class Person implements Serializable {
 
@@ -35,6 +40,8 @@ public class Person implements Serializable {
     private String email;
     @Temporal(TemporalType.DATE)
     private Date dob;
+    @Transient
+    private int age;
     private String userName;
     private String password; //later password can be sent through email
     private Long phone;
@@ -45,6 +52,23 @@ public class Person implements Serializable {
 
     public void setPhone(Long phone) {
         this.phone = phone;
+    }
+
+    public int getAge() {
+        Calendar birth = new GregorianCalendar();
+        birth.setTime(dob);
+        Calendar now = new GregorianCalendar();
+        now.setTime(new Date());
+        int adjust = 0;
+        if (now.get(DAY_OF_YEAR) - birth.get(DAY_OF_YEAR) < 0) {
+            adjust = -1;
+        }
+        age = now.get(YEAR) - birth.get(YEAR) + adjust;
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getFirsttName() {
@@ -102,7 +126,6 @@ public class Person implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
     public Long getId() {
         return id;
