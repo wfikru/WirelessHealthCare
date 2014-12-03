@@ -27,31 +27,18 @@ import javax.persistence.TemporalType;
  * @author hiwot
  */
 @Entity
-public class Patient implements Serializable {
+public class Patient extends Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String gender;
-
-//    @Column(unique = true) do it later
-    private String email;
-
-    @Temporal(TemporalType.DATE)
-    private Date dob;
-  
-//    @Column(unique = true) do it later
-    private String username;
-    private String Password;
 
     @OneToOne
     @JoinColumn(name = "address_fk")
     private Address address;
 
-    @OneToMany(mappedBy="patient",fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Symptom> symptoms;// = new ArrayList<Symptom>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
@@ -77,22 +64,6 @@ public class Patient implements Serializable {
         this.history.add(history);
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String Password) {
-        this.Password = Password;
-    }
-
     public List<Prescription> getPrescriptions() {
         return prescriptions;
     }
@@ -109,62 +80,12 @@ public class Patient implements Serializable {
         this.doctors = doctors;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public List<Symptom> getSymptoms() {
         return symptoms;
     }
 
     public void setSymptoms(List<Symptom> symptoms) {
         this.symptoms = symptoms;
-    }
-
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     @Override
