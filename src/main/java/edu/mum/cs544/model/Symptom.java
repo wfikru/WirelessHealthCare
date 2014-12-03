@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -40,6 +41,10 @@ public class Symptom implements Serializable {
     @ManyToOne()
     @JoinColumn(name="patient_fk")    
     private Patient patient;
+    
+    @OneToOne
+    @JoinColumn(name="category_fk")
+    private Category category;
 
     public Patient getPatient() {
         return patient;
@@ -47,6 +52,14 @@ public class Symptom implements Serializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
     
 
