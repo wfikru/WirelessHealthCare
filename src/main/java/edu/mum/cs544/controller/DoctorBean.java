@@ -24,6 +24,7 @@ public class DoctorBean implements Serializable{
     private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
     private List<Symptom> symptoms;
+    private Symptom symptom = new Symptom();
     
     @EJB
     private CategoryFacade categoryFacade;
@@ -54,6 +55,14 @@ public class DoctorBean implements Serializable{
         this.symptoms = symptoms;
     }
 
+    public Symptom getSymptom() {
+        return symptom;
+    }
+
+    public void setSymptom(Symptom symptom) {
+        this.symptom = symptom;
+    }
+
     public CategoryFacade getCategoryFacade() {
         return categoryFacade;
     }
@@ -75,5 +84,9 @@ public class DoctorBean implements Serializable{
         Query query = em.createQuery("Select symptom from Symptom symptom where symptom.category.title = doctorCategory");
         symptoms = query.getResultList();
         return "viewAssignments";
-    }  
+    } 
+    public String symptomDetail(Symptom s){
+        symptom = s;
+        return "viewSymptomDetail";
+    }
 }
