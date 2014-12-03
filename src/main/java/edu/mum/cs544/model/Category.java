@@ -69,16 +69,16 @@ public class Category implements Serializable {
         return patients;
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
+    public void setPatients(Patient patients) {
+        this.patients.add(patients);
     }
 
     public List<Doctor> getDoctors() {
         return doctors;
     }
 
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors = doctors;
+    public void setDoctors(Doctor doctors) {
+        this.doctors.add(doctors);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firsttName;
+    private String firstName;
     private String lastName;
     private String gender;
     private String email;
@@ -47,12 +47,12 @@ public class Person implements Serializable {
         this.phone = phone;
     }
 
-    public String getFirsttName() {
-        return firsttName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirsttName(String firsttName) {
-        this.firsttName = firsttName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
