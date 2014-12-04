@@ -60,8 +60,8 @@ public class VirtualPatient implements Serializable {
     public Patient getPatient(){
       String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
         String bindParam = "userName";        
-        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);      
-        return this.patientFacade.find(this);
+        return this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);      
+        
     
     }
 
