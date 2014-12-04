@@ -5,6 +5,7 @@
  */
 package edu.mum.cs544.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+//import javax.persistence.Transient;
 
 /**
  *
@@ -27,12 +29,12 @@ public class Doctor extends Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String specialization;
-
     private int workExp;
+
+    private boolean editable;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_fk", nullable = false)
@@ -43,18 +45,10 @@ public class Doctor extends Person implements Serializable {
             joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
-    
+
     @ManyToOne
-    @JoinColumn(name="category_fk")//, nullable = false)
+    @JoinColumn(name = "category_fk", nullable = false)
     private Category category;
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
 
     public int getWorkExp() {
         return workExp;
@@ -62,6 +56,22 @@ public class Doctor extends Person implements Serializable {
 
     public void setWorkExp(int workExp) {
         this.workExp = workExp;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Patient> getPatients() {
@@ -79,21 +89,12 @@ public class Doctor extends Person implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     @Override
@@ -106,7 +107,7 @@ public class Doctor extends Person implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Doctor)) {
+        if (!(object instanceof MedicalHistory)) {
             return false;
         }
         Doctor other = (Doctor) object;
@@ -115,10 +116,5 @@ public class Doctor extends Person implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "edu.mum.cs544.model.Doctor[ id=" + id + " ]";
-    }
-
+    
 }

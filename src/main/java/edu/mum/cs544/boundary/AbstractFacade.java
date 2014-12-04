@@ -39,6 +39,11 @@ public abstract class AbstractFacade<T> {
         query.setParameter(bindParam, bindValue);
         return (T) query.getSingleResult();    
         }
+     public List<T> findListByQuery(List<T> entity, String yourQuery, String bindParam,String bindValue){
+        Query query =  getEntityManager().createQuery(yourQuery);
+        query.setParameter(bindParam, bindValue);
+        return (List<T>) query.getResultList();    
+        }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
