@@ -12,7 +12,6 @@
             <h:dataTable value="#{administrator.doc}" var="dr"  >
 
                 <h:column>
-
                     <f:facet name="header">First Name</f:facet>
 
                     <h:inputText value="#{dr.firstName}" size="10" rendered="#{dr.editable}" />
@@ -43,10 +42,10 @@
 
                 <h:column>
                     <f:facet name="header">Edit</f:facet>
-                    <h:commandLink value="Edit"  action="#{administrator.editRecord(dr)}" rendered="#{not dr.editable}" />
+                    <h:commandLink value="Edit"  action="#{administrator.editDocRecord()}" rendered="#{not dr.editable}" />
                 </h:column>
             </h:dataTable>
-            <h:commandButton value="Save Changes" action="#{administrator.saveChanges()}" />
+            <h:commandButton value="Save Changes" action="#{administrator.saveDocChanges()}" />
         </h:form>
     </h:body>
 </html>

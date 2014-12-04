@@ -6,7 +6,6 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,27 +25,32 @@ import javax.persistence.OneToMany;
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
+    private boolean editable;
 
-    @ManyToMany
-    @JoinTable(name = "patient_category",
-            joinColumns = @JoinColumn(name = "category_fk"),
-            inverseJoinColumns = @JoinColumn(name = "patient_fk"))
     List<Patient> patients;
-//    
-    @OneToMany(mappedBy = "category")
+
     List<Doctor> doctors;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Transient
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public String getTitle() {
@@ -65,21 +69,26 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-//    public List<Patient> getPatients() {
-//        return patients;
-//    }
-//
-//    public void setPatients(List<Patient> patients) {
-//        this.patients = patients;
-//    }
-//
-//    public List<Doctor> getDoctors() {
-//        return doctors;
-//    }
-//
-//    public void setDoctors(List<Doctor> doctors) {
-//        this.doctors = doctors;
-//    }
+    @ManyToMany
+    @JoinTable(name = "patient_category",
+            joinColumns = @JoinColumn(name = "category_fk"),
+            inverseJoinColumns = @JoinColumn(name = "patient_fk"))
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    @OneToMany(mappedBy = "category")
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
+    }
 
     @Override
     public int hashCode() {

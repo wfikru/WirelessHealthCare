@@ -53,6 +53,15 @@
                     </h:selectOneRadio>
                     <p:message for="gender" />
 
+                    <h:outputLabel value="User Name" />
+                    <p:inputText value="#{registration.patient.userName}"
+                                 id="userName"></p:inputText>
+                    <p:message for="userName" />
+
+                    <h:outputLabel value="Password" />
+                    <p:inputText value="#{registration.patient.password}"
+                                 id="password"></p:inputText>
+                    <p:message for="password" />
 
                     <h:outputLabel value="Street" />
                     <p:inputText value="#{registration.address.street}"
@@ -100,6 +109,6 @@
             </p:fieldset>
         </h:form>   
     </h:body>    
-    
+
 </html>
 
