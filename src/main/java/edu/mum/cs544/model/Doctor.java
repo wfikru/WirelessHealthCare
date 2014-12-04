@@ -45,7 +45,7 @@ public class Doctor extends Person implements Serializable {
     private List<Patient> patients;
     
     @ManyToOne
-    @JoinColumn(name="category_fk")//, nullable = false)
+    @JoinColumn(name="category_fk", nullable = false)
     private Category category;
 
     public String getSpecialization() {

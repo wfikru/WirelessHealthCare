@@ -109,12 +109,13 @@
                 <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
             </p:inputText>
             <p:message for="email" />
-            
+
             <h:outputLabel value="Specialization" />
-            <p:selectOneMenu value="" id="list" label="Specialization">
-                <f:ajax execute="list" render="list" event="click"/>
-                <c:forEach var="cat" items="#{registration.loadCatagories()}">
-                    <f:selectItem itemValue="#{cat.title}"/>
+            <h:outputLabel value="#{registration.categories.size()}" />
+            <p:selectOneMenu value="#{registration.doctor.category.title}" id="list" label="Specialization">
+                <!--<f:ajax execute="list" render="list" event="click"/>-->
+                <c:forEach var="cat" items="#{registration.categories}">
+                           <f:selectItem value="#{cat.title}"/>
                 </c:forEach>                
             </p:selectOneMenu>
             <br/>

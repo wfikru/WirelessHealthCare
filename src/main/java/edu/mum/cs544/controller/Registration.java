@@ -49,7 +49,12 @@ public class Registration implements Serializable {
     private Address address = new Address();
     private Doctor doctor = new Doctor();
     private Category category = new Category();
+    private List<Category> categories;
 
+    public List<Category> getCategories() {
+        return categories;
+    }
+    
     public Address getAddress() {
         return address;
     }
@@ -79,7 +84,7 @@ public class Registration implements Serializable {
 
     public String registerDoctor() {
         this.doctor.setAddress(address);
-        this.doctor.setCategory(category);
+        this.doctor.setCategory(category);///
 
         this.addressFacade.create(address);
         this.doctorFacade.create(doctor);
@@ -91,8 +96,8 @@ public class Registration implements Serializable {
         return "AdminPortal";
     }
 
-    public List<Category> loadCatagories() {
-        List<Category> category = this.categoryFacade.findAll();
-        return category;
+    public String loadCatagories() {
+        this.categories = this.categoryFacade.findAll();
+        return "DoctorRegistration";
     }
 }

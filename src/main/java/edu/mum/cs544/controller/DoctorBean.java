@@ -11,6 +11,7 @@ import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -20,6 +21,7 @@ import javax.persistence.Query;
  * @author hiwot
  */
 @Named("doctor")
+@SessionScoped
 public class DoctorBean implements Serializable{
     private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
