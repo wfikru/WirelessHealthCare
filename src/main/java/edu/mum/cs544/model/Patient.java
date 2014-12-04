@@ -38,7 +38,7 @@ public class Patient extends Person implements Serializable {
     @JoinColumn(name = "address_fk")
     private Address address;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient")
     private List<Symptom> symptoms;// = new ArrayList<Symptom>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
@@ -55,9 +55,9 @@ public class Patient extends Person implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "prescription_fk")
     private List<Prescription> prescriptions;
-
-    @ManyToMany(mappedBy = "patients")
-    private List<Category> categories;
+//
+//    @ManyToMany(mappedBy = "patients")
+//    private List<Category> categories;
     
     public List<MedicalHistory> getHistory() {
         return history;
@@ -75,13 +75,13 @@ public class Patient extends Person implements Serializable {
         this.prescriptions = prescriptions;
     }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
+//    public List<Category> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(List<Category> categories) {
+//        this.categories = categories;
+//    }
 
     public List<Doctor> getDoctors() {
         return doctors;

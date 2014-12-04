@@ -50,7 +50,7 @@ public class Doctor extends Person implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
     
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="category_fk", nullable = false)
     private Category category;
 
