@@ -14,7 +14,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-
+        <h:form>
             <p:dataTable value="#{doctor.symptoms}" var="symptom">
                 <p:column headerText="Submission Date">
                     <h:outputText value="#{symptom.date}"/>
@@ -32,10 +32,10 @@ and open the template in the editor.
                     <h:outputText value="#{symptom.systolic}"/>
                 </p:column>
                 <p:column headerText="">
-                    <p:link value="Detail" outcome="viewSymptomDetail">
-                            <f:param name="productId" value="10" />
-                    </p:link>
+                    <p:commandLink value="Detail" action="viewSymptomDetail"/>
+                            
                 </p:column>
             </p:dataTable>
+        </h:form>
     </body>
 </html>
