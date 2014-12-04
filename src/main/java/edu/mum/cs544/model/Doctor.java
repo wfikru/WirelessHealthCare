@@ -45,18 +45,19 @@ public class Doctor extends Person implements Serializable {
             joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
-//<<<<<<< HEAD
 
     @ManyToOne
     @JoinColumn(name = "category_fk", nullable = false)
-//=======
-//    
-//    @OneToOne
-//    @JoinColumn(name="category_fk", nullable = false)
-//>>>>>>> origin/master
     private Category category;
 
-    @Transient
+    public int getWorkExp() {
+        return workExp;
+    }
+
+    public void setWorkExp(int workExp) {
+        this.workExp = workExp;
+    }
+
     public boolean isEditable() {
         return editable;
     }
@@ -65,12 +66,12 @@ public class Doctor extends Person implements Serializable {
         this.editable = editable;
     }
 
-    public int getWorkExp() {
-        return workExp;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setWorkExp(int workExp) {
-        this.workExp = workExp;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Patient> getPatients() {
@@ -88,21 +89,12 @@ public class Doctor extends Person implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     @Override
@@ -115,7 +107,7 @@ public class Doctor extends Person implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Doctor)) {
+        if (!(object instanceof MedicalHistory)) {
             return false;
         }
         Doctor other = (Doctor) object;
@@ -124,10 +116,5 @@ public class Doctor extends Person implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "edu.mum.cs544.model.Doctor[ id=" + id + " ]";
-    }
-
+    
 }

@@ -54,9 +54,9 @@ public class Patient extends Person implements Serializable {
     @JoinColumn(name = "prescription_fk")
     
     private List<Prescription> prescriptions;
-
-    @ManyToMany(mappedBy = "patients")
-    private List<Category> categories;
+//
+//    @ManyToMany(mappedBy = "patients")
+//    private List<Category> categories;
     
     public List<MedicalHistory> getHistory() {
         return history;
@@ -74,13 +74,13 @@ public class Patient extends Person implements Serializable {
         this.prescriptions = prescriptions;
     }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
+//    public List<Category> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(List<Category> categories) {
+//        this.categories = categories;
+//    }
 
     public List<Doctor> getDoctors() {
         return doctors;
