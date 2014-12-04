@@ -109,18 +109,16 @@
                 <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
             </p:inputText>
             <p:message for="email" />
-            
+
             <h:outputLabel value="Specialization" />
-            <p:selectOneMenu value="" id="list" label="Specialization">
-                <f:ajax execute="list" render="list" event="click"/>
-                <c:forEach var="cat" items="#{registration.loadCatagories()}">
-                    <f:selectItem itemValue="#{cat.title}"/>
-                </c:forEach>                
+
+            <p:selectOneMenu id="list" value="#{registration.doctor.category.title}" >
+                <f:selectItem itemLabel="Specialization" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{registration.categories}" var="cat" itemValue="#{cat.title}" itemLabel="#{cat.title}"/>
             </p:selectOneMenu>
             <br/>
             <h:commandButton value="Register" action="#{registration.registerDoctor()}"/>
-        </h:form>       
-
+        </h:form> 
     </h:body>
 </html>
 

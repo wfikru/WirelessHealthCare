@@ -5,6 +5,7 @@
  */
 package edu.mum.cs544.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+//import javax.persistence.Transient;
 
 /**
  *
@@ -27,12 +29,12 @@ public class Doctor extends Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String specialization;
-
     private int workExp;
+
+    private boolean editable;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_fk", nullable = false)
@@ -43,17 +45,18 @@ public class Doctor extends Person implements Serializable {
             joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
-    
+
     @ManyToOne
-    @JoinColumn(name="category_fk")//, nullable = false)
+    @JoinColumn(name = "category_fk", nullable = false)
     private Category category;
 
-    public String getSpecialization() {
-        return specialization;
+    @Transient
+    public boolean isEditable() {
+        return editable;
     }
 
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public int getWorkExp() {
