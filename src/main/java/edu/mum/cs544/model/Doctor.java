@@ -45,9 +45,15 @@ public class Doctor extends Person implements Serializable {
             joinColumns = @JoinColumn(name = "doctor_fk", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk", referencedColumnName = "ID"))
     private List<Patient> patients;
+//<<<<<<< HEAD
 
     @ManyToOne
     @JoinColumn(name = "category_fk", nullable = false)
+//=======
+//    
+//    @OneToOne
+//    @JoinColumn(name="category_fk", nullable = false)
+//>>>>>>> origin/master
     private Category category;
 
     @Transient

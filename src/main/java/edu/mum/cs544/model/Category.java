@@ -37,7 +37,7 @@ public class Category implements Serializable {
             joinColumns = @JoinColumn(name = "category_fk"),
             inverseJoinColumns = @JoinColumn(name = "patient_fk"))
     List<Patient> patients;
-    
+//    
     @OneToMany(mappedBy = "category")
     List<Doctor> doctors;
 
@@ -65,21 +65,21 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(Patient patients) {
-        this.patients.add(patients);
-    }
-
-    public List<Doctor> getDoctors() {
-        return doctors;
-    }
-
-    public void setDoctors(Doctor doctors) {
-        this.doctors.add(doctors);
-    }
+//    public List<Patient> getPatients() {
+//        return patients;
+//    }
+//
+//    public void setPatients(List<Patient> patients) {
+//        this.patients = patients;
+//    }
+//
+//    public List<Doctor> getDoctors() {
+//        return doctors;
+//    }
+//
+//    public void setDoctors(List<Doctor> doctors) {
+//        this.doctors = doctors;
+//    }
 
     @Override
     public int hashCode() {

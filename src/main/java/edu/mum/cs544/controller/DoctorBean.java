@@ -6,6 +6,7 @@
 package edu.mum.cs544.controller;
 
 import edu.mum.cs544.boundary.CategoryFacade;
+import edu.mum.cs544.boundary.SymptomFacade;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
@@ -28,6 +29,8 @@ public class DoctorBean implements Serializable{
     
     @EJB
     private CategoryFacade categoryFacade;
+     @EJB
+    private SymptomFacade symptomFacade;
     
     private EntityManager em;
 
@@ -71,6 +74,14 @@ public class DoctorBean implements Serializable{
         this.categoryFacade = categoryFacade;
     }
 
+    public SymptomFacade getSymptomFacade() {
+        return symptomFacade;
+    }
+
+    public void setSymptomFacade(SymptomFacade symptomFacade) {
+        this.symptomFacade = symptomFacade;
+    }
+
     public EntityManager getEm() {
         return em;
     }
@@ -81,12 +92,18 @@ public class DoctorBean implements Serializable{
     
     public String viewMyAssignments(){
         String doctorCategory = doctor.getCategory().getTitle();
-        Query query = em.createQuery("Select symptom from Symptom symptom where symptom.category.title = doctorCategory");
-        symptoms = query.getResultList();
+        String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title =:catTitle";
+//        query.setParameter("catTitle",doctorCategory);
+//        symptoms = query.getResultList();
+        symptoms= symptomFacade.findListByQuery(symptoms, query, "catTitle", doctorCategory);
         return "viewAssignments";
     } 
     public String symptomDetail(Symptom s){
         symptom = s;
         return "viewSymptomDetail";
+    }
+    public String writePrescription(Symptom s){
+        symptom = s;
+        return "prescriptionForm";
     }
 }
