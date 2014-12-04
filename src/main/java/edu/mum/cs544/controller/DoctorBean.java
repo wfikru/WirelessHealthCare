@@ -6,8 +6,14 @@
 package edu.mum.cs544.controller;
 
 import edu.mum.cs544.boundary.CategoryFacade;
+import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.boundary.MedicineFacade;
+import edu.mum.cs544.boundary.PatientFacade;
+import edu.mum.cs544.boundary.PrescriptionFacade;
 import edu.mum.cs544.boundary.SymptomFacade;
 import edu.mum.cs544.model.Doctor;
+import edu.mum.cs544.model.Medicine;
+import edu.mum.cs544.model.Prescription;
 import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
 import java.util.List;
@@ -22,18 +28,29 @@ import javax.persistence.Query;
  * @author hiwot
  */
 @Named("doctor")
-@SessionScoped
-public class DoctorBean implements Serializable{
+public class DoctorBean implements Serializable {
+
     private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
     private List<Symptom> symptoms;
     private Symptom symptom = new Symptom();
-    
+    private List<Medicine> medicines;
+    private Medicine medicine = new Medicine();
+    private Prescription prescription = new Prescription();
+
     @EJB
     private CategoryFacade categoryFacade;
-     @EJB
+    @EJB
     private SymptomFacade symptomFacade;
-    
+    @EJB
+    private DoctorFacade doctorFacade;
+    @EJB
+    private MedicineFacade medicineFacade;
+    @EJB
+    private PatientFacade patientFacade;
+    @EJB
+    private PrescriptionFacade prescriptionFacade;
+
     private EntityManager em;
 
     public Doctor getDoctor() {
@@ -68,6 +85,31 @@ public class DoctorBean implements Serializable{
         this.symptom = symptom;
     }
 
+    public List<Medicine> getMedicines() {
+        medicines = medicineFacade.findAll();
+        return medicines;
+    }
+
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines = medicines;
+    }
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
+
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
+    }
+
     public CategoryFacade getCategoryFacade() {
         return categoryFacade;
     }
@@ -84,6 +126,38 @@ public class DoctorBean implements Serializable{
         this.symptomFacade = symptomFacade;
     }
 
+    public DoctorFacade getDoctorFacade() {
+        return doctorFacade;
+    }
+
+    public void setDoctorFacade(DoctorFacade doctorFacade) {
+        this.doctorFacade = doctorFacade;
+    }
+
+    public MedicineFacade getMedicineFacade() {
+        return medicineFacade;
+    }
+
+    public void setMedicineFacade(MedicineFacade medicineFacade) {
+        this.medicineFacade = medicineFacade;
+    }
+
+    public PatientFacade getPatientFacade() {
+        return patientFacade;
+    }
+
+    public void setPatientFacade(PatientFacade patientFacade) {
+        this.patientFacade = patientFacade;
+    }
+
+    public PrescriptionFacade getPrescriptionFacade() {
+        return prescriptionFacade;
+    }
+
+    public void setPrescriptionFacade(PrescriptionFacade prescriptionFacade) {
+        this.prescriptionFacade = prescriptionFacade;
+    }
+
     public EntityManager getEm() {
         return em;
     }
@@ -91,21 +165,30 @@ public class DoctorBean implements Serializable{
     public void setEm(EntityManager em) {
         this.em = em;
     }
-    
-    public String viewMyAssignments(){
+
+    public String viewMyAssignments() {
         String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title =:catTitle";
 //        query.setParameter("catTitle",doctorCategory);
 //        symptoms = query.getResultList();
-        symptoms= symptomFacade.findListByQuery(symptoms, query, "catTitle", doctorCategory);
+        symptoms = symptomFacade.findListByQuery(symptoms, query, "catTitle", doctorCategory);
         return "viewAssignments";
-    } 
-    public String symptomDetail(Symptom s){
+    }
+
+    public String symptomDetail(Symptom s) {
         symptom = s;
         return "viewSymptomDetail";
     }
-    public String writePrescription(Symptom s){
-        symptom = s;
-        return "prescriptionForm";
+
+    public String writePrescription() {
+        doctor.getPatients().add(symptom.getPatient());
+        doctorFacade.edit(doctor);
+        symptom.getPatient().getDoctors().add(doctor);
+        patientFacade.edit(symptom.getPatient());
+        prescription.getMedicines().add(medicine);
+        symptom.getPatient().getPrescriptions().add(prescription);
+        prescriptionFacade.create(prescription);
+        patientFacade.edit(symptom.getPatient());
+        return "prescriptionConfirmation";
     }
 }

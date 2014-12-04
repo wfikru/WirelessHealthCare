@@ -15,9 +15,15 @@ import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.mail.MessagingException;
+import webServices.BundleMessages;
+import webServices.MailService;
 
 /**
  *
@@ -41,14 +47,22 @@ public class Registration implements Serializable {
 
     public Registration() {
     }
+    
+    // email service
+    private String recipient;
+    private String subject="Welcome to VHC";
+   
+    private String statusMessage = "";
+ 
+    //
 
-//    public String generateID()
-//    {        
-//    }
     private Patient patient = new Patient();
     private Address address = new Address();
     private Doctor doctor = new Doctor();
     private Category category = new Category();
+    private BundleMessages bundle1=new BundleMessages();
+     private String message=bundle1.getPatientWelcome();
+
     private List<Category> categories;
 
     public List<Category> getCategories() {
@@ -79,7 +93,15 @@ public class Registration implements Serializable {
     public String registerUser() {
         this.patient.setAddress(address);
         this.addressFacade.create(address);
-        this.patientFacade.create(patient);
+        this.patientFacade.create(patient);    
+        
+        recipient=this.patient.getEmail();
+        try {
+            MailService.sendMessage(recipient, subject, message);
+        } catch (MessagingException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return "home";
     }
 
@@ -89,6 +111,7 @@ public class Registration implements Serializable {
 
         return cat;
     }
+
 
     public String registerDoctor() {
         this.doctor.setAddress(address);
