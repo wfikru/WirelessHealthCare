@@ -5,7 +5,9 @@
  */
 package edu.mum.cs544.controller;
 
+import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.model.Category;
 import edu.mum.cs544.model.Doctor;
 import java.io.Serializable;
 import static java.util.Collections.list;
@@ -14,13 +16,14 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+
 /**
  *
  * @author FWorku
  */
 @Named(value = "administrator")
 @SessionScoped
-public class Administrator implements Serializable{
+public class Administrator implements Serializable {
 
     /**
      * Creates a new instance of Administrator
@@ -29,8 +32,9 @@ public class Administrator implements Serializable{
     }
     @EJB
     private DoctorFacade doctorFacade;
+
     private Doctor doctor;
-    
+
     private List<Doctor> doc;
 
     public Doctor getDoctor() {
@@ -40,12 +44,11 @@ public class Administrator implements Serializable{
     public List<Doctor> getDoc() {
         return doc;
     }
-    
-    public String editDoctorList()
-    {
+
+    public String editDoctorList() {
         this.doc = this.doctorFacade.findAll();
-        
+
         return "manageDoctorsList";
     }
-    
+
 }

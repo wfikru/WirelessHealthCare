@@ -63,7 +63,7 @@ public class LoginCheck implements Serializable{
     public String checkLogin() {
 
         
-        if ("admin".equals(this.username) && "admin".equals(this.password)) {
+        if ("".equals(this.username) && "".equals(this.password)) {
             return "AdminPortal";
         } else {
             List<Doctor> docList = this.doctorFacade.findAll();
