@@ -8,6 +8,7 @@ package edu.mum.cs544.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -51,6 +52,7 @@ public class Patient extends Person implements Serializable {
     //also have a different  as history
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "prescription_fk")
+    
     private List<Prescription> prescriptions;
 //
 //    @ManyToMany(mappedBy = "patients")

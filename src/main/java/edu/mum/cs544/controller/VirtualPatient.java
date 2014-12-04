@@ -7,10 +7,12 @@ package edu.mum.cs544.controller;
 
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.boundary.SymptomFacade;
+import edu.mum.cs544.model.MedicalHistory;
 import edu.mum.cs544.model.Patient;
 import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -50,14 +52,27 @@ public class VirtualPatient implements Serializable {
     public void setSymptom(Symptom symptom) {
         this.symptom = symptom;
     }
+    
+    public List<MedicalHistory> getPatientHistory(){    
+        return getPatient().getHistory();    
+    }
+    
+    public Patient getPatient(){
+      String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
+        String bindParam = "userName";        
+        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);      
+        return this.patientFacade.find(this);
+    
+    }
 
     public String submitSysmptom() {
 
-        String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
-        String bindParam = "userName";        
-        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);
-        System.out.println("===================================="+patient.getLastName());
-
+//        String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
+//        String bindParam = "userName";        
+//        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);
+//        System.out.println("===================================="+patient.getLastName());
+        
+          patient = getPatient();  
              
 //        Query query = em.createQuery(stmQuery);// change firstName to username later
 //        query.setParameter(bindParam, userName);//

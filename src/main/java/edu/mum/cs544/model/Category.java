@@ -27,19 +27,19 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
 
-//    @ManyToMany
-//    @JoinTable(name = "patient_category",
-//            joinColumns = @JoinColumn(name = "category_fk"),
-//            inverseJoinColumns = @JoinColumn(name = "patient_fk"))
-//    List<Patient> patients;
+    @ManyToMany
+    @JoinTable(name = "patient_category",
+            joinColumns = @JoinColumn(name = "category_fk"),
+            inverseJoinColumns = @JoinColumn(name = "patient_fk"))
+    List<Patient> patients;
 //    
-//    @OneToMany(mappedBy = "category")
-//    List<Doctor> doctors;
+    @OneToMany(mappedBy = "category")
+    List<Doctor> doctors;
 
     public Long getId() {
         return id;

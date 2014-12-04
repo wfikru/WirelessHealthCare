@@ -9,36 +9,44 @@
     <h:body>
         <h:form>
 
-            <h:dataTable value="#{administrator.doc}" var="dr" border="1">
+            <h:dataTable value="#{administrator.doc}" var="dr"  >
 
                 <h:column>
-                    
+
                     <f:facet name="header">First Name</f:facet>
-                    
-                    #{dr.firstName}
+
+                    <h:inputText value="#{dr.firstName}" size="10" rendered="#{dr.editable}" />
+
+                    <h:outputText value="#{dr.firstName}" rendered="#{not dr.editable}" />
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Last Name</f:facet>
-                        #{dr.lastName}
+                    <h:inputText value="#{dr.lastName}" size="10" rendered="#{dr.editable}" />
+
+                    <h:outputText value="#{dr.lastName}" rendered="#{not dr.editable}" />
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Gender</f:facet>
-                        #{dr.gender}
+                    <h:inputText value="#{dr.gender}" size="10" rendered="#{dr.editable}" />
+
+                    <h:outputText value="#{dr.gender}" rendered="#{not dr.editable}" />
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Specialization</f:facet>
-                        #{dr.specialization}
+                    <h:inputText value="#{dr.category.title}"  size="10" rendered="#{dr.editable}" />
+
+                    <h:outputText value="#{dr.category.title}" rendered="#{not dr.editable}" />
                 </h:column>
-                
+
                 <h:column>
                     <f:facet name="header">Edit</f:facet>
-                    <h:commandButton value="Edit" />
+                    <h:commandLink value="Edit"  action="#{administrator.editRecord(dr)}" rendered="#{not dr.editable}" />
                 </h:column>
             </h:dataTable>
-            <h:commandButton value="Save changes" />
+            <h:commandButton value="Save Changes" action="#{administrator.saveChanges()}" />
         </h:form>
     </h:body>
 </html>

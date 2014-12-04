@@ -92,7 +92,7 @@
                     <p:inputText value="#{registration.patient.email}"
                                  id="email"
                                  validatorMessage="Invalid Email">
-                        <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
+                        <f:validateRegex pattern="[a-zA-Z0-9_.+-]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
                     </p:inputText>
                     <p:message for="email" />
                     <h:commandButton value="Register" action="#{registration.registerUser()}"/>
