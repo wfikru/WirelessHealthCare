@@ -111,6 +111,7 @@ public class Registration implements Serializable {
 
         return cat;
     }
+    
 
     public String registerDoctor() {
         this.doctor.setAddress(address);
