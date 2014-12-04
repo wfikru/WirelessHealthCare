@@ -54,6 +54,10 @@ public class Registration implements Serializable {
     public List<Category> getCategories() {
         return categories;
     }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
     
     public Address getAddress() {
         return address;
@@ -64,6 +68,7 @@ public class Registration implements Serializable {
     }
 
     public Doctor getDoctor() {
+        this.doctor.setCategory(category);
         return doctor;
     }
 
@@ -82,10 +87,17 @@ public class Registration implements Serializable {
         return "home";
     }
 
+    public Category findCatagory(String title) {
+        String query = "SELECT c FROM Category c WHERE c.title = :"+category.getTitle();
+        Category cat = this.categoryFacade.findSingleByQuery(category, query, category.getTitle(), title);
+
+        return cat;
+    }
+
     public String registerDoctor() {
         this.doctor.setAddress(address);
-        this.doctor.setCategory(category);///
-
+        this.category = findCatagory(this.doctor.getCategory().getTitle());
+        this.doctor.setCategory(category);
         this.addressFacade.create(address);
         this.doctorFacade.create(doctor);
         return "home";
