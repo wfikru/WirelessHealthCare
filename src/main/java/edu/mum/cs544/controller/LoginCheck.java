@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
  */
 @Named(value = "loginCheck")
 @SessionScoped
-public class LoginCheck implements Serializable{
+public class LoginCheck implements Serializable {
 
     /**
      * Creates a new instance of LoginCheck
@@ -74,7 +74,6 @@ public class LoginCheck implements Serializable{
 //    }
     public String checkLogin() {
 
-        
         if ("".equals(this.username) && "".equals(this.password)) {
             return "AdminPortal";
         } else {
@@ -84,7 +83,7 @@ public class LoginCheck implements Serializable{
                     return "DoctorPortal";
                 }
             }
-            
+
             List<Patient> patList = this.patientFacade.findAll();
             for (Patient pat : patList) {
                 if (this.username.equals(pat.getEmail()) && this.password.equals(pat.getPassword())) {
