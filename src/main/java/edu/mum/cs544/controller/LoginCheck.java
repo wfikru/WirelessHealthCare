@@ -40,6 +40,7 @@ public class LoginCheck implements Serializable {
     private String username;
     private String password;
     private Doctor doctor;
+    private Patient patient=new Patient();
 
     public Doctor getDoctor() {
         return doctor;
@@ -84,6 +85,7 @@ public class LoginCheck implements Serializable {
             List<Doctor> docList = this.doctorFacade.findAll();
             for (Doctor doc : docList) {
                 if (this.username.equals( doc.getEmail()) && this.password.equals(doc.getPassword())) {
+                    this.doctor = doc;
                     return "DoctorPortal";
                 }
             }
