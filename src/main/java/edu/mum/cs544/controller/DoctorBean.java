@@ -16,8 +16,10 @@ import edu.mum.cs544.model.Medicine;
 import edu.mum.cs544.model.Prescription;
 import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -27,15 +29,17 @@ import javax.persistence.Query;
  * @author hiwot
  */
 @Named("doctor")
+@SessionScoped
 public class DoctorBean implements Serializable {
 
-    private Doctor doctor = new Doctor();
+    private Doctor doctor = new LoginCheck().getDoctor();
     private List<Doctor> doctors;
     private List<Symptom> symptoms;
     private Symptom symptom = new Symptom();
     private List<Medicine> medicines;
     private Medicine medicine = new Medicine();
     private Prescription prescription = new Prescription();
+    List<String> medicineNames = new ArrayList<String>();
 
     @EJB
     private CategoryFacade categoryFacade;
@@ -165,12 +169,14 @@ public class DoctorBean implements Serializable {
         this.em = em;
     }
 
-    public String viewMyAssignments() {
-        String doctorCategory = doctor.getCategory().getTitle();
+    public String viewMyAssignments(Doctor doc) {
+        doctor = doc;
+        String doctorCategory = doc.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title =:catTitle";
 //        query.setParameter("catTitle",doctorCategory);
 //        symptoms = query.getResultList();
         symptoms = symptomFacade.findListByQuery(symptoms, query, "catTitle", doctorCategory);
+        symptoms = symptomFacade.findAll();
         return "viewAssignments";
     }
 
@@ -190,4 +196,16 @@ public class DoctorBean implements Serializable {
         patientFacade.edit(symptom.getPatient());
         return "prescriptionConfirmation";
     }
+
+    public List<String> getMedicineNames() {
+        for (Medicine m : medicineFacade.findAll()) {
+            medicineNames.add(m.getNameOfMedicine());
+        }
+        return medicineNames;
+    }
+
+    public void setMedicineNames(List<String> medicineNames) {
+        this.medicineNames = medicineNames;
+    }
+    
 }

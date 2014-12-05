@@ -31,6 +31,7 @@ public class Medicine implements Serializable {
     private Date startDate;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
+    private String description;
 
     public Long getId() {
         return id;
@@ -70,6 +71,14 @@ public class Medicine implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

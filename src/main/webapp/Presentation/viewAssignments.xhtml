@@ -20,7 +20,7 @@ and open the template in the editor.
                     <h:outputText value="#{symptom.date}"/>
                 </p:column>
                 <p:column headerText="Name">
-                    <h:outputText value="#{symptom.patient.firsttName}#{symptom.patient.lastName}"/>
+                    <h:outputText value="#{symptom.patient.firstName} #{symptom.patient.lastName}"/>
                 </p:column>
                 <p:column headerText="Age">
                     <h:outputText value="#{symptom.patient.age}"/>
@@ -32,7 +32,7 @@ and open the template in the editor.
                     <h:outputText value="#{symptom.systolic}"/>
                 </p:column>
                 <p:column headerText="">
-                    <p:commandLink value="Detail" action="#{doctor.symptomDetail(symptom)}"/>
+                    <h:commandLink value="Detail" action="#{doctor.symptomDetail(symptom)}"/>
                             
                 </p:column>
             </p:dataTable>

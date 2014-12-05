@@ -15,24 +15,24 @@ and open the template in the editor.
     <h:body>
         <h:form>
         <h:panelGrid columns="2">
-            <h:outputText value="Submission Date "/>
-            <h:outputText value="#{doctor.symptom.date}"/>
+            <h:outputText value="Submission Date " />
+            <h:outputText value="#{doctor.symptom.date}" style=" background-color:  aliceblue"/>
             <h:outputText value="Patient Name "/>
-            <h:outputText value="#{doctor.symptom.patient.firsttName}"/>
+            <h:outputText value="#{doctor.symptom.patient.firstName} #{doctor.symptom.patient.lastName}" style=" background-color:  aliceblue"/>
             <h:outputText value="Age "/>
-            <h:outputText value="#{doctor.symptom.patient.age}"/>
+            <h:outputText value="#{doctor.symptom.patient.age}" style=" background-color:  aliceblue"/>
             <h:outputText value="Temprature "/>
-            <h:outputText value="#{doctor.symptom.temperature}"/>
+            <h:outputText value="#{doctor.symptom.temperature}" style=" background-color:  aliceblue"/>
             <h:outputText value="Blood Pressure "/>
-            <h:outputText value="#{doctor.symptom.systolic}"/>
+            <h:outputText value="#{doctor.symptom.systolic}" style=" background-color:  aliceblue"/>
             <h:outputText value="Nausea "/>
-            <h:outputText value="#{doctor.symptom.nausea}"/>
+            <h:outputText value="#{doctor.symptom.nausea}" style=" background-color:  aliceblue"/>
             <h:outputText value="Dizziness "/>
-            <h:outputText value="#{doctor.symptom.dizziness}"/>
+            <h:outputText value="#{doctor.symptom.dizziness}" style=" background-color:  aliceblue"/>
             <h:outputText value="Fatigue "/>
-            <h:outputText value="#{doctor.symptom.fatigue}"/>
+            <h:outputText value="#{doctor.symptom.fatigue}" style=" background-color:  aliceblue"/>
             <h:outputText value="Description "/>
-            <h:outputText value="#{doctor.symptom.description}"/>
+            <h:outputText value="#{doctor.symptom.description}" style=" background-color:  aliceblue"/>
             <h:commandButton value="Prescribe" action="prescriptionForm"/>
         </h:panelGrid>
         </h:form>

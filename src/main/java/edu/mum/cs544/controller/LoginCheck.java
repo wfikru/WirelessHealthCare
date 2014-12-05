@@ -22,7 +22,7 @@ import javax.enterprise.context.SessionScoped;
  */
 @Named(value = "loginCheck")
 @SessionScoped
-public class LoginCheck implements Serializable{
+public class LoginCheck implements Serializable {
 
     /**
      * Creates a new instance of LoginCheck
@@ -37,6 +37,11 @@ public class LoginCheck implements Serializable{
 
     private String username;
     private String password;
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
 
     public String getUsername() {
         return username;
@@ -62,17 +67,17 @@ public class LoginCheck implements Serializable{
 //    }
     public String checkLogin() {
 
-        
         if ("".equals(this.username) && "".equals(this.password)) {
             return "AdminPortal";
         } else {
             List<Doctor> docList = this.doctorFacade.findAll();
             for (Doctor doc : docList) {
-                if (this.username.equals( doc.getUserName()) && this.password.equals(doc.getPassword())) {
+                if (this.username.equals(doc.getUserName()) && this.password.equals(doc.getPassword())) {
+                    this.doctor = doc;
                     return "DoctorPortal";
                 }
             }
-            
+
             List<Patient> patList = this.patientFacade.findAll();
             for (Patient pat : patList) {
                 if (this.username.equals(pat.getUserName()) && this.password.equals(pat.getPassword())) {
