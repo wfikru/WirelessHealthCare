@@ -12,9 +12,9 @@
     <h:body>   
         <h:form>
             <p:fieldset  >
-                <h:panelGrid  columns="3" width="600" border="0">
+                <h:panelGrid  columns="3" width="650" border="0" >                         
+                    
                     <h:outputLabel value="First Name" />
-
                     <p:inputText value="#{registration.patient.firstName}"
                                  id="firstName"
                                  required="true" 
@@ -30,20 +30,16 @@
                                  id="lastName"></p:inputText>
                     <p:message for="lastName" />
 
-
                     <p:outputLabel for="birthdate" value="Date of Birth" />
                     <p:calendar id="birthdate" value="#{registration.patient.dob}"
                                 locale="de" 
                                 navigator="true" 
                                 yearRange="c-100:c-16"
-                                validatorMessage="Year shpule be in MM/dd/yyyy format"
+                                validatorMessage="Year should be in MM/dd/yyyy format"
                                 pattern="MM/dd/yyyy"  >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
-
                     </p:calendar> 
                     <p:message for="birthdate" />
-
-
 
                     <h:outputLabel value="Gender" />
                     <h:selectOneRadio id="gender" 
@@ -52,9 +48,8 @@
                         <f:selectItem itemValue="F" itemLabel="F" />
                     </h:selectOneRadio>
                     <p:message for="gender" />
-
-
-                    <h:outputLabel value="Street" />
+                    
+                     <p:outputLabel value="Street" />
                     <p:inputText value="#{registration.address.street}"
                                  id="street"
                                  required="true" 
@@ -73,8 +68,6 @@
                         <f:validateLength minimum="2" maximum="15" for="zipCode"></f:validateLength>
                     </p:inputText>
                     <p:message for="zipCode" />
-
-
 
                     <h:outputLabel value="State" />
                     <p:inputText value="#{registration.address.state}"
@@ -95,11 +88,31 @@
                         <f:validateRegex pattern="[a-zA-Z0-9_.+-]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>   
                     </p:inputText>
                     <p:message for="email" />
+
+                <h:outputLabel value="Password" />
+                    <p:password id="password" required="true" label="password"
+                                requiredMessage="Please enter your password."
+                                match="confirmPassword" value="#{registration.patient.password}"
+                                maxlength="20">
+                    </p:password>
+                    <p:watermark for="password" value="Password *" />
+                    <p:message for="password" />
+
+                    <h:outputLabel value="Confirm Password" />
+                    <p:password id="confirmPassword" required="true"
+                                requiredMessage="Please confirm your password."
+                                label="confirmPassword" value="#{registration.patient.password}"
+                                maxlength="20">
+                    </p:password>
+                    <p:watermark for="confirmPassword" value="Type Password Again *" />
+                    <p:message for="confirmPassword" />
+
                     <h:commandButton value="Register" action="#{registration.registerUser()}"/>
+                    
                 </h:panelGrid>
             </p:fieldset>
         </h:form>   
     </h:body>    
-    
+
 </html>
 

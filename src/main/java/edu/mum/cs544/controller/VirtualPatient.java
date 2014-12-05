@@ -13,10 +13,15 @@ import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -38,48 +43,29 @@ public class VirtualPatient implements Serializable {
     public VirtualPatient() {
     }
     private Symptom symptom = new Symptom();
-    Patient patient= new Patient();
-      // get the registered patient object
-    private String userName = "zeriet"; // this value should be retrieved when the patient is loggedin 
+    private Patient patient = new Patient();
 
-//    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
-//    private EntityManager em;
     public Symptom getSymptom() {
         return symptom;
     }
-    
 
     public void setSymptom(Symptom symptom) {
         this.symptom = symptom;
     }
-    
-    public List<MedicalHistory> getPatientHistory(){    
-        return getPatient().getHistory();    
-    }
-    
-    public Patient getPatient(){
-      String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
-        String bindParam = "userName";        
-        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);      
-        return this.patientFacade.find(this);
-    
+  
+
+    public List<MedicalHistory> getPatientHistory() {
+        return patient.getHistory();
     }
 
     public String submitSysmptom() {
 
-//        String stmQuery = "SELECT p FROM Patient p WHERE p.firstName = :userName";
-//        String bindParam = "userName";        
-//        patient = this.patientFacade.findSingleByQuery(patient, stmQuery, bindParam, userName);
-//        System.out.println("===================================="+patient.getLastName());
-        
-          patient = getPatient();  
-             
-//        Query query = em.createQuery(stmQuery);// change firstName to username later
-//        query.setParameter(bindParam, userName);//
-//        Patient patient = (Patient) query.getSingleResult();
-        
+       
+        patient = (Patient) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("patientKey");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++" + patient.getEmail());
+
         symptom.setDate(new Date());
-        symptom.setPatient(patient);        
+        symptom.setPatient(patient);
         this.symptomFacade.create(symptom);
         return "symptomSubmitSuccess";
 

@@ -42,7 +42,7 @@ public class Person implements Serializable {
     private Date dob;
     @Transient
     private int age;
-    private String userName;
+   
     private String password; //later password can be sent through email
     private Long phone;
 
@@ -111,15 +111,7 @@ public class Person implements Serializable {
         this.dob = dob;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
+     public String getPassword() {
         return password;
     }
 

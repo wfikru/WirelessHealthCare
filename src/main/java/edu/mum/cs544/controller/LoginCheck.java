@@ -11,10 +11,12 @@ import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -37,7 +39,17 @@ public class LoginCheck implements Serializable{
 
     private String username;
     private String password;
+    private Patient patient=new Patient();
 
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    
     public String getUsername() {
         return username;
     }
@@ -68,14 +80,16 @@ public class LoginCheck implements Serializable{
         } else {
             List<Doctor> docList = this.doctorFacade.findAll();
             for (Doctor doc : docList) {
-                if (this.username.equals( doc.getUserName()) && this.password.equals(doc.getPassword())) {
+                if (this.username.equals( doc.getEmail()) && this.password.equals(doc.getPassword())) {
                     return "DoctorPortal";
                 }
             }
             
             List<Patient> patList = this.patientFacade.findAll();
             for (Patient pat : patList) {
-                if (this.username.equals(pat.getUserName()) && this.password.equals(pat.getPassword())) {
+                if (this.username.equals(pat.getEmail()) && this.password.equals(pat.getPassword())) {
+                    this.patient=pat;
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("patientKey", patient);                    
                     return "PatientPortal";
                 }
             }

@@ -36,7 +36,7 @@ public class Patient extends Person implements Serializable {
     @JoinColumn(name = "address_fk")
     private Address address;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     private List<Symptom> symptoms;// = new ArrayList<Symptom>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
