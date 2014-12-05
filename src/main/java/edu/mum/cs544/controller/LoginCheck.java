@@ -39,7 +39,11 @@ public class LoginCheck implements Serializable {
 
     private String username;
     private String password;
-    private Patient patient=new Patient();
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
 
     public Patient getPatient() {
         return patient;
