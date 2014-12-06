@@ -172,7 +172,8 @@ public class DoctorBean implements Serializable {
     public String viewMyAssignments(Doctor doc) {
         doctor = doc;
         String doctorCategory = doc.getCategory().getTitle();
-        String  query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1";
+        String  query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
+                +" AND symptom.prescribed=false ";
         symptoms = symptomFacade.findListByQuery(query,1,doctorCategory);
         return "viewAssignments";
     }
@@ -183,6 +184,8 @@ public class DoctorBean implements Serializable {
     }
 
     public String writePrescription() {
+        symptom.setPrescribed(true);
+        symptoms.remove(symptom);
         symptom.getPatient().getPrescriptions().add(prescription);
         doctor.getPatients().add(symptom.getPatient());
         symptom.getPatient().getDoctors().add(doctor);

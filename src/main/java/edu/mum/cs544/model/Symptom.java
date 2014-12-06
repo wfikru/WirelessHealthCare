@@ -38,6 +38,8 @@ public class Symptom implements Serializable {
     private double systolic;
     private double diastolic;
     private String description;
+    private boolean prescribed;
+    
     @ManyToOne()
     @JoinColumn(name="patient_fk")    
     private Patient patient;
@@ -134,6 +136,15 @@ public class Symptom implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public boolean isPrescribed() {
+        return prescribed;
+    }
+
+    public void setPrescribed(boolean prescribed) {
+        this.prescribed = prescribed;
+    }
+    
 
     @Override
     public int hashCode() {
