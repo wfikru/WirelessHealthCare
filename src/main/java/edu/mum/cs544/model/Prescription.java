@@ -6,8 +6,10 @@
 package edu.mum.cs544.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,12 +36,12 @@ public class Prescription implements Serializable {
     private Date date;
 
     //one to many unidirectional
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
     @JoinTable(name = "presc_med",
             joinColumns = @JoinColumn(name = "presc_fk"),
             inverseJoinColumns = @JoinColumn(name = "med_fk"))
 
-    private List<Medicine> medicines;
+    private List<Medicine> medicines=new ArrayList<Medicine>();
 
     public List<Medicine> getMedicines() {
         return medicines;

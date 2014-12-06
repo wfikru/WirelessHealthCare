@@ -36,7 +36,7 @@ public class DoctorBean implements Serializable {
     private List<Doctor> doctors;
     private List<Symptom> symptoms;
     private Symptom symptom = new Symptom();
-    private List<Medicine> medicines;
+    private List<Medicine> medicines = new ArrayList<Medicine>();
     private Medicine medicine = new Medicine();
     private Prescription prescription = new Prescription();
     List<String> medicineNames = new ArrayList<String>();
@@ -186,15 +186,36 @@ public class DoctorBean implements Serializable {
     }
 
     public String writePrescription() {
-        doctor.getPatients().add(symptom.getPatient());
-        doctorFacade.edit(doctor);
-        symptom.getPatient().getDoctors().add(doctor);
-        patientFacade.edit(symptom.getPatient());
-        prescription.getMedicines().add(medicine);
+//        prescription.getMedicines().add(medicine);
+//        medicines.add(medicine);
         symptom.getPatient().getPrescriptions().add(prescription);
+        doctor.getPatients().add(symptom.getPatient());
+        symptom.getPatient().getDoctors().add(doctor);
+//        medicineFacade.create(medicine);
         prescriptionFacade.create(prescription);
         patientFacade.edit(symptom.getPatient());
+        doctorFacade.edit(doctor);
         return "prescriptionConfirmation";
+    }
+
+    public String addMedicine() {
+        prescription.getMedicines().add(medicine);
+        medicines.add(medicine);
+        medicine = new Medicine();
+        return "prescriptionForm";
+    }
+
+    public String lastMedicine() {
+        prescription.getMedicines().add(medicine);
+        medicines.add(medicine);
+//        System.out.print(medicine.isEditable());
+        return "confirmPrescription";
+    }
+
+    public String deleteRow(Medicine m) {
+         prescription.getMedicines().remove(m);
+        medicines.remove(medicine);
+        return "confirmPrescription";
     }
 
     public List<String> getMedicineNames() {
@@ -207,5 +228,5 @@ public class DoctorBean implements Serializable {
     public void setMedicineNames(List<String> medicineNames) {
         this.medicineNames = medicineNames;
     }
-    
+
 }

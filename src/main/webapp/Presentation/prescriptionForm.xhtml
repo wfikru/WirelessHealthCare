@@ -17,9 +17,7 @@ and open the template in the editor.
         <h:form>
             <h:panelGrid columns="2">
                 <p:outputLabel value="Medicine"/>
-                <p:selectOneMenu id="list" value="#{doctor.medicine.nameOfMedicine}" >
-                    <f:selectItems value="#{doctor.medicines}" var="med" itemLabel="#{med.nameOfMedicine}" itemValue="#{med.nameOfMedicine}"/>
-                </p:selectOneMenu>     
+                <p:inputText value="#{doctor.medicine.nameOfMedicine}"/>
                 <p:outputLabel value="Units per day "/>
                 <p:inputText value="#{doctor.medicine.unitsPerday}"/>
                 <p:outputLabel value="Start Date "/>
@@ -40,8 +38,8 @@ and open the template in the editor.
                 </p:calendar>
                 <p:outputLabel value="Description "/>
                 <p:inputTextarea value="#{doctor.medicine.description}"/>
-                <h:commandButton value="Add" action="prescriptionForm"/>
-                <h:commandButton value="Submit" action="#{doctor.writePrescription}"/>
+                <h:commandButton value="Add" action="#{doctor.addMedicine}"/>
+                <h:commandButton value="Submit" action="#{doctor.lastMedicine}"/>
             </h:panelGrid>
 
         </h:form>
