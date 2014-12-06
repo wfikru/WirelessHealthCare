@@ -36,7 +36,7 @@ public class DoctorBean implements Serializable {
     private List<Doctor> doctors;
     private List<Symptom> symptoms;
     private Symptom symptom = new Symptom();
-    private List<Medicine> medicines;
+    private List<Medicine> medicines = new ArrayList<Medicine>();
     private Medicine medicine = new Medicine();
     private Prescription prescription = new Prescription();
     List<String> medicineNames = new ArrayList<String>();
@@ -172,11 +172,8 @@ public class DoctorBean implements Serializable {
     public String viewMyAssignments(Doctor doc) {
         doctor = doc;
         String doctorCategory = doc.getCategory().getTitle();
-        String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title =:catTitle";
-//        query.setParameter("catTitle",doctorCategory);
-//        symptoms = query.getResultList();
-        symptoms = symptomFacade.findListByQuery(symptoms, query, "catTitle", doctorCategory);
-        symptoms = symptomFacade.findAll();
+        String  query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1";
+        symptoms = symptomFacade.findListByQuery(query,1,doctorCategory);
         return "viewAssignments";
     }
 
@@ -186,15 +183,33 @@ public class DoctorBean implements Serializable {
     }
 
     public String writePrescription() {
-        doctor.getPatients().add(symptom.getPatient());
-        doctorFacade.edit(doctor);
-        symptom.getPatient().getDoctors().add(doctor);
-        patientFacade.edit(symptom.getPatient());
-        prescription.getMedicines().add(medicine);
         symptom.getPatient().getPrescriptions().add(prescription);
+        doctor.getPatients().add(symptom.getPatient());
+        symptom.getPatient().getDoctors().add(doctor);
         prescriptionFacade.create(prescription);
         patientFacade.edit(symptom.getPatient());
+        doctorFacade.edit(doctor);
         return "prescriptionConfirmation";
+    }
+
+    public String addMedicine() {
+        prescription.getMedicines().add(medicine);
+        medicines.add(medicine);
+        medicine = new Medicine();
+        return "prescriptionForm";
+    }
+
+    public String lastMedicine() {
+        prescription.getMedicines().add(medicine);
+        medicines.add(medicine);
+//        System.out.print(medicine.isEditable());
+        return "confirmPrescription";
+    }
+
+    public String deleteRow(Medicine m) {
+         prescription.getMedicines().remove(m);
+        medicines.remove(medicine);
+        return "confirmPrescription";
     }
 
     public List<String> getMedicineNames() {
@@ -207,5 +222,5 @@ public class DoctorBean implements Serializable {
     public void setMedicineNames(List<String> medicineNames) {
         this.medicineNames = medicineNames;
     }
-    
+
 }

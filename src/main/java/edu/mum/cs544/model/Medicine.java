@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -19,7 +20,6 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Medicine implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +32,8 @@ public class Medicine implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
     private String description;
+    @Transient
+    private boolean editable;
 
     public Long getId() {
         return id;
@@ -79,6 +81,14 @@ public class Medicine implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override

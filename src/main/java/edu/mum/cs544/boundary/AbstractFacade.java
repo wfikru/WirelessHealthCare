@@ -39,11 +39,6 @@ public abstract class AbstractFacade<T> {
         query.setParameter(bindParam, bindValue);
         return (T) query.getSingleResult();    
         }
-     public List<T> findListByQuery(List<T> entity, String yourQuery, String bindParam,String bindValue){
-        Query query =  getEntityManager().createQuery(yourQuery);
-        query.setParameter(bindParam, bindValue);
-        return (List<T>) query.getResultList();    
-        }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
@@ -53,6 +48,11 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
+    }
+    public List<T> findListByQuery(String queryString, int bindParam, String bindValue){
+        Query query=getEntityManager().createQuery(queryString);
+        query.setParameter(bindParam,bindValue);
+        return query.getResultList();
     }
 
     public List<T> findRange(int[] range) {

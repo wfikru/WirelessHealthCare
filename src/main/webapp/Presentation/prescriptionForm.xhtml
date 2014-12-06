@@ -15,33 +15,51 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="3">
                 <p:outputLabel value="Medicine"/>
-                <p:selectOneMenu id="list" value="#{doctor.medicine.nameOfMedicine}" >
-                    <f:selectItems value="#{doctor.medicines}" var="med" itemLabel="#{med.nameOfMedicine}" itemValue="#{med.nameOfMedicine}"/>
-                </p:selectOneMenu>     
+                <p:inputText value="#{doctor.medicine.nameOfMedicine}"
+                             id="medicineName"
+                             required="true" 
+                             requiredMessage="Medicine name is required"/>
+                <p:message for="medicineName"/>
                 <p:outputLabel value="Units per day "/>
-                <p:inputText value="#{doctor.medicine.unitsPerday}"/>
+                <p:inputText value="#{doctor.medicine.unitsPerday}"
+                             id="units"
+                             required="true" 
+                             requiredMessage="Daily dosage is required"/>
+                <p:message for="units"/>
                 <p:outputLabel value="Start Date "/>
                 <p:calendar value="#{doctor.medicine.startDate}"
                             locale="de" 
                             navigator="true" 
                             yearRange="c-100:c-16"
-                            pattern="MM/dd/yyyy"  >
+                            pattern="MM/dd/yyyy" 
+                            id="startDate"
+                            required="true" 
+                            requiredMessage="Start date is required">
                     <f:convertDateTime pattern="MM/dd/yyyy" />
                 </p:calendar>
+                <p:message for="startDate"/>
                 <p:outputLabel value="End Date "/>
                 <p:calendar value="#{doctor.medicine.endDate}"
                             locale="de" 
                             navigator="true" 
                             yearRange="c-100:c-16"
-                            pattern="MM/dd/yyyy"  >
+                            pattern="MM/dd/yyyy" 
+                            id="endDate"
+                            required="true" 
+                            requiredMessage="End date is required">
                     <f:convertDateTime pattern="MM/dd/yyyy" />
                 </p:calendar>
+                <p:message for="endDate"/>
                 <p:outputLabel value="Description "/>
-                <p:inputTextarea value="#{doctor.medicine.description}"/>
-                <h:commandButton value="Add" action="prescriptionForm"/>
-                <h:commandButton value="Submit" action="#{doctor.writePrescription}"/>
+                <p:inputTextarea value="#{doctor.medicine.description}"
+                                 id="description"
+                                 required="true" 
+                                 requiredMessage="Medicine name is required"/>
+                <p:message for="description" />
+                <h:commandButton value="Add" action="#{doctor.addMedicine}"/>
+                <h:commandButton value="Submit" action="#{doctor.lastMedicine}"/>
             </h:panelGrid>
 
         </h:form>
