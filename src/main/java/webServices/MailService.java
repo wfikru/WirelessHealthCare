@@ -39,9 +39,9 @@ public class MailService {
 
     private static final String HOST = "smtp.gmail.com";
     private static final int PORT = 465;
-    private static final String USER = "zer.woldeab";     // Must be valid user in d.umn.edu domain, e.g. "smit0012"
-    private static final String PASSWORD = "zeriet1290"; // Must be valid password for smit0012
-    private static final String FROM = "zer.woldeab@gmail.com";     // Full info for user, e.g. "Fred Smith <smit0012@d.umn.edu>"
+    private static final String USER = "zer.woldeab";     // Must be valid user
+    private static final String PASSWORD = "zeriet1290"; // Must be valid password 
+    private static final String FROM = "zer.woldeab@gmail.com";     
 
     private static MailService theService = null;
     private static Session mailSession;
