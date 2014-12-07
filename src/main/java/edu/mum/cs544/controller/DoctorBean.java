@@ -18,11 +18,17 @@ import edu.mum.cs544.model.Symptom;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import webServices.BundleMessages;
+import webServices.MailService;
 
 /**
  *
@@ -40,7 +46,11 @@ public class DoctorBean implements Serializable {
     private Medicine medicine = new Medicine();
     private Prescription prescription = new Prescription();
     List<String> medicineNames = new ArrayList<String>();
-
+    private String recipient;
+    private String subject = "Prescription";
+    private BundleMessages bundle1 = new BundleMessages();
+    private String message = bundle1.getPrescriptionNotification();
+    
     @EJB
     private CategoryFacade categoryFacade;
     @EJB
@@ -113,6 +123,38 @@ public class DoctorBean implements Serializable {
         this.prescription = prescription;
     }
 
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public BundleMessages getBundle1() {
+        return bundle1;
+    }
+
+    public void setBundle1(BundleMessages bundle1) {
+        this.bundle1 = bundle1;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public CategoryFacade getCategoryFacade() {
         return categoryFacade;
     }
@@ -172,9 +214,9 @@ public class DoctorBean implements Serializable {
     public String viewMyAssignments(Doctor doc) {
         doctor = doc;
         String doctorCategory = doc.getCategory().getTitle();
-        String  query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
-                +" AND symptom.prescribed=false ";
-        symptoms = symptomFacade.findListByQuery(query,1,doctorCategory);
+        String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
+                + " AND symptom.prescribed=false ";
+        symptoms = symptomFacade.findListByQuery(query, 1, doctorCategory);
         return "viewAssignments";
     }
 
@@ -192,7 +234,19 @@ public class DoctorBean implements Serializable {
         prescriptionFacade.create(prescription);
         patientFacade.edit(symptom.getPatient());
         doctorFacade.edit(doctor);
+
+        recipient = symptom.getPatient().getEmail();
+        sendEmail(recipient);
         return "prescriptionConfirmation";
+    }
+
+    @Asynchronous
+    public void sendEmail(String recipient) {
+        try {
+            MailService.sendMessage(recipient, subject, message);
+        } catch (MessagingException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String addMedicine() {
@@ -210,7 +264,7 @@ public class DoctorBean implements Serializable {
     }
 
     public String deleteRow(Medicine m) {
-         prescription.getMedicines().remove(m);
+        prescription.getMedicines().remove(m);
         medicines.remove(medicine);
         return "confirmPrescription";
     }
