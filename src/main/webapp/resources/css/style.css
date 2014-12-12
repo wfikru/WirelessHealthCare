@@ -992,3 +992,8 @@ body {
     -moz-transform: translateY(0px);
     transform: translateY(0px);
 }
+.btn btn-block
+{
+    width: 10px;
+    margin-left: 100px;
+}

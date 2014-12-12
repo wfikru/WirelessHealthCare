@@ -7,6 +7,7 @@ package edu.mum.cs544.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,7 +45,7 @@ public class Symptom implements Serializable {
     @JoinColumn(name="patient_fk")    
     private Patient patient;
     
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name="category_fk")
     private Category category;
 

@@ -34,6 +34,7 @@ public class MedicalHistory implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)    
     private Date CheckUpDate;
     private String  Condition;
+    private Prescription prescription;
     
     public MedicalHistory() {
     }
@@ -60,6 +61,14 @@ public class MedicalHistory implements Serializable {
 
     public void setCondition(String Condition) {
         this.Condition = Condition;
+    }
+
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
     }
 
     public Long getId() {

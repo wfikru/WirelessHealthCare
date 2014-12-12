@@ -7,16 +7,24 @@ package edu.mum.cs544.controller;
 
 import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
+import edu.mum.cs544.model.Category;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
-import java.util.List;
-import javax.annotation.ManagedBean;
+import java.security.Principal;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,66 +47,47 @@ public class LoginCheck implements Serializable {
 
     private String username;
     private String password;
-    private Doctor doctor;
-    private Patient patient=new Patient();
+
+    private Doctor doctor = new Doctor();
+    private Patient patient = new Patient();
+
+    public String logout() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.logout();
+        } catch (ServletException e) {
+
+            context.addMessage(null, new FacesMessage("Logout failed."));
+        }
+        return "home";
+    }
+
+    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
+    private EntityManager em;
 
     public Doctor getDoctor() {
+
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+
+//        if (principal != null) {
+//            Query q = em.createQuery("SELECT d FROM Doctor d WHERE d.email = " + principal.getName());
+//            doctor = (Doctor) q.getSingleResult();
+//        }
         return doctor;
     }
 
     public Patient getPatient() {
+
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+
+//        if (principal != null) {
+//            Query q = em.createQuery("SELECT p FROM Patient p WHERE p.email = " + principal.getName());
+//            patient = (Patient) q.getSingleResult();
+//            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("patientKey", patient);                    
+//        }
         return patient;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-//    public String checkLogin()
-//    {
-//        Patient p = this.patientFacade.find("102");
-//        this.patientFacade.remove(p);
-//        return "LoginFailure";
-//    }
-    public String checkLogin() {
-
-        if ("".equals(this.username) && "".equals(this.password)) {
-            return "AdminPortal";
-        } else {
-            List<Doctor> docList = this.doctorFacade.findAll();
-            for (Doctor doc : docList) {
-                if (this.username.equals( doc.getEmail()) && this.password.equals(doc.getPassword())) {
-                    this.doctor = doc;
-                    return "DoctorPortal";
-                }
-            }
-
-            List<Patient> patList = this.patientFacade.findAll();
-            for (Patient pat : patList) {
-                if (this.username.equals(pat.getEmail()) && this.password.equals(pat.getPassword())) {
-                    this.patient=pat;
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("patientKey", patient);                    
-                    return "PatientPortal";
-                }
-            }
-        }
-        return "LoginFailure";
-    }
 }

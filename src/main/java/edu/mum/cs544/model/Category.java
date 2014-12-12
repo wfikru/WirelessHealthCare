@@ -11,9 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -25,17 +22,23 @@ import javax.persistence.Transient;
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
+    @Transient
     private boolean editable;
 
-    List<Patient> patients;
+//    @ManyToMany
+//    @JoinTable(name = "patient_category",
+//            joinColumns = @JoinColumn(name = "category_fk"),
+//            inverseJoinColumns = @JoinColumn(name = "patient_fk"))
+//    private List<Patient> patients;
 
-    List<Doctor> doctors;
+    @OneToMany(mappedBy = "category")
+    private List<Doctor> doctors;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -44,7 +47,6 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    @Transient
     public boolean isEditable() {
         return editable;
     }
@@ -69,19 +71,14 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    @ManyToMany
-    @JoinTable(name = "patient_category",
-            joinColumns = @JoinColumn(name = "category_fk"),
-            inverseJoinColumns = @JoinColumn(name = "patient_fk"))
-    public List<Patient> getPatients() {
-        return patients;
-    }
+//    public List<Patient> getPatients() {
+//        return patients;
+//    }
+//
+//    public void setPatients(List<Patient> patients) {
+//        this.patients = patients;
+//    }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-
-    @OneToMany(mappedBy = "category")
     public List<Doctor> getDoctors() {
         return doctors;
     }

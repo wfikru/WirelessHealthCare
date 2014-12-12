@@ -5,10 +5,13 @@
  */
 package edu.mum.cs544.controller;
 
+import edu.mum.cs544.authentication.SHAHash;
+import edu.mum.cs544.authentication.Users;
 import edu.mum.cs544.boundary.AddressFacade;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
+import edu.mum.cs544.boundary.usersFacade;
 import edu.mum.cs544.model.Address;
 import edu.mum.cs544.model.Category;
 import edu.mum.cs544.model.Doctor;
@@ -44,58 +47,66 @@ public class Registration implements Serializable {
     private DoctorFacade doctorFacade;
     @EJB
     private CategoryFacade categoryFacade;
-
+    @EJB
+    private usersFacade usersfacade;
+    
+    private SHAHash sha = new SHAHash();
+    
     public Registration() {
     }
-    
+
     // email service
     private String recipient;
-    private String subject="Welcome to VHC";
-   
+    private String subject = "Welcome to VHC";
+    
     private String statusMessage = "";
- 
-    //
-
+    
+    private Users users = new Users();
     private Patient patient = new Patient();
     private Address address = new Address();
     private Doctor doctor = new Doctor();
     private Category category = new Category();
-    private BundleMessages bundle1=new BundleMessages();
-     private String message=bundle1.getPatientWelcome();
-
+    private BundleMessages bundle1 = new BundleMessages();
+    private String message = bundle1.getPatientWelcome();
+    
     private List<Category> categories;
-
+    
     public List<Category> getCategories() {
         return categories;
     }
-
+    
     public Address getAddress() {
         return address;
     }
-
+    
     public Patient getPatient() {
         return patient;
     }
-
+    
     public Doctor getDoctor() {
         this.doctor.setCategory(category);
         return doctor;
     }
-
+    
     public Category getCategory() {
         return category;
     }
-
+    
     public void setCategory(Category category) {
         this.category = category;
     }
-
+    
     public String registerUser() {
         this.patient.setAddress(address);
         this.addressFacade.create(address);
-        this.patientFacade.create(patient);    
+        this.patientFacade.create(patient);
         
-        recipient=this.patient.getEmail();
+        this.users.setGroupname("PATIENT");
+        this.users.setUsername(this.patient.getEmail());
+        this.users.setPassword(sha.getEncryptedPassword(this.patient.getPassword()));
+        this.usersfacade.create(users);
+        
+        recipient = this.patient.getEmail();
         try {
             MailService.sendMessage(recipient, subject, message);
         } catch (MessagingException ex) {
@@ -104,30 +115,34 @@ public class Registration implements Serializable {
         
         return "home";
     }
-
+    
     public Category findCatagory(String title) {
         String query = "SELECT c FROM Category c WHERE c.title = :" + category.getTitle();
         Category cat = this.categoryFacade.findSingleByQuery(category, query, category.getTitle(), title);
-
+        
         return cat;
     }
-
-
+    
     public String registerDoctor() {
         this.doctor.setAddress(address);
         this.addressFacade.create(address);
         this.category = findCatagory(this.doctor.getCategory().getTitle());
         this.doctor.setCategory(category);
-
         this.doctorFacade.create(doctor);
+        
+        this.users.setGroupname("DOCTOR");
+        this.users.setUsername(this.doctor.getEmail());
+        this.users.setPassword(sha.getEncryptedPassword(this.doctor.getPassword()));
+        this.usersfacade.create(users);        
+        
         return "home";
     }
-
+    
     public String addCatagories() {
         this.categoryFacade.create(category);
         return "AdminPortal";
     }
-
+    
     public String loadCatagories() {
         this.categories = this.categoryFacade.findAll();
         return "DoctorRegistration";

@@ -6,13 +6,15 @@
       xmlns:p="http://primefaces.org/ui">
     <head><title>IGNORED</title></head>  
     <body>        
-        <ui:composition> 
-            <div>
-                <ui:insert name="sideBarContent">
-                    
-                </ui:insert>
-                
-            </div>
+        <ui:composition>    
+            <div id='cssmenu'>
+            <ul class="nav">
+                <li class="active"><h:link value="View Assignments" outcome="viewAssignments"/></li>
+                <li class="active"><h:link value="Patient History" outcome="patientHistoryFromDoctor"/></li>
+
+            </ul>  
+             
+          </div>
         </ui:composition>
     </body>
 </html>

@@ -31,7 +31,7 @@ public class Patient extends Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "address_fk")
     private Address address;
 
@@ -53,8 +53,8 @@ public class Patient extends Person implements Serializable {
     @JoinColumn(name = "prescription_fk")
     
     private List<Prescription> prescriptions;
-//
-//    @ManyToMany(mappedBy = "patients")
+
+//    @ManyToMany(mappedBy = "patients",cascade=CascadeType.ALL)
 //    private List<Category> categories;
     
     public List<MedicalHistory> getHistory() {
@@ -69,16 +69,16 @@ public class Patient extends Person implements Serializable {
         return prescriptions;
     }
 
-    public void setPrescriptions(List<Prescription> prescriptions) {
-        this.prescriptions = prescriptions;
+    public void setPrescriptions(Prescription prescriptions) {
+        this.prescriptions.add(prescriptions);
     }
 
 //    public List<Category> getCategories() {
 //        return categories;
 //    }
 //
-//    public void setCategories(List<Category> categories) {
-//        this.categories = categories;
+//    public void setCategories(Category categorie) {
+//        this.categories.add(categorie);
 //    }
 
     public List<Doctor> getDoctors() {
