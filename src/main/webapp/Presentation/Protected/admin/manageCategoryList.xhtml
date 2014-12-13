@@ -22,7 +22,7 @@
             <ui:define name="content">
                 <p:fieldset>
                     <h:form>
-                        <p:dataTable var="car" value="#{administrator.cat}">
+                        <p:dataTable var="categ" value="#{administrator.cat}">
                             <p:column headerText="Title">
                                 <h:inputText value="#{categ.title}" size="10" rendered="#{categ.editable}" />
                                 <h:outputText value="#{categ.title}" rendered="#{not categ.editable}" />

@@ -30,7 +30,7 @@ public class SHAHash {
         }
 
         try {
-            md.update(textPassword.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            md.update(textPassword.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(SHAHash.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,9 +44,12 @@ public class SHAHash {
         int i = 0;
         for (byte b : input) {
             i = b & 0xFF;
-            hash += Integer.toHexString(i);
+            String temp = Integer.toHexString(i);
+            if (temp.length() < 2) {
+                hash += "0";
+            }
+            hash += temp;
         }
         return hash;
     }
-
 }

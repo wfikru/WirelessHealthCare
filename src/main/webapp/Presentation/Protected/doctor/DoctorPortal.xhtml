@@ -15,7 +15,7 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <!--Welcome: <h:outputText value="#{loginCheck.doctor.firstName}"/>-->
+                    Welcome: <h:outputText value="#{loginCheck.doctor.firstName}"/>
                     <h:commandLink value="View Assignments" action="#{doctor.viewMyAssignments(loginCheck.doctor)}"/><br/>
                     <h:commandLink value="View Patients History" action="#{doctor.viewAllHistory(loginCheck.doctor)}"/>
                 </h:form>

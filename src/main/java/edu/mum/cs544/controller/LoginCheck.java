@@ -5,25 +5,23 @@
  */
 package edu.mum.cs544.controller;
 
+import edu.mum.cs544.authentication.Users;
 import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
-import edu.mum.cs544.model.Category;
+import edu.mum.cs544.boundary.usersFacade;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
-import javax.annotation.Resource;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -44,24 +42,24 @@ public class LoginCheck implements Serializable {
     private DoctorFacade doctorFacade;
     @EJB
     private PatientFacade patientFacade;
+    @EJB
+    private usersFacade userfacade;
 
     private String username;
     private String password;
 
     private Doctor doctor = new Doctor();
     private Patient patient = new Patient();
+    private Users users = new Users();
 
-    public String logout() {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+    public void logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.invalidate();
         try {
-            request.logout();
-        } catch (ServletException e) {
-
-            context.addMessage(null, new FacesMessage("Logout failed."));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/Virtual-HealthCareSystem");
+        } catch (IOException ex) {
+            Logger.getLogger(LoginCheck.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "home";
     }
 
     @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
@@ -70,7 +68,7 @@ public class LoginCheck implements Serializable {
     public Doctor getDoctor() {
 
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-
+        doctor = this.doctorFacade.find(1);
 //        if (principal != null) {
 //            Query q = em.createQuery("SELECT d FROM Doctor d WHERE d.email = " + principal.getName());
 //            doctor = (Doctor) q.getSingleResult();
@@ -81,7 +79,7 @@ public class LoginCheck implements Serializable {
     public Patient getPatient() {
 
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-
+        patient = this.patientFacade.find(principal.getName());
 //        if (principal != null) {
 //            Query q = em.createQuery("SELECT p FROM Patient p WHERE p.email = " + principal.getName());
 //            patient = (Patient) q.getSingleResult();
@@ -90,4 +88,12 @@ public class LoginCheck implements Serializable {
         return patient;
     }
 
+    public boolean isLogedIn() {
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        if (principal == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -4,7 +4,7 @@
 }
 
 .col-lg-9{
-    
+
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -996,4 +996,20 @@ body {
 {
     width: 10px;
     margin-left: 100px;
+}
+
+ul.cssMenu li:hover > ul 			
+{ 
+    display:block;
+}
+ul.cssMenu ul 						
+{ 
+    display:none; /*initially menu item is hidden*/
+    position: absolute; /*absolute positioning is important for menu to float*/
+}
+ul.cssMenu, ul.cssMenu ul
+{
+    list-style:none;
+    margin:0; padding:0;
+    position: relative;
 }

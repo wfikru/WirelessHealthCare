@@ -135,7 +135,7 @@ public class Registration implements Serializable {
         this.users.setPassword(sha.getEncryptedPassword(this.doctor.getPassword()));
         this.usersfacade.create(users);        
         
-        return "home";
+        return "AdminPortal";
     }
     
     public String addCatagories() {

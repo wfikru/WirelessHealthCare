@@ -95,10 +95,6 @@
     <security-role>
         <role-name>PATIENT</role-name>
     </security-role>
-    
-<!--    <error-page>
-        <error-code>403</error-code>
-        <location>Presentation/home.faces</location>
-    </error-page>    -->
+   
     
 </web-app>

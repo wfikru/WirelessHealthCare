@@ -44,8 +44,18 @@ and open the template in the editor.
 
                             <li><a href="ourHistory.faces">Our History</a></li>
                             <li>
+                                
+                            </li>
+                            <li>
                                 <h:form>
-                                    <h:commandLink class="btn btn-primary" action="#{loginCheck.logout()}"  value="Log out"/>
+                                    <h:commandLink class="btn btn-primary" action="Public/PatientRegistration"  
+                                                   value="Register" rendered="#{not loginCheck.isLogedIn()}"/>
+                                </h:form>
+                            </li>
+                            <li>
+                                <h:form>
+                                    <h:commandLink class="btn btn-primary" action="#{loginCheck.logout()}"  
+                                                   rendered="#{loginCheck.isLogedIn()}" value="Log Out" />
                                 </h:form>
                             </li>
                         </ul>
