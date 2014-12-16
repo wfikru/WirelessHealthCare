@@ -58,7 +58,6 @@ public abstract class AbstractFacade<T> {
     public T findByName(String queryString)
     {
         Query query=getEntityManager().createQuery(queryString);
-//        query.setParameter(bindParam,bindValue);
         return (T) query.getSingleResult();
     }
 

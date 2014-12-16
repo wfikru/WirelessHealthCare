@@ -7,14 +7,88 @@
     <head><title>IGNORED</title></head>  
     <body>        
         <ui:composition>    
-            <div id='cssmenu'>
-            <ul class="nav">
-                <li class="active"><h:link value="View Assignments" outcome="viewAssignments"/></li>
-                <li class="active"><h:link value="Patient History" outcome="patientHistoryFromDoctor"/></li>
+<!--            <div id='cssmenu'>
+                <ul class="nav">
+                    <li class="active"><h:link value="View Assignments" outcome="viewAssignments"/></li>
+                    <li class="active"><h:link value="Patient History" outcome="patientHistoryFromDoctor"/></li>
 
-            </ul>  
-             
-          </div>
+                </ul>  
+
+            </div>-->
+
+  <div>
+                <h:form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    <span class="glyphicon glyphicon-user">
+                                                    </span>Assignments</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-pencil text-primary"></span>
+                                                            <h:commandLink value="viewAssignments" action="Presentation/Protected/doctor/viewAssignments"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                    <span class="glyphicon glyphicon-calendar">
+                                                    </span>History</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-pencil text-primary"></span>
+                                                            <h:commandLink value="Patient History" action="Presentation/Protected/doctor/patientHistoryFromDoctor"/>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                    <span class="glyphicon glyphicon-calendar">
+                                                    </span>History</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse">
+                                            <div class="panel-body">
+
+                                            </div>
+                                        </div>
+                                    </div>                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+            </div>
+       
         </ui:composition>
     </body>
 </html>
