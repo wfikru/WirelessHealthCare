@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.mum.cs544.controller;
+package edu.mum.cs544.backingBeans;
 
+import edu.mum.cs544.EJBs.LoginCheckEjb;
 import edu.mum.cs544.authentication.Users;
-import edu.mum.cs544.boundary.DoctorFacade;
-import edu.mum.cs544.boundary.PatientFacade;
-import edu.mum.cs544.boundary.usersFacade;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
 import java.io.IOException;
@@ -20,15 +18,13 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author FWorku
  */
-@Named(value = "loginCheck")
+@Named
 @SessionScoped
 public class LoginCheck implements Serializable {
 
@@ -38,19 +34,23 @@ public class LoginCheck implements Serializable {
     public LoginCheck() {
     }
 
-    @EJB
-    private DoctorFacade doctorFacade;
-    @EJB
-    private PatientFacade patientFacade;
-    @EJB
-    private usersFacade userfacade;
-
-    private String username;
-    private String password;
-
     private Doctor doctor = new Doctor();
-    private Patient patient = new Patient();
+    private Patient Patient = new Patient();
+    @EJB
+    private LoginCheckEjb loginCheckEjb;
     private Users users = new Users();
+
+//    public String checkLogin() {
+//        users = this.loginCheckEjb.checkLogin();
+//
+//        if (users.getGroupname().equals("ADMIN")) {
+//            return "AdminPortal";
+//        } else if (users.getGroupname().equals("DOCTOR")) {
+//            return "DoctorPortal";
+//        } else {
+//            return "PatientPortal";
+//        }
+//    }
 
     public void logout() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -62,30 +62,16 @@ public class LoginCheck implements Serializable {
         }
     }
 
-    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
     public Doctor getDoctor() {
 
-        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        doctor = this.doctorFacade.find(1);
-//        if (principal != null) {
-//            Query q = em.createQuery("SELECT d FROM Doctor d WHERE d.email = " + principal.getName());
-//            doctor = (Doctor) q.getSingleResult();
-//        }
+        doctor = this.loginCheckEjb.getDoctor();
         return doctor;
     }
 
     public Patient getPatient() {
 
-        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        patient = this.patientFacade.find(principal.getName());
-//        if (principal != null) {
-//            Query q = em.createQuery("SELECT p FROM Patient p WHERE p.email = " + principal.getName());
-//            patient = (Patient) q.getSingleResult();
-//            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("patientKey", patient);                    
-//        }
-        return patient;
+//        Patient= this.loginCheckEjb.getPatient();
+        return Patient;
     }
 
     public boolean isLogedIn() {

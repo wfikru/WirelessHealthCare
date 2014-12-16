@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.mum.cs544.controller;
+package edu.mum.cs544.backingBeans;
 
+import edu.mum.cs544.EJBs.VirtualPatientEJB;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.boundary.SymptomFacade;
@@ -36,36 +37,33 @@ import javax.persistence.Query;
 public class VirtualPatient implements Serializable {
 
     @EJB
-    private CategoryFacade categoryFacade;
-
-    @EJB
-    private PatientFacade patientFacade;
-    @EJB
-    private SymptomFacade symptomFacade;
-
-    private String categorySelected;
-    private Category category = new Category();
-
+    private VirtualPatientEJB virtualPatientEJB;
+    
+    
+      
+     private String categorySelected;
+    
     public VirtualPatient() {
     }
     private Symptom symptom = new Symptom();
     private Patient patient = new Patient();
-
+    
     public Symptom getSymptom() {
         return symptom;
     }
-
+    
     public void setSymptom(Symptom symptom) {
         this.symptom = symptom;
     }
-
+    
     public List<MedicalHistory> getPatientHistory() {
         return patient.getHistory();
     }
-
+    
     public List<Category> getCategory() {
-        return this.categoryFacade.findAll();
+        return virtualPatientEJB.getAllCategory();
     }
+  
 
     public String getCategorySelected() {
         return categorySelected;
@@ -74,28 +72,11 @@ public class VirtualPatient implements Serializable {
     public void setCategorySelected(String categorySelected) {
         this.categorySelected = categorySelected;
     }
-
-    public Category findCatagory(String title) {
-        String query = "SELECT c FROM Category c WHERE c.title = :" + categorySelected;
-        Category cat = this.categoryFacade.findSingleByQuery(category, query, categorySelected, title);
-        return cat;
-    }
-
+    
     public String submitSysmptom() {
-
-        Category cat = findCatagory(categorySelected);        
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++" +cat.getTitle());
-        
-//        patient = new LoginCheck().getPatient();
-        patient = (Patient) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("patientKey");
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++" + patient.getEmail());
-
-        symptom.setCategory(cat);         
-        symptom.setDate(new Date());
-        symptom.setPatient(patient);
-        this.symptomFacade.create(symptom);
+        virtualPatientEJB.submitSymptom(symptom, categorySelected);        
         return "symptomSubmitSuccess";
-
+        
     }
-
+    
 }
