@@ -9,8 +9,9 @@
 }
 
 .col-lg-9{
-
+height: auto;
 }
+
 
 .navbar-default .navbar-nav > li > a {
     color: white;
