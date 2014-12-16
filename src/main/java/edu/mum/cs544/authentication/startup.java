@@ -63,7 +63,7 @@ public class startup {
         patient1.setLastName("Asefaw");
         patient1.setDob(null);
         patient1.setGender("M");
-        patient1.setEmail("zeriet@gmail.com");
+        patient1.setEmail("");
         patient1.setPassword("yared");
         patient1.setAddress(address1);
 
