@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Presentation/sections/masterLayoutDoctor.xhtml">
+            <ui:define name="windowTitle">
+
+            </ui:define>
+            <ui:define name="content">
+                <p:panel header="Prescription Detail" style=" background-color:  aliceblue" >
+                    <h:form>
+                        <h:panelGrid columns="3">
+                            <p:outputLabel value="Medicine"/>
+                            <p:inputText value="#{doctor.medicine.nameOfMedicine}"
+                                         id="medicineName"
+                                         required="true" 
+                                         requiredMessage="Medicine name is required"/>
+                            <p:message for="medicineName"/>
+                            <p:outputLabel value="Units per day "/>
+                            <p:inputText value="#{doctor.medicine.unitsPerday}"
+                                         id="units"
+                                         required="true" 
+                                         requiredMessage="Daily dosage is required"/>
+                            <p:message for="units"/>
+                            <p:outputLabel value="Start Date "/>
+                            <p:calendar value="#{doctor.medicine.startDate}"
+                                        locale="de" 
+                                        navigator="true" 
+                                        yearRange="c:c+16"
+                                        pattern="MM/dd/yyyy" 
+                                        id="startDate"
+                                        required="true" 
+                                        requiredMessage="Start date is required">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:calendar>
+                            <p:message for="startDate"/>
+                            <p:outputLabel value="End Date "/>
+                            <p:calendar value="#{doctor.medicine.endDate}"
+                                        locale="de" 
+                                        navigator="true" 
+                                        yearRange="c:c+16"
+                                        pattern="MM/dd/yyyy" 
+                                        id="endDate"
+                                        required="true" 
+                                        requiredMessage="End date is required">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:calendar>
+                            <p:message for="endDate"/>
+                            <p:outputLabel value="Description "/>
+                            <p:inputTextarea value="#{doctor.medicine.description}"
+                                             id="description"
+                                             required="true" 
+                                             requiredMessage="Description must be entered"/>
+                            <p:message for="description" />
+                            <p:outputLabel value="Diagnosis "/>
+                            <p:inputTextarea value="#{doctor.diagnosis}"
+                                             id="diagnosis"
+                                             required="true" 
+                                             requiredMessage="Diagnosis must be entered"/>
+                            <p:message for="diagnosis" />
+                            <h:commandButton value="Add"  action="#{doctor.addMedicine}"/>
+                            <h:commandButton value="Submit" action="#{doctor.lastMedicine}"/>
+                        </h:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

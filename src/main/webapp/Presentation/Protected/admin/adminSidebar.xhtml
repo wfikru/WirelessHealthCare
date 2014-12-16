@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head><title>IGNORED</title></head>  
+    <body>        
+        <ui:composition> 
+            <div>
+                <h:form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    <span class="glyphicon glyphicon-user">
+                                                    </span>Doctors</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-pencil text-primary"></span>
+                                                            <h:commandLink value="Edit Doctor List" action="#{administrator.editDoctorList()}"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                            <h:commandLink value="register Doctor" action="#{registration.loadCatagories()}"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th">
+                                                    </span>Categories</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-pencil text-primary"></span>
+                                                            <!--<a href="#{administrator.editCategoryList()}">Edit</a>-->
+                                                            <h:commandLink value="Edit Category" action="#{administrator.editCategoryList()}"/>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                            <!--<a href="AddCataegories">Edit</a>-->
+                                                            <h:commandLink value="Add Category" action="AddCataegories"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                    <span class="glyphicon glyphicon-calendar">
+                                                    </span>History</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse">
+                                            <div class="panel-body">
+
+                                            </div>
+                                        </div>
+                                    </div>                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+            </div>
+        </ui:composition>
+    </body>
+</html>

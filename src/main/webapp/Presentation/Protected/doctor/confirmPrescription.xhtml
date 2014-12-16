@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Presentation/sections/masterLayoutDoctor.xhtml">
+            <ui:define name="windowTitle">
+
+            </ui:define>
+            <ui:define name="content">
+                <p:panel header="Edit, Remove or Submit Prescription" style=" background-color:  aliceblue" >
+                    <p:scrollPanel style="width:820px;height:300px">
+                        <h:form>
+                            <p:dataTable value="#{doctor.prescription.medicines}" var="medicine">
+                                <p:column headerText="Edit">
+                                    <h:selectBooleanCheckbox value="#{medicine.editable}" onclick="submit()" />
+                                </p:column>
+                                <p:column headerText="Medicine Name">
+                                    <h:outputText value="#{medicine.nameOfMedicine}" rendered="#{not medicine.editable}"/>
+                                    <p:inputText size="8" value="#{medicine.nameOfMedicine}" rendered="#{medicine.editable}"/>
+                                </p:column>
+                                <p:column headerText="Units per day" >
+                                    <h:outputText  value="#{medicine.unitsPerday}" rendered="#{not medicine.editable}"/>
+                                    <p:inputText size="5" value="#{medicine.unitsPerday}" rendered="#{medicine.editable}"/>
+                                </p:column>
+                                <p:column headerText="Start date" >
+                                    <h:outputText value="#{medicine.startDate}" rendered="#{not medicine.editable}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" /></h:outputText>
+                                    <p:calendar size="8" value="#{medicine.startDate}" rendered="#{medicine.editable}"
+                                                locale="de" 
+                                                navigator="true" 
+                                                yearRange="c-100:c-16"
+                                                pattern="MM/dd/yyyy"  >
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </p:calendar>                </p:column>
+                                <p:column headerText="End date">
+                                    <h:outputText value="#{medicine.endDate}" rendered="#{not medicine.editable}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" /></h:outputText>
+                                    <p:calendar size="8" value="#{medicine.endDate}" rendered="#{medicine.editable}"
+                                                locale="de" 
+                                                navigator="true" 
+                                                yearRange="c-100:c-16"
+                                                pattern="MM/dd/yyyy"  >
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </p:calendar>                  </p:column>
+                                <p:column headerText="Description">
+                                    <h:outputText value="#{medicine.description}" rendered="#{not medicine.editable}"/>
+                                    <p:inputTextarea value="#{medicine.description}" rendered="#{medicine.editable}"/>
+                                </p:column>
+                                <p:column headerText="">
+                                    <p:commandLink value="Remove" action="#{doctor.deleteRow(medicine)}"/>
+                                </p:column>
+                            </p:dataTable><br/>
+                            <h:commandButton value="Submit" action="#{doctor.writePrescription()}"/>
+                        </h:form>
+                    </p:scrollPanel>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
