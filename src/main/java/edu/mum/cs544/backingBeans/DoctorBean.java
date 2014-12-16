@@ -27,10 +27,8 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.interceptor.AroundInvoke;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import webServices.BundleMessages;
 import webServices.MailService;
 
