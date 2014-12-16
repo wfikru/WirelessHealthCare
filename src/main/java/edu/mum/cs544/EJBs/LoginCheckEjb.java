@@ -19,6 +19,7 @@ import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -55,14 +56,19 @@ public class LoginCheckEjb implements Serializable {
 //        return users;
 //    }
     public Doctor getDoctor() {
-        Doctor doctor = new Doctor();
+        
+        Doctor doctor;// = new Doctor();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        System.out.print("************************************" + principal.getName());
-        if (principal != null) {
-            String query = "SELECT d FROM Doctor d WHERE d.email = ?1" + doctor.getEmail();
-            doctor = this.doctorFacade.findSingleByQuery(doctor, query, doctor.getEmail(), principal.getName());
-
-        }
+        
+        String query = "SELECT d FROM Doctor d WHERE d. = " + principal.getName();
+        doctor = this.doctorFacade.findByName(query);
+        
+//        System.out.print("************************************" + principal.getName());
+//        if (principal != null) {
+//            String query = "SELECT d FROM Doctor d WHERE d.email = " + doctor.getEmail();
+//            doctor = this.doctorFacade.findSingleByQuery(doctor, query, doctor.getEmail(), principal.getName());
+//
+//        }
         return doctor;
     }
 
