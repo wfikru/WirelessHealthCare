@@ -77,7 +77,7 @@ public class RegistrationEjb implements Serializable {
         } catch (MessagingException ex) {
             Logger.getLogger(RegistrationEjb.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+            
     }
 
     public Category findCatagory(String title, Category category) {
