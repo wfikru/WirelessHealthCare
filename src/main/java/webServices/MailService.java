@@ -40,7 +40,7 @@ public class MailService {
     private static final String HOST = "smtp.gmail.com";
     private static final int PORT = 465;
     private static final String USER = "zer.woldeab";     // Must be valid user
-    private static final String PASSWORD = "zeriet1290"; // Must be valid password 
+    private static final String PASSWORD = "zerietvhc"; // Must be valid password 
     private static final String FROM = "zer.woldeab@gmail.com";     
 
     private static MailService theService = null;

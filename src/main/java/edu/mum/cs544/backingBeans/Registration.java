@@ -74,7 +74,7 @@ public class Registration implements Serializable {
     public String registerUser() {
         
         this.registrationEjb.registerUser(patient, address, users, sha);
-        return "home";
+        return "RegistrationConfirmation";
     }   
   
     
