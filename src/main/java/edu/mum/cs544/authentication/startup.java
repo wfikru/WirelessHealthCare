@@ -35,7 +35,7 @@ public class startup {
 
     @Inject
     private PatientFacade patientFacade;
-     @Inject
+    @Inject
     private SymptomFacade symptomFacade;
 
     @Inject
@@ -60,7 +60,7 @@ public class startup {
 
         this.usersfacade.create(_users);
 
-         Address address1 = new Address();
+        Address address1 = new Address();
         address1.setState("IA");
         address1.setStreet("100N 4th");
         address1.setZip("52557");
@@ -71,19 +71,19 @@ public class startup {
         patient1.setDob(null);
         patient1.setGender("M");
         patient1.setEmail("yared@gmail.com");
-        patient1.setPassword(sha.getEncryptedPassword(""));
+        patient1.setPassword("");
         patient1.setAddress(address1);
-        patient1.setDob( new Date(11/11/1983));
-        
+        patient1.setDob(new Date(11 / 11 / 1983));
+
         this.patientFacade.create(patient1);
-        
+
         Category category1 = new Category();
         category1.setTitle("Phsyiotherapy");
         this.categoryFacade.create(category1);
         Category category2 = new Category();
-        category2.setTitle("General Practioner"); 
+        category2.setTitle("General Practioner");
         this.categoryFacade.create(category2);
-        
+
         Symptom symptom1 = new Symptom();
         symptom1.setSystolic(100);
         symptom1.setDizziness(true);
@@ -93,7 +93,7 @@ public class startup {
         symptom1.setPatient(patient1);
 //        symptom1.setPatient(patient1);
         this.symptomFacade.create(symptom1);
-        
+
         Doctor doctor1 = new Doctor();
         doctor1.setFirstName("Zeriet");
         doctor1.setLastName("Tekie");
@@ -102,13 +102,19 @@ public class startup {
         doctor1.setCategory(category1);
         doctor1.setAddress(address1);
         doctor1.setPassword("");
-        this.doctorFacade.create(doctor1);  
+        this.doctorFacade.create(doctor1);
         System.out.println("+++++++++++Test++++++++" + patient1.getAddress().getState());
-        
+
         Users patientUser = new Users();
         patientUser.setGroupname("PATIENT");
         patientUser.setUsername(patient1.getEmail());
-        patientUser.setPassword(patient1.getPassword());
-       this.usersfacade.create(patientUser);
+        patientUser.setPassword(sha.getEncryptedPassword(patient1.getPassword()));
+        this.usersfacade.create(patientUser);
+
+        Users users = new Users();
+        users.setGroupname("DOCTOR");
+        users.setUsername(doctor1.getEmail());
+        users.setPassword(sha.getEncryptedPassword(doctor1.getPassword()));
+        this.usersfacade.create(users);
     }
 }

@@ -5,11 +5,9 @@
  */
 package edu.mum.cs544.EJBs;
 
-import edu.mum.cs544.authentication.Users;
 import edu.mum.cs544.boundary.DoctorFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.boundary.usersFacade;
-import edu.mum.cs544.model.Category;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.Patient;
 import java.io.Serializable;
@@ -19,7 +17,6 @@ import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -56,30 +53,27 @@ public class LoginCheckEjb implements Serializable {
 //        return users;
 //    }
     public Doctor getDoctor() {
-        
+
         Doctor doctor = new Doctor();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String email = principal.getName();
-        
-        String query = "SELECT d FROM Doctor d WHERE d.email = \" "+principal.getName()+" \" " ;
-//        doctor = this.doctorFacade.findByName(query);
-        //\"doc\"
-//        System.out.print("************************************" + principal.getName());
-//        if (principal != null) {
-//            String query = "SELECT d FROM Doctor d WHERE d.email = " + doctor.getEmail();
-//            doctor = this.doctorFacade.findSingleByQuery(doctor, query, doctor.getEmail(), principal.getName());
-//
-//        }
+
+        if (principal != null) {
+            String query = "SELECT d FROM Doctor d WHERE d.email = \"" + email + "\"";
+            doctor = this.doctorFacade.findByName(query);
+        }
         return doctor;
     }
 
     public Patient getPatient() {
         Patient patient = new Patient();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-//        if (principal != null) {
-//            String query = "SELECT p FROM Patient p WHERE p.email = :" + patient.getEmail();
-//            doctor = this.doctorFacade.findSingleByQuery(doctor, query, patient.getEmail(), principal.getName());
-//        }
+        String email = principal.getName();
+
+        if (principal != null) {
+            String query = "SELECT p FROM Patient p WHERE p.email = \"" + email + "\"";
+            patient = this.patientFacade.findByName(query);
+        }
         return patient;
     }
 }

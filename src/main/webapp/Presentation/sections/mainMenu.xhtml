@@ -44,8 +44,10 @@ and open the template in the editor.
 
                             <li><a href="ourHistory.faces">Our History</a></li>
                             <li>
-                                
+                                <h:outputText value="Welcome: #{loginCheck.doctor.firstName}"
+                                                       rendered="#{loginCheck.isLogedIn()}"/>
                             </li>
+                            
                             <li>
                                 <h:form>
                                     <h:commandLink class="btn btn-primary" action="Public/PatientRegistration"  
