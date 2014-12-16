@@ -60,10 +60,11 @@ public class LoginCheckEjb implements Serializable {
         Doctor doctor = new Doctor();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String email = principal.getName();
+        
         String query = "SELECT d FROM Doctor d WHERE d.email = \" "+principal.getName()+" \" " ;
 //        doctor = this.doctorFacade.findByName(query);
         //\"doc\"
-        System.out.print("************************************" + principal.getName());
+//        System.out.print("************************************" + principal.getName());
 //        if (principal != null) {
 //            String query = "SELECT d FROM Doctor d WHERE d.email = " + doctor.getEmail();
 //            doctor = this.doctorFacade.findSingleByQuery(doctor, query, doctor.getEmail(), principal.getName());
