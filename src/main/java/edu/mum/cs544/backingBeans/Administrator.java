@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.mum.cs544.controller;
+package edu.mum.cs544.backingBeans;
 
-import edu.mum.cs544.boundary.CategoryFacade;
-import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.EJBs.AdministratorEjb;
 import edu.mum.cs544.model.Category;
 import edu.mum.cs544.model.Doctor;
 import java.io.Serializable;
@@ -19,7 +18,7 @@ import javax.enterprise.context.SessionScoped;
  *
  * @author FWorku
  */
-@Named(value = "administrator")
+@Named
 @SessionScoped
 public class Administrator implements Serializable {
 
@@ -28,10 +27,11 @@ public class Administrator implements Serializable {
      */
     public Administrator() {
     }
-    @EJB
-    private DoctorFacade doctorFacade;
-    @EJB
-    private CategoryFacade categoryFacade;
+    
+    
+   @EJB
+    private AdministratorEjb administratorEjb;
+   
     private Doctor doctor = new Doctor();
     private Category category = new Category();
 
@@ -55,35 +55,29 @@ public class Administrator implements Serializable {
     }
 
     public String editDoctorList() {
-        this.doc = this.doctorFacade.findAll();
+        this.doc = this.administratorEjb.editDoctorList();
 
         return "manageDoctorsList";
     }
 
     public String editCategoryList() {
-        this.cat = this.categoryFacade.findAll();
+        this.cat = this.administratorEjb.editCategoryList();
         return "manageCategoryList";
     }
 
     public void saveDocChanges() {
 
-        for (Doctor doctor : doc) {
-            doctor.setEditable(false);
-            this.doctorFacade.edit(doctor);
-        }
+        this.administratorEjb.saveDocChanges(doc);
     }
 
     public void saveCatChanges() {
 
-        for (Category category : cat) {
-            category.setEditable(false);
-            this.categoryFacade.edit(category);
-        }
+        this.administratorEjb.saveCatChanges(cat);
     }
 
     //how to handle the patients associated with it when deleted
     public void removeDoctor(Doctor doctor) {
-        this.doctorFacade.remove(doctor);
+        this.administratorEjb.removeDoctor(doctor);
     }
 
     public void editDocRecord() {

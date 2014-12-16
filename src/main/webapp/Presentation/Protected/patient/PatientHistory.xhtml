@@ -7,28 +7,7 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
-        
-        <h:dataTable value="#{virtualPatient.patientHistory}" var="hist" border="1">
-
-            <h:column>                    
-                <f:facet name="header">CheckUp Date</f:facet>                    
-                    #{hist.checkUpDate}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Condition</f:facet>
-                    #{hist.condition}
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Diagnostic Result</f:facet>
-                    #{hist.diagnosticResult}
-            </h:column>
-
-        </h:dataTable>
-        
-        <!--Choose one the tables-->
-
+    <h:body>        
         <p:dataTable var="hist" value="#{virtualPatient.patientHistory}">
             <p:column headerText="CheckUp Date">
                 <h:outputText value="#{hist.checkUpDate}" />

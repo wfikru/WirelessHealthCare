@@ -8,34 +8,53 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:form>
-        <h:panelGrid columns="2">
-            <p:outputLabel value="Submission Date" />
-            <p:outputLabel value="#{doctor.symptom.date}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Patient Name "/>
-            <p:outputLabel value="#{doctor.symptom.patient.firstName} #{doctor.symptom.patient.lastName}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Age "/>
-            <p:outputLabel value="#{doctor.symptom.patient.age}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Temprature "/>
-            <p:outputLabel value="#{doctor.symptom.temperature}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Blood Pressure "/>
-            <p:outputLabel value="#{doctor.symptom.systolic}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Nausea "/>
-            <p:outputLabel value="#{doctor.symptom.nausea}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Dizziness "/>
-            <p:outputLabel value="#{doctor.symptom.dizziness}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Fatigue "/>
-            <p:outputLabel value="#{doctor.symptom.fatigue}" style=" background-color:  aliceblue"/>
-            <p:outputLabel value="Description "/>
-            <p:outputLabel value="#{doctor.symptom.description}" style=" background-color:  aliceblue"/>
-            <p:commandButton value="Prescribe" action="prescriptionForm"/>
-        </h:panelGrid>
-        </h:form>
+            <ui:composition template="/Presentation/sections/masterLayoutDoctor.xhtml">
+                <ui:define name="windowTitle">
+
+                </ui:define>
+                <ui:define name="content">
+                    <h:form>
+                    <p:panel header="Patient symptom detail" style=" background-color:  aliceblue" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Submission Date" />
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.date}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Patient Name "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.patient.firstName} #{doctor.symptom.patient.lastName}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Age "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.patient.age}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Temprature "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.temperature}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Blood Pressure "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.systolic}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Nausea "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.nausea}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Dizziness "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.dizziness}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Fatigue "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.fatigue}" style=" background-color:  white"/></p:layoutUnit>
+                            <p:outputLabel value="Description "/>
+                            <p:layoutUnit position="west">
+                                <p:outputLabel value="#{doctor.symptom.description}" style=" background-color:  white"/></p:layoutUnit>
+                            <h:commandButton value="Prescribe" action="prescriptionForm"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    </h:form>
+                </ui:define>
+            </ui:composition>
     </h:body>
 </html>

@@ -3,77 +3,94 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h:panelGrid>
-                <h:outputLabel value="What is your temperature in °F?" />         
 
-                <p:inputText value="#{virtualPatient.symptom.temperature}"
-                             id="temp"
-                             required="false" 
-                             requiredMessage="Temperature is required"
-                             validatorMessage="Temperature should be between 95 and 110 °F"
-                             >
-                    <f:validateDoubleRange minimum="95" maximum="110" for="firstName"></f:validateDoubleRange>
-                   
-                </p:inputText> 
-                  <p:message for="temp" />
-                
+        <ui:composition template="/Presentation/sections/masterLayoutPatient.xhtml">
+            <ui:define name="windowTitle">
 
-                <h:outputLabel value="Are you filling dizziness?" />
-                <h:selectOneRadio id="dizz" 
-                                  value="#{virtualPatient.symptom.dizziness}" >
-                    <f:selectItem itemValue="true" itemLabel="Yes" />
-                    <f:selectItem itemValue="false" itemLabel="No" />
-                </h:selectOneRadio>
-                <p:message for="dizz" />
+            </ui:define>
+            <ui:define name="content">
+                <p:fieldset>
+                    <h:form>
+                        <h:panelGrid>
+                            <h:outputLabel value="What is your temperature in °F?" />         
 
-                <h:outputLabel value="Do you have nausea?" />
-                <h:selectOneRadio id="nausea" 
-                                  value="#{virtualPatient.symptom.nausea}" >
-                    <f:selectItem itemValue="true" itemLabel="Yes" />
-                    <f:selectItem itemValue="false" itemLabel="No" />
-                </h:selectOneRadio>
-                <p:message for="nausea" />
+                            <p:inputText value="#{virtualPatient.symptom.temperature}"
+                                         id="temp"
+                                         required="false" 
+                                         requiredMessage="Temperature is required"
+                                         validatorMessage="Temperature should be between 95 and 110 °F"
+                                         >
+                                <f:validateDoubleRange minimum="95" maximum="110" for="firstName"></f:validateDoubleRange>
 
-                <h:outputLabel value="Do you have fatigue?" />
-                <h:selectOneRadio id="fatigue" 
-                                  value="#{virtualPatient.symptom.fatigue}" >
-                    <f:selectItem itemValue="true" itemLabel="Yes" />
-                    <f:selectItem itemValue="false" itemLabel="No" />
-                </h:selectOneRadio>
-                <p:message for="fatigue" />
+                            </p:inputText> 
+                            <p:message for="temp" />
 
-                <p>Your Higher and lower blood pressure, Higher is systolic and lower is  diastolic</p>                
-                <h:outputLabel value="Your Systolic blood pressure:"/>
-                <p:inputText value="#{virtualPatient.symptom.systolic}"
-                             id="systolic"                             
-                             validatorMessage="Systolic reading should be between 100 and 180"
-                             >
-                    <f:validateDoubleRange minimum="100" maximum="180" for="firstName"></f:validateDoubleRange>
-                </p:inputText>
-                <p:message for="systolic" />
 
-                <h:outputLabel value="Your diastolic blood pressure:"/>
-                <p:inputText value="#{virtualPatient.symptom.diastolic}"
-                             id="diastolic"                             
-                             validatorMessage="diastolic reading should be between 50 and 120"
-                             >
-                    <f:validateDoubleRange minimum="50" maximum="120" for="firstName"></f:validateDoubleRange>
-                </p:inputText>  
-                 <p:message for="diastolic" /> 
-                 
-                <p:inputTextarea value="#{virtualPatient.symptom.description}" rows="3"
-                                 cols="45"/>
+                            <h:outputLabel value="Are you filling dizziness?" />
+                            <h:selectOneRadio id="dizz" 
+                                              value="#{virtualPatient.symptom.dizziness}" >
+                                <f:selectItem itemValue="true" itemLabel="Yes" />
+                                <f:selectItem itemValue="false" itemLabel="No" />
+                            </h:selectOneRadio>
+                            <p:message for="dizz" />
 
-            <h:commandButton value="submit" action="#{virtualPatient.submitSysmptom}"/>
+                            <h:outputLabel value="Do you have nausea?" />
+                            <h:selectOneRadio id="nausea" 
+                                              value="#{virtualPatient.symptom.nausea}" >
+                                <f:selectItem itemValue="true" itemLabel="Yes" />
+                                <f:selectItem itemValue="false" itemLabel="No" />
+                            </h:selectOneRadio>
+                            <p:message for="nausea" />
 
-            </h:panelGrid>
-        </h:form>
+                            <h:outputLabel value="Do you have fatigue?" />
+                            <h:selectOneRadio id="fatigue" 
+                                              value="#{virtualPatient.symptom.fatigue}" >
+                                <f:selectItem itemValue="true" itemLabel="Yes" />
+                                <f:selectItem itemValue="false" itemLabel="No" />
+                            </h:selectOneRadio>
+                            <p:message for="fatigue" />
+
+                            <p>Your Higher and lower blood pressure, Higher is systolic and lower is  diastolic</p>                
+                            <h:outputLabel value="Your Systolic blood pressure:"/>
+                            <p:inputText value="#{virtualPatient.symptom.systolic}"
+                                         id="systolic"                             
+                                         validatorMessage="Systolic reading should be between 100 and 180"
+                                         >
+                                <f:validateDoubleRange minimum="100" maximum="180" for="firstName"></f:validateDoubleRange>
+                            </p:inputText>
+                            <p:message for="systolic" />
+
+                            <h:outputLabel value="Your diastolic blood pressure:"/>
+                            <p:inputText value="#{virtualPatient.symptom.diastolic}"
+                                         id="diastolic"                             
+                                         validatorMessage="diastolic reading should be between 50 and 120"
+                                         >
+                                <f:validateDoubleRange minimum="50" maximum="120" for="firstName"></f:validateDoubleRange>
+                            </p:inputText>  
+                            <p:message for="diastolic" /> 
+
+                            <p:inputTextarea value="#{virtualPatient.symptom.description}" rows="3"
+                                             cols="45"/>
+
+                            <h:outputLabel value="Category for your Symptom"/>
+                            <h:selectOneMenu value="#{virtualPatient.categorySelected}">
+                                <f:selectItems value="#{virtualPatient.category}" var="cat"
+                                               itemLabel="#{cat.title}" itemValue="#{cat.title}" />
+                            </h:selectOneMenu>
+                        </h:panelGrid> 
+                        
+                        <p> <h:commandButton value="submit" action="#{virtualPatient.submitSysmptom}"/></p>
+
+                    </h:form>
+                </p:fieldset>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

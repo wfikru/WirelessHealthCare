@@ -21,28 +21,18 @@ and open the template in the editor.
 
             </ui:define>
             <ui:define name="content">
-                <p:panel header="Unprescribed Submissions" style=" background-color:  aliceblue" >
+                <p:panel header="Patient History" style=" background-color:  aliceblue" >
                     <p:scrollPanel style="width:820px;height:300px">
                         <h:form>
-                            <p:dataTable value="#{doctor.symptoms}" var="symptom">
-                                <p:column headerText="Submission Date">
-                                    <h:outputText value="#{symptom.date}"/>
+                            <p:dataTable value="#{doctor.historyList}" var="history">
+                                <p:column headerText="Date">
+                                    <h:outputText value="#{history.checkUpDate}"/>
                                 </p:column>
-                                <p:column headerText="Name">
-                                    <h:outputText value="#{symptom.patient.firstName} #{symptom.patient.lastName}"/>
-                                </p:column>
-                                <p:column headerText="Age">
-                                    <h:outputText value="#{symptom.patient.age}"/>
-                                </p:column>
-                                <p:column headerText="Temprature" >
-                                    <h:outputText value="#{symptom.temperature}"/>
-                                </p:column>
-                                <p:column headerText="Blood Pressure">
-                                    <h:outputText value="#{symptom.systolic}"/>
+                                <p:column headerText="Diagnosis">
+                                    <h:outputText value="#{history.diagnosticResult}"/>
                                 </p:column>
                                 <p:column headerText="">
-                                    <h:commandLink value="Detail" action="#{doctor.symptomDetail(symptom)}"/>
-
+                                    <h:commandLink value="Prescriptions" action="#{doctor.viewPrescription(history.id)}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form>
