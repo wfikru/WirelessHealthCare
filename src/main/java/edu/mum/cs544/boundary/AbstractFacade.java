@@ -54,6 +54,13 @@ public abstract class AbstractFacade<T> {
         query.setParameter(bindParam,bindValue);
         return query.getResultList();
     }
+    
+    public T findByName(String queryString)
+    {
+        Query query=getEntityManager().createQuery(queryString);
+//        query.setParameter(bindParam,bindValue);
+        return (T) query.getSingleResult();
+    }
 
     public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
@@ -71,5 +78,6 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
+    
     
 }
