@@ -96,8 +96,9 @@
         <role-name>PATIENT</role-name>
     </security-role>
    
-<!--    <error-page>
+    <error-page>
         <error-code>403</error-code>
-        <location></location>
-    </error-page>-->
+        <location>Presentation/error.faces</location>
+    </error-page>
+    
 </web-app>
