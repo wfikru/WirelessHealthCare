@@ -40,16 +40,6 @@ public class LoginCheck implements Serializable {
     private LoginCheckEjb loginCheckEjb;
     private Users users = new Users();
 
-    private String username  ;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
 //    public String checkLogin() {
 //        users = this.loginCheckEjb.checkLogin();
 //
@@ -75,14 +65,12 @@ public class LoginCheck implements Serializable {
     public Doctor getDoctor() {
 
         doctor = this.loginCheckEjb.getDoctor();
-        setUsername( doctor.getFirstName());
         return doctor;
     }
 
     public Patient getPatient() {
 
         Patient= this.loginCheckEjb.getPatient();
-        setUsername(Patient.getFirstName());
         return Patient;
     }
 
