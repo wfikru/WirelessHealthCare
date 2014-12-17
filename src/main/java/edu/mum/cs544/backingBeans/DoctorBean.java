@@ -5,12 +5,8 @@
  */
 package edu.mum.cs544.backingBeans;
 
-import edu.mum.cs544.boundary.CategoryFacade;
-import edu.mum.cs544.boundary.DoctorFacade;
-import edu.mum.cs544.boundary.MedicineFacade;
-import edu.mum.cs544.boundary.PatientFacade;
-import edu.mum.cs544.boundary.PrescriptionFacade;
-import edu.mum.cs544.boundary.SymptomFacade;
+
+import edu.mum.cs544.EJBs.DoctorEJB;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.MedicalHistory;
 import edu.mum.cs544.model.Medicine;
@@ -29,7 +25,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.MessagingException;
-import javax.persistence.EntityManager;
 import webServices.BundleMessages;
 import webServices.MailService;
 
@@ -48,6 +43,7 @@ public class DoctorBean implements Serializable {
     private Symptom symptom = new Symptom();
     private Patient patient = new Patient();
     private List<Medicine> medicines = new ArrayList<Medicine>();
+    private List<Medicine> medicines2 = new ArrayList<Medicine>();
     private Medicine medicine = new Medicine();
     private Prescription prescription = new Prescription();
     private MedicalHistory history = new MedicalHistory();
@@ -61,19 +57,8 @@ public class DoctorBean implements Serializable {
     private String message = bundle1.getPrescriptionNotification();
 
     @EJB
-    private CategoryFacade categoryFacade;
-    @EJB
-    private SymptomFacade symptomFacade;
-    @EJB
-    private DoctorFacade doctorFacade;
-    @EJB
-    private MedicineFacade medicineFacade;
-    @EJB
-    private PatientFacade patientFacade;
-    @EJB
-    private PrescriptionFacade prescriptionFacade;
-
-    private EntityManager em;
+    private DoctorEJB doctorEjb;
+    
 
     public Doctor getDoctor() {
         return doctor;
@@ -122,14 +107,17 @@ public class DoctorBean implements Serializable {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
-    public List<Medicine> getMedicines() {
-        medicines = medicineFacade.findAll();
-        return medicines;
-    }
-
+    
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
+    }
+
+    public List<Medicine> getMedicines2() {
+        return medicines2;
+    }
+
+    public void setMedicines2(List<Medicine> medicines2) {
+        this.medicines2 = medicines2;
     }
 
     public Medicine getMedicine() {
@@ -273,8 +261,8 @@ public class DoctorBean implements Serializable {
         String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";
-        symptoms = symptomFacade.findListByQuery(query, 1, doctorCategory);
-        return "Protected/doctor/viewAssignments";
+        symptoms = doctorEjb.findSymptoms(query, 1, doctorCategory);
+        return "viewAssignments";
     }
 
     public String symptomDetail(Symptom s) {
@@ -292,14 +280,7 @@ public class DoctorBean implements Serializable {
         history.setPrescription(prescription);
         doctor.getPatients().add(symptom.getPatient());
         symptom.getPatient().getDoctors().add(doctor);
-        prescriptionFacade.create(prescription);
-        patientFacade.edit(symptom.getPatient());
-        doctorFacade.edit(doctor);
-        symptomFacade.edit(symptom);
-
-        recipient = symptom.getPatient().getEmail();
-        sendEmail(recipient);
-        return "prescriptionConfirmation";
+        return doctorEjb.writePrescription(prescription, doctor, symptom, history);
     }
 //    @AroundInvoke
 
@@ -340,18 +321,7 @@ public class DoctorBean implements Serializable {
     public String deleteRow(Medicine m) {
         prescription.getMedicines().remove(m);
         medicines.remove(medicine);
-        return "confirmPrescription";
-    }
-
-    public List<String> getMedicineNames() {
-        for (Medicine m : medicineFacade.findAll()) {
-            medicineNames.add(m.getNameOfMedicine());
-        }
-        return medicineNames;
-    }
-
-    public void setMedicineNames(List<String> medicineNames) {
-        this.medicineNames = medicineNames;
+        return "confirmPrescription2";
     }
 
     public String viewAllHistory() {
@@ -365,9 +335,12 @@ public class DoctorBean implements Serializable {
         return "patientHistoryDetail";
     }
 
-    public String viewPrescription(MedicalHistory histroy) {
+    public String viewPrescription(Long id) {
+        history = doctorEjb.findHistory(id);
         prescription = history.getPrescription();
-        medicines = history.getPrescription().getMedicines();
+        medicines.clear();
+        setMedicines2(history.getPrescription().getMedicines());
         return "historyPrescriptionsDetail";
     }
+
 }

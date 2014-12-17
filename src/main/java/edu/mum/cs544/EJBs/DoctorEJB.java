@@ -75,16 +75,17 @@ public class DoctorEJB {
     private PatientFacade patientFacade;
     @EJB
     private PrescriptionFacade prescriptionFacade;
+    @EJB
+    private MedicalHistoryFacade historyFacade;
 
-    private EntityManager em;
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
 
     public List<Doctor> getDoctors() {
         return doctors;
@@ -271,11 +272,8 @@ public class DoctorEJB {
         this.em = em;
     }
 
-    public List<Symptom> viewMyAssignments(Doctor doc) {
-        String doctorCategory = doc.getCategory().getTitle();
-        String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
-                + " AND symptom.prescribed=false ";
-        return symptomFacade.findListByQuery(query, 1, doctorCategory);
+    public List<Symptom> findSymptoms(String query, int bindParam, String bindValue) {
+        return symptomFacade.findListByQuery(query, bindParam, bindValue);
     }
 
     public String symptomDetail(Symptom s) {
@@ -311,6 +309,14 @@ public class DoctorEJB {
         } catch (MessagingException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     public List<Patient> viewAllHistory(Doctor doc) {
+        return doctorFacade.find(doc.getId()).getPatients();
+    }
+     
+     public MedicalHistory findHistory(Long id) {       
+        return historyFacade.find(id);
     }
 
     public String addMedicine() {
