@@ -5,7 +5,6 @@
  */
 package edu.mum.cs544.backingBeans;
 
-
 import edu.mum.cs544.EJBs.DoctorEJB;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
@@ -43,7 +42,7 @@ import webServices.MailService;
 @SessionScoped
 public class DoctorBean implements Serializable {
 
-    private Doctor doctor = new LoginCheck().getDoctor();
+    private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -79,9 +78,6 @@ public class DoctorBean implements Serializable {
     private PrescriptionFacade prescriptionFacade;
     @EJB
     private MedicalHistoryFacade historyFacade;
-
-
-    
 
     public Doctor getDoctor() {
         return doctor;
@@ -130,7 +126,7 @@ public class DoctorBean implements Serializable {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    
+
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
@@ -273,6 +269,7 @@ public class DoctorBean implements Serializable {
 
     public String viewMyAssignments() {
         doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        System.out.print(doctor.getFirstName() + "++++++++++++++++++");
         String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";

@@ -51,7 +51,6 @@ public class LoginCheck implements Serializable {
 //            return "PatientPortal";
 //        }
 //    }
-
     public void logout() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         session.invalidate();
@@ -64,13 +63,15 @@ public class LoginCheck implements Serializable {
 
     public Doctor getDoctor() {
 
-//        doctor = this.loginCheckEjb.getDoctor();
+        doctor = this.loginCheckEjb.getDoctor();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("doctorKey", doctor);
         return doctor;
+        
     }
 
     public Patient getPatient() {
 
-        Patient= this.loginCheckEjb.getPatient();
+        Patient = this.loginCheckEjb.getPatient();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("patientKey", Patient);
         return Patient;
     }
