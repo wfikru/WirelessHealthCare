@@ -130,7 +130,7 @@ public class DoctorBean implements Serializable {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    
+
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
@@ -273,6 +273,7 @@ public class DoctorBean implements Serializable {
 
     public String viewMyAssignments() {
         doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        System.out.print(doctor.getFirstName() + "++++++++++++++++++");
         String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";
