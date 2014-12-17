@@ -61,6 +61,7 @@ public class LoginCheckEjb implements Serializable {
         if (principal != null) {
             String query = "SELECT d FROM Doctor d WHERE d.email = \"" + email + "\"";
             doctor = this.doctorFacade.findByName(query);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("doctorKey", doctor);
         }
         return doctor;
     }

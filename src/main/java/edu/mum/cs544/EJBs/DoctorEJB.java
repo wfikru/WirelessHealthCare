@@ -5,6 +5,7 @@
  */
 package edu.mum.cs544.EJBs;
 
+import edu.mum.cs544.backingBeans.LoginCheck;
 import edu.mum.cs544.backingBeans.Registration;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
@@ -37,8 +38,7 @@ import webServices.MailService;
 @Stateless
 public class DoctorEJB {
 
-    
-    
+//    private Doctor doctor = new LoginCheck().getDoctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -71,6 +71,15 @@ public class DoctorEJB {
     private PrescriptionFacade prescriptionFacade;
     @EJB
     private MedicalHistoryFacade historyFacade;
+
+
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
 
     public List<Doctor> getDoctors() {
         return doctors;
@@ -266,11 +275,8 @@ public class DoctorEJB {
     }
     
 
-    public List<Symptom> viewMyAssignments(Doctor doc) {
-        String doctorCategory = doc.getCategory().getTitle();
-        String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
-                + " AND symptom.prescribed=false ";
-        return symptomFacade.findListByQuery(query, 1, doctorCategory);
+    public List<Symptom> findSymptoms(String query, int bindParam, String bindValue) {
+        return symptomFacade.findListByQuery(query, bindParam, bindValue);
     }
 
     public String symptomDetail(Symptom s) {
@@ -298,6 +304,14 @@ public class DoctorEJB {
         } catch (MessagingException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     public List<Patient> viewAllHistory(Doctor doc) {
+        return doctorFacade.find(doc.getId()).getPatients();
+    }
+     
+     public MedicalHistory findHistory(Long id) {       
+        return historyFacade.find(id);
     }
 
 }
