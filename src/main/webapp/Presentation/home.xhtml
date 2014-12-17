@@ -36,8 +36,8 @@
                         <ul class="cssMenu">
                             <li>
                                 <h:commandLink class="btn btn-primary"   
-                                               value="Signin" rendered="#{not loginCheck.isLogedIn()}" />         
-                                <ul>
+                                               value="Sign In" rendered="#{not loginCheck.isLogedIn()}" />         
+                                <ul style="background-color: azure">
                                     <li><h:link value="Admin" outcome="Protected/admin/AdminPortal"/></li>
                                     <li><h:link value="Doctor" outcome="Protected/doctor/DoctorPortal"/></li>
                                     <li><h:link value="Patient" outcome="Protected/patient/PatientPortal"/></li>

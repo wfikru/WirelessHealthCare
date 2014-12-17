@@ -78,10 +78,10 @@ public class startup {
         this.patientFacade.create(patient1);
 
         Category category1 = new Category();
-        category1.setTitle("Phsyiotherapy");
+        category1.setTitle("Dermatology");
         this.categoryFacade.create(category1);
         Category category2 = new Category();
-        category2.setTitle("General Practioner");
+        category2.setTitle("GP");
         this.categoryFacade.create(category2);
 
         Symptom symptom1 = new Symptom();

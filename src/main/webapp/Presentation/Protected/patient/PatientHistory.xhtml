@@ -17,18 +17,17 @@
             <ui:define name="content">
                 <p:fieldset>
                     <h:form>
-                        <p:dataTable var="hist" value="#{virtualPatient.patientHistory}">
+                        <p:dataTable var="hist" value="#{virtualPatient.history}">
                             <p:column headerText="CheckUp Date">
                                 <h:outputText value="#{hist.checkUpDate}" />
                             </p:column>
-
-                            <p:column headerText="Condition">
-                                <h:outputText value="#{hist.condition}" />
-                            </p:column>
-
                             <p:column headerText="Diagnostic Result">
                                 <h:outputText value="#{hist.diagnosticResult}" />
                             </p:column>
+                            <p:column headerText="">
+                                <h:commandLink value="Prescription" action="#{virtualPatient.viewPrescriptions(hist)}"/>
+                            </p:column>
+
 
                         </p:dataTable>
                     </h:form>
