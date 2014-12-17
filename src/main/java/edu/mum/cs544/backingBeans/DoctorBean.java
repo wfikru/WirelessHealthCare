@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
@@ -40,7 +41,7 @@ import webServices.MailService;
 @SessionScoped
 public class DoctorBean implements Serializable {
 
-    private Doctor doctor = new LoginCheck().getDoctor();
+    private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -267,9 +268,9 @@ public class DoctorBean implements Serializable {
         this.em = em;
     }
 
-    public String viewMyAssignments(Doctor doc) {
-        doctor = doc;
-        String doctorCategory = doc.getCategory().getTitle();
+    public String viewMyAssignments() {
+        doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";
         symptoms = symptomFacade.findListByQuery(query, 1, doctorCategory);
@@ -353,8 +354,9 @@ public class DoctorBean implements Serializable {
         this.medicineNames = medicineNames;
     }
 
-    public String viewAllHistory(Doctor doc) {
-        patients = doctorFacade.find(doc.getId()).getPatients();
+    public String viewAllHistory() {
+        doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        patients = doctorFacade.find(doctor.getId()).getPatients();
         return "patientHistoryFromDoctor";
     }
 

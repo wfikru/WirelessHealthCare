@@ -30,7 +30,7 @@
                                                     <tr>
                                                         <td>
                                                             <span class="glyphicon glyphicon-pencil text-primary"></span>
-                                                            <h:commandLink value="viewAssignments" action="Presentation/Protected/doctor/viewAssignments"/>
+                                                            <h:commandLink value="viewAssignments" action="#{doctor.viewMyAssignments()}"/>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -52,7 +52,7 @@
                                                     <tr>
                                                         <td>
                                                             <span class="glyphicon glyphicon-pencil text-primary"></span>
-                                                            <h:commandLink value="Patient History" action="Presentation/Protected/doctor/patientHistoryFromDoctor"/>
+                                                            <h:commandLink value="Patient History" action="#{doctor.viewAllHistory()}"/>
 
                                                         </td>
                                                     </tr>
