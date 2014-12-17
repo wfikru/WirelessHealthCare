@@ -61,7 +61,7 @@ public class VirtualPatient implements Serializable {
 
     public String submitSysmptom() {
         virtualPatientEJB.submitSymptom(symptom, categorySelected);
-        return "symptomSubmitSuccess";
+        return "PatientPortal";
 
     }
 
