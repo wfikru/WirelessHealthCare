@@ -73,6 +73,7 @@ public class LoginCheckEjb implements Serializable {
         if (principal != null) {
             String query = "SELECT p FROM Patient p WHERE p.email = \"" + email + "\"";
             patient = this.patientFacade.findByName(query);
+            
         }
         return patient;
     }
