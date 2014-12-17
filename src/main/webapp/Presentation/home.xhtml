@@ -6,14 +6,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
-        <style>
+        <link href="/Virtual-HealthCareSystem/resources/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="/Virtual-HealthCareSystem/resources/css/default.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/Virtual-HealthCareSystem/resources/css/nivo-slider.css" rel="stylesheet" type="text/css" media="all" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+        <script src="/Virtual-HealthCareSystem/resources/js/jquery-1.9.0.min.js"></script>
+        <script src="/Virtual-HealthCareSystem/resources/js/jquery.nivo.slider.js"></script>
+        <script type="text/javascript">
+            $(window).load(function() {
+                $('#slider').nivoSlider();
+            });
+        </script>
 
-        </style>
     </h:head>
     <h:body>
 
-        <ui:composition template="/Presentation/sections/masterLayout.xhtml">
+        <ui:composition template="/Presentation/sections/masterLayoutTest.xhtml">
             <ui:define name="windowTitle">
 
             </ui:define>
@@ -21,7 +31,7 @@
                 <ui:insert>
 
                     <h:form>
-                        
+
                         <ul class="cssMenu">
                             <li>
                                 <h:commandLink class="btn btn-primary"   
@@ -38,32 +48,99 @@
                 </ui:insert>
             </ui:define>
             <ui:define name="content">
+                <div class="banner">
+                    <div id="wrapper">
+                        <div class="slider-wrapper theme-default">
+                            <div id="slider" class="nivoSlider">
+                                <img src="/Virtual-HealthCareSystem/resources/images/banner2.jpg"  />
+                                <img src="/Virtual-HealthCareSystem/resources/images/banner1.jpg" />
+                                <img src="/Virtual-HealthCareSystem/resources/images/banner3.jpg"  />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-bottom">
+                    <div class="col_1_of_bottom span_1_of_bottom">
+                        <img src="/Virtual-HealthCareSystem/resources/images/pic.jpg" alt=""/>
+                        <div class="main_link">
+                            <h5>Discount</h5>
+                            <p>Choose from any of our extensive range </p>
+                        </div>
+                        <a href="#" class="btn-link1">read more</a>
+                    </div>
+                    <div class="col_1_of_bottom span_1_of_bottom">
+                        <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg" alt=""/>
+                        <div class="main_link">
+                            <h5>Doctors</h5>
+                            <p>All our doctors are trained to provide online care </p>
+                        </div>
+                        <a href="#" class="btn-link1">read more</a>
+                    </div>
+                    <div class="col_1_of_bottom span_1_of_last">
+                        <img src="/Virtual-HealthCareSystem/resources/images/pic3.jpg" alt=""/>
+                        <div class="main_link">
+                            <h5>Quality</h5>
+                            <p>We are one of the top health providers in the US </p>
+                        </div>
+                        <a href="#" class="btn-link2">read more</a>
+                    </div>
+                    <div class="clear"></div> 
+                </div>
                 
-                 <div class="flexslider" >
-                            <ul class="slides">
+                <div class="footer" style="background-color: white">
+                    <div class="footer-top">
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h3>INFORMATION</h3>
+                            <ul>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Sitemap</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Legal Notice</a></li>
+                            </ul>
+                        </div>
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h3>CATEGORIES</h3>
+                            <ul>
+                                <li><a href="#">New products</a></li>
+                                <li><a href="#">top sellers</a></li>
+                                <li><a href="#">Specials</a></li>
+                                <li><a href="#">Products</a></li>
+                                <li><a href="#">Comments</a></li>
+                            </ul>
+                        </div>
+                        <div class="col_1_of_4 span_1_of_4">
+                            <h3>My ACCOUNT</h3>
+                            <ul>
+                                <li><a href="#">Your Account</a></li>
+                                <li><a href="#">Personal info</a></li>
+                                <li><a href="#">Prices</a></li>
+                                <li><a href="#">Address</a></li>
+                                <li><a href="#">Locations</a></li>
+                            </ul>
+                        </div>
+                        <div class="col_1_of_4 span_1_of_4 footer-lastgrid">
+                            <h3>CONTACT US</h3>
+                            <ul class="list3">
                                 <li>
-                                    <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg"  style="height: 182px;" />
-                                    We treat more than 50 common conditions like sinus infections, bladder infections, 
-                                    pink eye and acne. Certified nurse practitioners make a diagnosis, 
-                                    create a personalized treatment plan and send a prescription if needed.
+                                    <img src="/Virtual-HealthCareSystem/resources/images/home.png" alt=""/>
+                                    <div class="extra-wrap">
+                                        <p>100N 4th Street,<br/>Fairfield, USA.</p>
+                                    </div>
                                 </li>
                                 <li>
-                                      <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg"  style="height: 182px;" />
-                                    #{customerBean.msgs.welcome1}
-                                </li>
-                                <li>
-                                      <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg"  style="height: 182px;" />
-                                   We only treat common conditions that are safely diagnosed without an in-person visit.
-                                   We follow the same medical standards shared by clinics and hospitals.
+                                    <img src="/Virtual-HealthCareSystem/resources/images/phone.png" alt=""/>
+                                    <div class="extra-wrap">
+                                        <p><span>Telephone:</span>+1 800 258 2598</p>
+                                        <p><span>FAX:</span>+1 800 589 2587</p>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
-                    
-                  <script type="text/javascript" charset="utf-8">
-                        $(window).load(function () {
-                            $('.flexslider').flexslider();
-                        });
-                    </script>
+                        <div class="clear"></div> 
+                    </div>
+                </div>
+
 
             </ui:define>
         </ui:composition>

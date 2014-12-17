@@ -38,8 +38,8 @@ public class LoginCheckEjb implements Serializable {
     @EJB
     private usersFacade userfacade;
 
-    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
+//    @PersistenceContext(unitName = "com.mycompany_VirtualHEalthCareSystem_war_1.0-SNAPSHOTPU")
+//    private EntityManager em;
 
 //    public Users checkLogin() {
 //
