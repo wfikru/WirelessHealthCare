@@ -66,7 +66,6 @@ public class DoctorBean implements Serializable {
 
     @EJB
     private DoctorEJB doctorEJB;
-    
     @EJB
     private CategoryFacade categoryFacade;
     @EJB
@@ -81,6 +80,7 @@ public class DoctorBean implements Serializable {
     private PrescriptionFacade prescriptionFacade;
     @EJB
     private MedicalHistoryFacade historyFacade;
+
 
     private LoginCheck loginCheck = new LoginCheck();
     public Doctor getDoctor() {
@@ -270,7 +270,6 @@ public class DoctorBean implements Serializable {
     public void setPrescriptionFacade(PrescriptionFacade prescriptionFacade) {
         this.prescriptionFacade = prescriptionFacade;
     }
-
 
     public String viewMyAssignments() {
         doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");

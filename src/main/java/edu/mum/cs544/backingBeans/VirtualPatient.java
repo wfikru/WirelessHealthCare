@@ -26,32 +26,30 @@ public class VirtualPatient implements Serializable {
 
     @EJB
     private VirtualPatientEJB virtualPatientEJB;
-    
-    
-      
-     private String categorySelected;
-    
+
+    private String categorySelected;
+
     public VirtualPatient() {
     }
+
     private Symptom symptom = new Symptom();
     private Patient patient = new Patient();
-    
+
     public Symptom getSymptom() {
         return symptom;
     }
-    
+
     public void setSymptom(Symptom symptom) {
         this.symptom = symptom;
     }
-    
+
     public List<MedicalHistory> getPatientHistory() {
         return patient.getHistory();
     }
-    
+
     public List<Category> getCategory() {
         return virtualPatientEJB.getAllCategory();
     }
-  
 
     public String getCategorySelected() {
         return categorySelected;
@@ -60,11 +58,11 @@ public class VirtualPatient implements Serializable {
     public void setCategorySelected(String categorySelected) {
         this.categorySelected = categorySelected;
     }
-    
+
     public String submitSysmptom() {
-        virtualPatientEJB.submitSymptom(symptom, categorySelected);        
+        virtualPatientEJB.submitSymptom(symptom, categorySelected);
         return "symptomSubmitSuccess";
-        
+
     }
-    
+
 }

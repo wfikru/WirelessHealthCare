@@ -302,11 +302,11 @@ public class DoctorEJB {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public List<Patient> viewAllHistory(Doctor doc) {
-        return doctorFacade.find(doc.getId()).getPatients();
-    }
-     
+//    
+//     public List<Patient> viewAllHistory(Doctor doc) {
+//        return doctorFacade.find(doc.getId()).getPatients();
+//    }
+//     
      public MedicalHistory findHistory(Long id) {       
         return historyFacade.find(id);
     }
