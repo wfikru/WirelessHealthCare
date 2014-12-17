@@ -5,7 +5,6 @@
  */
 package edu.mum.cs544.EJBs;
 
-import edu.mum.cs544.backingBeans.LoginCheck;
 import edu.mum.cs544.backingBeans.Registration;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
