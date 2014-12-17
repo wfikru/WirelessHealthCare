@@ -6,14 +6,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
-        <style>
+        <link href="/Virtual-HealthCareSystem/resources/css/style2.css" rel="stylesheet" type="text/css" media="all" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="/Virtual-HealthCareSystem/resources/css/default.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/Virtual-HealthCareSystem/resources/css/nivo-slider.css" rel="stylesheet" type="text/css" media="all" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+        <script src="/Virtual-HealthCareSystem/resources/js/jquery-1.9.0.min.js"></script>
+        <script src="/Virtual-HealthCareSystem/resources/js/jquery.nivo.slider.js"></script>
+        <script type="text/javascript">
+            $(window).load(function() {
+            $('#slider').nivoSlider();
+            });
+        </script>
 
-        </style>
     </h:head>
     <h:body>
 
-        <ui:composition template="/Presentation/sections/masterLayout.xhtml">
+        <ui:composition template="/Presentation/sections/masterLayoutTest.xhtml">
             <ui:define name="windowTitle">
 
             </ui:define>
@@ -21,7 +31,7 @@
                 <ui:insert>
 
                     <h:form>
-                        
+
                         <ul class="cssMenu">
                             <li>
                                 <h:commandLink class="btn btn-primary"   
@@ -38,32 +48,20 @@
                 </ui:insert>
             </ui:define>
             <ui:define name="content">
-                
-                 <div class="flexslider" >
-                            <ul class="slides">
-                                <li>
-                                    <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg"  style="height: 182px;" />
-                                    We treat more than 50 common conditions like sinus infections, bladder infections, 
-                                    pink eye and acne. Certified nurse practitioners make a diagnosis, 
-                                    create a personalized treatment plan and send a prescription if needed.
-                                </li>
-                                <li>
-                                      <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg"  style="height: 182px;" />
-                                    #{customerBean.msgs.welcome1}
-                                </li>
-                                <li>
-                                      <img src="/Virtual-HealthCareSystem/resources/images/pic1.jpg"  style="height: 182px;" />
-                                   We only treat common conditions that are safely diagnosed without an in-person visit.
-                                   We follow the same medical standards shared by clinics and hospitals.
-                                </li>
-                            </ul>
+
+
+                <div class="banner">
+                    <div id="wrapper">
+                        <div class="slider-wrapper theme-default">
+                            <div id="slider" class="nivoSlider">
+                                <img src="/Virtual-HealthCareSystem/resources/images/banner2.jpg"  />
+                                <img src="/Virtual-HealthCareSystem/resources/images/banner1.jpg" />
+                                <img src="/Virtual-HealthCareSystem/resources/images/banner3.jpg"  />
+                            </div>
                         </div>
-                    
-                  <script type="text/javascript" charset="utf-8">
-                        $(window).load(function () {
-                            $('.flexslider').flexslider();
-                        });
-                    </script>
+                    </div>
+                </div>
+
 
             </ui:define>
         </ui:composition>

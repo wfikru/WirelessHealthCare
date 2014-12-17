@@ -52,30 +52,30 @@ public class LoginCheckEjb implements Serializable {
 //        
 //        return users;
 //    }
-    public Doctor getDoctor() {
+    public Doctor getCurrentDoctor() {
 
         Doctor doctor = new Doctor();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String email = principal.getName();
 
-        if (principal != null) {
+//        if (principal != null) {
             String query = "SELECT d FROM Doctor d WHERE d.email = \"" + email + "\"";
             doctor = this.doctorFacade.findByName(query);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("doctorKey", doctor);
-        }
+//        }
         return doctor;
     }
 
-    public Patient getPatient() {
+    public Patient getCurrentPatient() {
         Patient patient = new Patient();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String email = principal.getName();
 
-        if (principal != null) {
+//        if (principal != null) {
             String query = "SELECT p FROM Patient p WHERE p.email = \"" + email + "\"";
             patient = this.patientFacade.findByName(query);
             
-        }
+//        }
         return patient;
     }
 }

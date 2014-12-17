@@ -1910,10 +1910,12 @@ pre code {
     width: 83.33333333%;
   }
   .col-lg-9 {
-    width: 80%;
-    background-color: #444;
+    width: 75%;
+    /*background-color: #444;*/
     height: 400px;
     padding-top: 20px;
+    opacity: 1%;
+    float: right;
   }
   .col-lg-8 {
     width: 66.66666667%;

@@ -5,7 +5,6 @@
  */
 package edu.mum.cs544.EJBs;
 
-import edu.mum.cs544.backingBeans.LoginCheck;
 import edu.mum.cs544.backingBeans.Registration;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
@@ -45,7 +44,7 @@ import webServices.MailService;
 @Stateless
 public class DoctorEJB {
 
-    private Doctor doctor = new LoginCheck().getDoctor();
+    private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -353,11 +352,11 @@ public class DoctorEJB {
     public void setMedicineNames(List<String> medicineNames) {
         this.medicineNames = medicineNames;
     }
-
-    public String viewAllHistory(Doctor doc) {
-        patients = doctorFacade.find(doc.getId()).getPatients();
-        return "patientHistoryFromDoctor";
-    }
+//
+//    public String viewAllHistory(Doctor doc) {
+//        patients = doctorFacade.find(doc.getId()).getPatients();
+//        return "patientHistoryFromDoctor";
+//    }
 
     public String historyDetail(Patient p) {
         historyList = p.getHistory();

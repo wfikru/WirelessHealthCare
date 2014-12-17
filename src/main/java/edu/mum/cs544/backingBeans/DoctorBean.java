@@ -6,6 +6,7 @@
 package edu.mum.cs544.backingBeans;
 
 
+
 import edu.mum.cs544.EJBs.DoctorEJB;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
@@ -43,7 +44,7 @@ import webServices.MailService;
 @SessionScoped
 public class DoctorBean implements Serializable {
 
-    private Doctor doctor = new LoginCheck().getDoctor();
+    private Doctor doctor = new Doctor();//LoginCheck().getDoctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -64,7 +65,7 @@ public class DoctorBean implements Serializable {
     private String message = bundle1.getPrescriptionNotification();
 
     @EJB
-    private DoctorEJB doctorEjb;
+    private DoctorEJB doctorEJB;
     @EJB
     private CategoryFacade categoryFacade;
     @EJB
@@ -81,8 +82,7 @@ public class DoctorBean implements Serializable {
     private MedicalHistoryFacade historyFacade;
 
 
-    
-
+    private LoginCheck loginCheck = new LoginCheck();
     public Doctor getDoctor() {
         return doctor;
     }
@@ -130,7 +130,7 @@ public class DoctorBean implements Serializable {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    
+
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
@@ -273,10 +273,11 @@ public class DoctorBean implements Serializable {
 
     public String viewMyAssignments() {
         doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        System.out.print(doctor.getFirstName() + "++++++++++++++++++");
         String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";
-        symptoms = doctorEjb.findSymptoms(query, 1, doctorCategory);
+        symptoms = doctorEJB.findSymptoms(query, 1, doctorCategory);
         return "viewAssignments";
     }
 
@@ -304,6 +305,7 @@ public class DoctorBean implements Serializable {
         sendEmail(recipient);
         return "prescriptionConfirmation";
     }
+    
 //    @AroundInvoke
 
     @Asynchronous
@@ -358,7 +360,7 @@ public class DoctorBean implements Serializable {
     }
 
     public String viewPrescription(Long id) {
-        history = doctorEjb.findHistory(id);
+        history = doctorEJB.findHistory(id);
         prescription = history.getPrescription();
         medicines.clear();
         setMedicines2(history.getPrescription().getMedicines());
