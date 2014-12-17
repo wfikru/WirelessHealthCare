@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.MessagingException;
 import webServices.BundleMessages;
@@ -199,9 +200,65 @@ public class DoctorBean implements Serializable {
         this.message = message;
     }
 
-    public String viewMyAssignments(Doctor doc) {
-        doctor = doc;
-        String doctorCategory = doc.getCategory().getTitle();
+    public CategoryFacade getCategoryFacade() {
+        return categoryFacade;
+    }
+
+    public void setCategoryFacade(CategoryFacade categoryFacade) {
+        this.categoryFacade = categoryFacade;
+    }
+
+    public SymptomFacade getSymptomFacade() {
+        return symptomFacade;
+    }
+
+    public void setSymptomFacade(SymptomFacade symptomFacade) {
+        this.symptomFacade = symptomFacade;
+    }
+
+    public DoctorFacade getDoctorFacade() {
+        return doctorFacade;
+    }
+
+    public void setDoctorFacade(DoctorFacade doctorFacade) {
+        this.doctorFacade = doctorFacade;
+    }
+
+    public MedicineFacade getMedicineFacade() {
+        return medicineFacade;
+    }
+
+    public void setMedicineFacade(MedicineFacade medicineFacade) {
+        this.medicineFacade = medicineFacade;
+    }
+
+    public PatientFacade getPatientFacade() {
+        return patientFacade;
+    }
+
+    public void setPatientFacade(PatientFacade patientFacade) {
+        this.patientFacade = patientFacade;
+    }
+
+    public PrescriptionFacade getPrescriptionFacade() {
+        return prescriptionFacade;
+    }
+
+    public void setPrescriptionFacade(PrescriptionFacade prescriptionFacade) {
+        this.prescriptionFacade = prescriptionFacade;
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public String viewMyAssignments() {
+        doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";
         symptoms = doctorEjb.findSymptoms(query, 1, doctorCategory);
@@ -267,8 +324,9 @@ public class DoctorBean implements Serializable {
         return "confirmPrescription2";
     }
 
-    public String viewAllHistory(Doctor doc) {
-        patients = doctorEjb.viewAllHistory(doc);
+    public String viewAllHistory() {
+        doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
+        patients = doctorFacade.find(doctor.getId()).getPatients();
         return "patientHistoryFromDoctor";
     }
 
