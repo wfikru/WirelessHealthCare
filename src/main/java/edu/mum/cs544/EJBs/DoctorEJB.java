@@ -9,6 +9,7 @@ import edu.mum.cs544.backingBeans.LoginCheck;
 import edu.mum.cs544.backingBeans.Registration;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.boundary.MedicalHistoryFacade;
 import edu.mum.cs544.boundary.MedicineFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.boundary.PrescriptionFacade;
@@ -264,14 +265,6 @@ public class DoctorEJB {
         this.prescriptionFacade = prescriptionFacade;
     }
 
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
     public List<Symptom> findSymptoms(String query, int bindParam, String bindValue) {
         return symptomFacade.findListByQuery(query, bindParam, bindValue);
     }
@@ -310,11 +303,11 @@ public class DoctorEJB {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public List<Patient> viewAllHistory(Doctor doc) {
-        return doctorFacade.find(doc.getId()).getPatients();
-    }
-     
+//    
+//     public List<Patient> viewAllHistory(Doctor doc) {
+//        return doctorFacade.find(doc.getId()).getPatients();
+//    }
+//     
      public MedicalHistory findHistory(Long id) {       
         return historyFacade.find(id);
     }
