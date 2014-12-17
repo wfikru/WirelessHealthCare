@@ -64,6 +64,7 @@ public class LoginCheck implements Serializable {
     public Doctor getDoctor() {
 
         doctor = this.loginCheckEjb.getDoctor();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("doctorKey", doctor);
         return doctor;
         
     }
