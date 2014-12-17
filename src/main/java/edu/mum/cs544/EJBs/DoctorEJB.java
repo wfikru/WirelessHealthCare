@@ -8,6 +8,7 @@ package edu.mum.cs544.EJBs;
 import edu.mum.cs544.backingBeans.Registration;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.boundary.MedicalHistoryFacade;
 import edu.mum.cs544.boundary.MedicineFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.boundary.PrescriptionFacade;
@@ -43,7 +44,7 @@ import webServices.MailService;
 @Stateless
 public class DoctorEJB {
 
-    private Doctor doctor = new LoginCheck().getDoctor();
+    private Doctor doctor = new Doctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -263,14 +264,6 @@ public class DoctorEJB {
         this.prescriptionFacade = prescriptionFacade;
     }
 
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
-
     public List<Symptom> findSymptoms(String query, int bindParam, String bindValue) {
         return symptomFacade.findListByQuery(query, bindParam, bindValue);
     }
@@ -359,11 +352,11 @@ public class DoctorEJB {
     public void setMedicineNames(List<String> medicineNames) {
         this.medicineNames = medicineNames;
     }
-
-    public String viewAllHistory(Doctor doc) {
-        patients = doctorFacade.find(doc.getId()).getPatients();
-        return "patientHistoryFromDoctor";
-    }
+//
+//    public String viewAllHistory(Doctor doc) {
+//        patients = doctorFacade.find(doc.getId()).getPatients();
+//        return "patientHistoryFromDoctor";
+//    }
 
     public String historyDetail(Patient p) {
         historyList = p.getHistory();

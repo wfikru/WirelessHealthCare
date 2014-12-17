@@ -6,7 +6,15 @@
 package edu.mum.cs544.backingBeans;
 
 
+
 import edu.mum.cs544.EJBs.DoctorEJB;
+import edu.mum.cs544.boundary.CategoryFacade;
+import edu.mum.cs544.boundary.DoctorFacade;
+import edu.mum.cs544.boundary.MedicalHistoryFacade;
+import edu.mum.cs544.boundary.MedicineFacade;
+import edu.mum.cs544.boundary.PatientFacade;
+import edu.mum.cs544.boundary.PrescriptionFacade;
+import edu.mum.cs544.boundary.SymptomFacade;
 import edu.mum.cs544.model.Doctor;
 import edu.mum.cs544.model.MedicalHistory;
 import edu.mum.cs544.model.Medicine;
@@ -57,9 +65,24 @@ public class DoctorBean implements Serializable {
     private String message = bundle1.getPrescriptionNotification();
 
     @EJB
-    private DoctorEJB doctorEjb;
+    private DoctorEJB doctorEJB;
     
+    @EJB
+    private CategoryFacade categoryFacade;
+    @EJB
+    private SymptomFacade symptomFacade;
+    @EJB
+    private DoctorFacade doctorFacade;
+    @EJB
+    private MedicineFacade medicineFacade;
+    @EJB
+    private PatientFacade patientFacade;
+    @EJB
+    private PrescriptionFacade prescriptionFacade;
+    @EJB
+    private MedicalHistoryFacade historyFacade;
 
+    private LoginCheck loginCheck = new LoginCheck();
     public Doctor getDoctor() {
         return doctor;
     }
@@ -248,20 +271,13 @@ public class DoctorBean implements Serializable {
         this.prescriptionFacade = prescriptionFacade;
     }
 
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
 
     public String viewMyAssignments() {
         doctor = (Doctor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("doctorKey");
         String doctorCategory = doctor.getCategory().getTitle();
         String query = "SELECT symptom FROM Symptom symptom WHERE symptom.category.title= ?1"
                 + " AND symptom.prescribed=false ";
-        symptoms = doctorEjb.findSymptoms(query, 1, doctorCategory);
+        symptoms = doctorEJB.findSymptoms(query, 1, doctorCategory);
         return "viewAssignments";
     }
 
@@ -280,8 +296,16 @@ public class DoctorBean implements Serializable {
         history.setPrescription(prescription);
         doctor.getPatients().add(symptom.getPatient());
         symptom.getPatient().getDoctors().add(doctor);
-        return doctorEjb.writePrescription(prescription, doctor, symptom, history);
+        prescriptionFacade.create(prescription);
+        patientFacade.edit(symptom.getPatient());
+        doctorFacade.edit(doctor);
+        symptomFacade.edit(symptom);
+
+        recipient = symptom.getPatient().getEmail();
+        sendEmail(recipient);
+        return "prescriptionConfirmation";
     }
+    
 //    @AroundInvoke
 
     @Asynchronous
@@ -336,7 +360,7 @@ public class DoctorBean implements Serializable {
     }
 
     public String viewPrescription(Long id) {
-        history = doctorEjb.findHistory(id);
+        history = doctorEJB.findHistory(id);
         prescription = history.getPrescription();
         medicines.clear();
         setMedicines2(history.getPrescription().getMedicines());

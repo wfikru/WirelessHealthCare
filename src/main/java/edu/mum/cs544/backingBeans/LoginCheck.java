@@ -64,7 +64,7 @@ public class LoginCheck implements Serializable {
 
     public Doctor getDoctor() {
 
-//        doctor = this.loginCheckEjb.getDoctor();
+        doctor = this.loginCheckEjb.getDoctor();
         return doctor;
     }
 
