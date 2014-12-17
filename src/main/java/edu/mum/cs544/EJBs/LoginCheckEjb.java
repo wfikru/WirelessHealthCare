@@ -52,7 +52,7 @@ public class LoginCheckEjb implements Serializable {
 //        
 //        return users;
 //    }
-    public Doctor getDoctor() {
+    public Doctor getCurrentDoctor() {
 
         Doctor doctor = new Doctor();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -66,7 +66,7 @@ public class LoginCheckEjb implements Serializable {
         return doctor;
     }
 
-    public Patient getPatient() {
+    public Patient getCurrentPatient() {
         Patient patient = new Patient();
         Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String email = principal.getName();
