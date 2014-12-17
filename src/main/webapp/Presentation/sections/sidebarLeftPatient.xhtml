@@ -13,7 +13,8 @@
                     <h:outputText value="Welcome: #{loginCheck.patient.firstName}" style="background-color: white"/>
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm-3 col-md-3">
+                              <div class="col-lg-3">
+<!--                            <div class="col-sm-3 col-md-3">-->
                                 <div class="panel-group" id="accordion">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -30,7 +31,7 @@
                                                     <tr>
                                                         <td>
                                                             <span class="glyphicon glyphicon-pencil text-primary"></span>
-                                                            <h:commandLink value="Submit Symptom" action="Presentation/Protected/patient/submitSymptom"/>
+                                                            <h:commandLink value="Submit Symptom" action="/Presentation/Protected/patient/submitSymptom"/>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -52,7 +53,7 @@
                                                     <tr>
                                                         <td>
                                                             <span class="glyphicon glyphicon-pencil text-primary"></span>
-                                                            <h:commandLink value="Patient History" action="Presentation/Protected/patient/PatientHistory"/>
+                                                            <h:commandLink value="Patient History" action="/Presentation/Protected/patient/PatientHistory"/>
 
                                                         </td>
                                                     </tr>
@@ -60,7 +61,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default">
+<!--                                    <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -73,9 +74,10 @@
 
                                             </div>
                                         </div>
-                                    </div>                               
+                                    </div>                               -->
                                 </div>
                             </div>
+                                <!--</div>-->       
                         </div>
                     </div>
                 </h:form>

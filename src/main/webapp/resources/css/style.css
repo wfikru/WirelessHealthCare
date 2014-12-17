@@ -7,10 +7,15 @@
     background-color: rgba(67, 79, 70, 0.96);
     color: #fff;
 }
-
-.col-lg-9{
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+color: white;
 
 }
+
+.col-lg-9{
+height: auto;
+}
+
 
 .navbar-default .navbar-nav > li > a {
     color: white;
@@ -522,7 +527,7 @@ body {
     transition: transform 0.3s, opacity 0.3s;
     -webkit-transform: translateX(-50%) translateY(-50%) scale(0.2);
     -moz-transform: translateX(-50%) translateY(-50%) scale(0.2);
-    transform: translateX(-50%) translateY(-50%) scale(0.2);
+    transform: translateX(50%) translateY(50%) scale(0.2);
 }
 
 .cl-effect-12 a::after {
