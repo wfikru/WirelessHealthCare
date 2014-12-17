@@ -8,7 +8,6 @@ package edu.mum.cs544.EJBs;
 import edu.mum.cs544.backingBeans.Registration;
 import edu.mum.cs544.boundary.CategoryFacade;
 import edu.mum.cs544.boundary.DoctorFacade;
-import edu.mum.cs544.boundary.MedicalHistoryFacade;
 import edu.mum.cs544.boundary.MedicineFacade;
 import edu.mum.cs544.boundary.PatientFacade;
 import edu.mum.cs544.boundary.PrescriptionFacade;
@@ -19,14 +18,21 @@ import edu.mum.cs544.model.Medicine;
 import edu.mum.cs544.model.Patient;
 import edu.mum.cs544.model.Prescription;
 import edu.mum.cs544.model.Symptom;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import javax.interceptor.AroundInvoke;
 import javax.mail.MessagingException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import webServices.BundleMessages;
 import webServices.MailService;
 
@@ -37,7 +43,7 @@ import webServices.MailService;
 @Stateless
 public class DoctorEJB {
 
-//    private Doctor doctor = new LoginCheck().getDoctor();
+    private Doctor doctor = new LoginCheck().getDoctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
@@ -257,22 +263,13 @@ public class DoctorEJB {
         this.prescriptionFacade = prescriptionFacade;
     }
 
-    public List<String> getMedicineNames() {
-        return medicineNames;
+    public EntityManager getEm() {
+        return em;
     }
 
-    public void setMedicineNames(List<String> medicineNames) {
-        this.medicineNames = medicineNames;
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
-
-    public MedicalHistoryFacade getHistoryFacade() {
-        return historyFacade;
-    }
-
-    public void setHistoryFacade(MedicalHistoryFacade historyFacade) {
-        this.historyFacade = historyFacade;
-    }
-    
 
     public List<Symptom> findSymptoms(String query, int bindParam, String bindValue) {
         return symptomFacade.findListByQuery(query, bindParam, bindValue);
@@ -283,14 +280,22 @@ public class DoctorEJB {
         return "viewSymptomDetail";
     }
 
-    public String writePrescription(Prescription p,Doctor d,Symptom s,MedicalHistory h) {
-        historyFacade.create(h);
-        prescriptionFacade.create(p);
-        patientFacade.edit(s.getPatient());
-        doctorFacade.edit(d);
-        symptomFacade.edit(s);
+    public String writePrescription() {
+        symptom.setPrescribed(true);
+        symptoms.remove(symptom);
+        history.setCheckUpDate(new Date());
+        history.setDiagnosticResult(diagnosis);
+        symptom.getPatient().getHistory().add(history);
+        symptom.getPatient().getPrescriptions().add(prescription);
+        history.setPrescription(prescription);
+        doctor.getPatients().add(symptom.getPatient());
+        symptom.getPatient().getDoctors().add(doctor);
+        prescriptionFacade.create(prescription);
+        patientFacade.edit(symptom.getPatient());
+        doctorFacade.edit(doctor);
+        symptomFacade.edit(symptom);
 
-        recipient = s.getPatient().getEmail();
+        recipient = symptom.getPatient().getEmail();
         sendEmail(recipient);
         return "prescriptionConfirmation";
     }
@@ -313,4 +318,61 @@ public class DoctorEJB {
         return historyFacade.find(id);
     }
 
+    public String addMedicine() {
+        prescription.getMedicines().add(medicine);
+        for (Medicine m : medicines) {
+            if (m.equals(medicine)) {
+                medicine = new Medicine();
+                return "prescriptionForm";
+            }
+        }
+        medicines.add(medicine);
+        medicine = new Medicine();
+        return "prescriptionForm";
+    }
+
+    public String lastMedicine() {
+        prescription.getMedicines().add(medicine);
+        for (Medicine m : medicines) {
+            if (m.equals(medicine)) {
+                return "confirmPrescription";
+            }
+        }
+        medicines.add(medicine);
+//        System.out.print(medicine.isEditable());
+        return "confirmPrescription";
+    }
+
+    public String deleteRow(Medicine m) {
+        prescription.getMedicines().remove(m);
+        medicines.remove(medicine);
+        return "confirmPrescription";
+    }
+
+    public List<String> getMedicineNames() {
+        for (Medicine m : medicineFacade.findAll()) {
+            medicineNames.add(m.getNameOfMedicine());
+        }
+        return medicineNames;
+    }
+
+    public void setMedicineNames(List<String> medicineNames) {
+        this.medicineNames = medicineNames;
+    }
+
+    public String viewAllHistory(Doctor doc) {
+        patients = doctorFacade.find(doc.getId()).getPatients();
+        return "patientHistoryFromDoctor";
+    }
+
+    public String historyDetail(Patient p) {
+        historyList = p.getHistory();
+        return "patientHistoryDetail";
+    }
+
+    public String viewPrescription(MedicalHistory histroy) {
+        prescription = history.getPrescription();
+        medicines = history.getPrescription().getMedicines();
+        return "historyPrescriptionsDetail";
+    }
 }
