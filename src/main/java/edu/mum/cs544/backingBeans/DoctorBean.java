@@ -41,7 +41,7 @@ import webServices.MailService;
 @SessionScoped
 public class DoctorBean implements Serializable {
 
-    private Doctor doctor = new Doctor();
+    private Doctor doctor = new LoginCheck().getDoctor();
     private List<Doctor> doctors;
     private List<Patient> patients;
     private List<Symptom> symptoms;
