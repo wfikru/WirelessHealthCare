@@ -7,17 +7,10 @@
     <head><title>IGNORED</title></head>  
     <body>        
         <ui:composition>    
-<!--            <div id='cssmenu'>
-                <ul class="nav">
-                    <li class="active"><h:link value="View Assignments" outcome="viewAssignments"/></li>
-                    <li class="active"><h:link value="Patient History" outcome="patientHistoryFromDoctor"/></li>
-
-                </ul>  
-
-            </div>-->
-
-  <div>
+           
+            <div>
                 <h:form>
+                     <h:outputText value="Welcome: #{loginCheck.doctor.firstName}" style="background-color: white"/>
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-3 col-md-3">
@@ -88,7 +81,7 @@
                 </h:form>
 
             </div>
-       
+
         </ui:composition>
     </body>
 </html>

@@ -70,7 +70,7 @@ public class LoginCheck implements Serializable {
 
     public Patient getPatient() {
 
-//        Patient= this.loginCheckEjb.getPatient();
+        Patient= this.loginCheckEjb.getPatient();
         return Patient;
     }
 
